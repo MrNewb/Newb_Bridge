@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FiveM DUI Canvas</title>
+    <style>
+      :root {
+        --dui-bg: #000000;
+        --dui-surface: #1a1b1e;
+        --dui-text: #c1c2c5;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--dui-bg);
+      }
+
+      #stage {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--dui-bg);
+      }
+
+      #placeholder {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        color: var(--dui-text);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 1.25rem;
+        line-height: 1.45;
+        text-align: center;
+        word-break: break-word;
+        background: var(--dui-surface);
+      }
+
+      #image {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+        background: var(--dui-bg);
+        object-fit: fill;
+      }
+
+      #image[hidden],
+      #placeholder[hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <div id="placeholder">FiveM DUI Canvas preview</div>
+      <img id="image" alt="FiveM DUI Canvas image" hidden referrerpolicy="no-referrer" decoding="async" />
+    </div>
+    <script>
+      (function () {
+        var placeholder = document.getElementById('placeholder');
+        var image = document.getElementById('image');
+        var boardKey = 'preview';
+        var OBJECT_FIT = 'fill';
+        var IMAGE_TIMEOUT_MS = 15000;
+        var MIN_DUI = 256;
+        var MAX_DUI = 2048;
+        var loadToken = 0;
+        var loadTimer = null;
+        var POOLED_SHELL = false;
+
+        function getResourceName() {
+          if (typeof GetParentResourceName === 'function') {
+            return GetParentResourceName();
+          }
+          return 'Newb_Bridge';
+        }
+
+        function decodeParam(value) {
+          if (!value) return '';
+          try {
+            return decodeURIComponent(String(value).replace(/\+/g, ' '));
+          } catch (error) {
+            return String(value);
+          }
+        }
+
+        function clampDimension(value, fallback) {
+          value = Math.floor(Number(value) || fallback);
+          return Math.max(MIN_DUI, Math.min(value, MAX_DUI));
+        }
+
+        function clearLoadTimer() {
+          if (loadTimer) {
+            clearTimeout(loadTimer);
+            loadTimer = null;
+          }
+        }
+
+        function reportSize(width, height) {
+          if (POOLED_SHELL) return;
+          width = clampDimension(width, 1024);
+          height = clampDimension(height, 1024);
+          if (width < 1 || height < 1) return;
+
+          fetch('https://' + getResourceName() + '/duiSurfaceReportSize', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({
+              boardKey: boardKey,
+              width: width,
+              height: height,
+            }),
+          }).catch(function () {});
+        }
+
+        function notifyReady() {
+          fetch('https://' + getResourceName() + '/duiSurfaceReady', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ boardKey: boardKey }),
+          }).catch(function () {});
+        }
+
+        function readBootParams() {
+          var search = window.location.search;
+          if (search && search.charAt(0) === '?') {
+            search = search.slice(1);
+          }
+
+          var hash = window.location.hash || '';
+          if (hash.charAt(0) === '#') {
+            hash = hash.slice(1);
+          }
+
+          var raw = search || hash;
+          if (!raw) {
+            return { src: '', boardKey: 'preview' };
+          }
+
+          var params = new URLSearchParams(raw);
+          return {
+            src: decodeParam(params.get('src') || ''),
+            boardKey: decodeParam(params.get('boardKey') || 'preview'),
+            fit: decodeParam(params.get('fit') || ''),
+            pool: decodeParam(params.get('pool') || ''),
+          };
+        }
+
+        function applyObjectFit(fit) {
+          var value = fit || OBJECT_FIT || 'fill';
+          if (value !== 'contain' && value !== 'cover' && value !== 'fill') {
+            value = 'fill';
+          }
+          OBJECT_FIT = value;
+          image.style.objectFit = value;
+        }
+
+        function showPlaceholder(message) {
+          clearLoadTimer();
+          image.hidden = true;
+          image.removeAttribute('src');
+          placeholder.textContent = message;
+          placeholder.hidden = false;
+        }
+
+        function parseMessageData(raw) {
+          var data = raw;
+          if (typeof data === 'string') {
+            try {
+              data = JSON.parse(data);
+            } catch (error) {
+              return null;
+            }
+          }
+          return data;
+        }
+
+        function scheduleLoadTimeout(token, message, timeoutMs) {
+          clearLoadTimer();
+          loadTimer = setTimeout(function () {
+            if (token !== loadToken) return;
+            showPlaceholder(message);
+          }, timeoutMs);
+        }
+
+        function applyImage(src, nextBoardKey) {
+          if (typeof nextBoardKey === 'string' && nextBoardKey) {
+            boardKey = nextBoardKey;
+          }
+
+          src = typeof src === 'string' ? src.trim() : '';
+          if (!src) {
+            loadToken += 1;
+            showPlaceholder('No image URL set');
+            return;
+          }
+
+          if (src.length > 2048) {
+            loadToken += 1;
+            showPlaceholder('URL is too long');
+            return;
+          }
+
+          loadToken += 1;
+          var token = loadToken;
+          image.hidden = true;
+          image.removeAttribute('src');
+          placeholder.textContent = 'Loading image...';
+          placeholder.hidden = false;
+          scheduleLoadTimeout(token, 'Image timed out. Check the URL or host.', IMAGE_TIMEOUT_MS);
+
+          image.onload = function () {
+            if (token !== loadToken) return;
+            clearLoadTimer();
+            placeholder.hidden = true;
+            image.hidden = false;
+            if (image.naturalWidth > 0 && image.naturalHeight > 0) {
+              reportSize(image.naturalWidth, image.naturalHeight);
+            }
+          };
+          image.onerror = function () {
+            if (token !== loadToken) return;
+            showPlaceholder('Image failed to load. Use a direct image link (.png, .jpg, .gif, .webp).');
+          };
+          image.referrerPolicy = 'no-referrer';
+          image.alt = 'FiveM DUI Canvas image for ' + boardKey;
+          image.src = src;
+        }
+
+        window.addEventListener('message', function (event) {
+          var data = parseMessageData(event.data);
+          if (!data || !data.action) return;
+
+          if (data.action === 'duiSurfaceReset') {
+            loadToken += 1;
+            boardKey = 'preview';
+            showPlaceholder('FiveM DUI Canvas preview');
+            return;
+          }
+
+          if (data.action !== 'duiSurfaceSetContent') return;
+          if (data.fit) applyObjectFit(data.fit);
+          applyImage(data.src || '', data.boardKey || boardKey);
+        });
+
+        var boot = readBootParams();
+        boardKey = boot.boardKey || boardKey;
+        POOLED_SHELL = boot.pool === '1';
+        applyObjectFit(boot.fit);
+        if (!POOLED_SHELL) {
+          applyImage(boot.src, boardKey);
+        } else {
+          showPlaceholder('FiveM DUI Canvas preview');
+        }
+        notifyReady();
+      })();
+    </script>
+  </body>
+</html>

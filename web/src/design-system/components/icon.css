@@ -1,0 +1,45 @@
+.dialogue-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  min-height: 16px;
+  font-size: 0.95rem;
+  transition: transform var(--dialogue-feedback-duration) var(--ease-out-expo);
+}
+
+.dialogue-icon-svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  opacity: 0;
+  transition: opacity var(--dialogue-feedback-duration) var(--ease-out-quart);
+}
+
+.dialogue-icon-svg--visible {
+  opacity: 1;
+}
+
+.dialogue-icon-placeholder {
+  display: block;
+  width: 1em;
+  height: 1em;
+  border-radius: 2px;
+  background: var(--dialogue-surface-top);
+  animation: dialogue-icon-placeholder-pulse 1.2s var(--ease-out-quart) infinite;
+}
+
+.dialogue-icon-svg--fallback {
+  opacity: 0.72;
+}
+
+.dialogue-button-icon--spin { animation: dialogue-icon-spin 1.2s linear infinite; }
+.dialogue-button-icon--spinPulse { animation: dialogue-icon-spin 1.2s linear infinite, dialogue-icon-pulse 1.2s ease-in-out infinite; }
+.dialogue-button-icon--spinReverse { animation: dialogue-icon-spin-reverse 1.2s linear infinite; }
+.dialogue-button-icon--pulse { animation: dialogue-icon-pulse 1.2s ease-in-out infinite; }
+.dialogue-button-icon--beat { animation: dialogue-icon-beat 1s ease-in-out infinite; }
+.dialogue-button-icon--fade { animation: dialogue-icon-fade 1.4s ease-in-out infinite; }
+.dialogue-button-icon--beatFade { animation: dialogue-icon-beat 1s ease-in-out infinite, dialogue-icon-fade 1.4s ease-in-out infinite; }
+.dialogue-button-icon--bounce { animation: dialogue-icon-bounce 1s ease-in-out infinite; }
+.dialogue-button-icon--shake { animation: dialogue-icon-shake 0.8s ease-in-out infinite; }

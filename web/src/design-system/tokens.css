@@ -1,0 +1,144 @@
+:root {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dialogue-enter-duration: 320ms;
+  --dialogue-exit-duration: 220ms;
+  --dialogue-swap-duration: 200ms;
+  --dialogue-feedback-duration: 160ms;
+  --dialogue-stagger-base: 120ms;
+  --dialogue-stagger-step: 55ms;
+  --dialogue-swap-stagger-step: 40ms;
+
+  /* Mantine dark palette */
+  --mantine-dark-0: #c1c2c5;
+  --mantine-dark-1: #a6a7ab;
+  --mantine-dark-2: #909296;
+  --mantine-dark-3: #5c5f66;
+  --mantine-dark-4: #373a40;
+  --mantine-dark-5: #2c2e33;
+  --mantine-dark-6: #25262b;
+  --mantine-dark-7: #1a1b1e;
+  --mantine-dark-8: #141517;
+  --mantine-dark-9: #101113;
+
+  /* Semantic option types — ox_lib / Mantine v6 palette (notify icon colors) */
+  --type-info: #228be6;           /* blue.6 */
+  --type-info-border: #1c7ed6;    /* blue.7 */
+  --type-info-soft: #1c2f42;
+  --type-info-on-soft: #74c0fc;   /* blue.4 — body text on info-soft (AA) */
+
+  --type-success: #12b886;        /* teal.6 — ox_lib success, not green */
+  --type-success-border: #0ca678; /* teal.7 */
+  --type-success-soft: #1a332c;
+
+  --type-warning: #fab005;        /* yellow.6 */
+  --type-warning-border: #f59f00; /* yellow.7 */
+  --type-warning-soft: #332c1a;
+
+  --type-error: #fa5252;          /* red.6 */
+  --type-error-border: #f03e3e;   /* red.7 */
+  --type-error-soft: #331e1e;
+
+  /* Brand accent follows info blue */
+  --color-accent: var(--type-info);
+  --color-accent-bright: var(--type-info-on-soft);
+  --color-accent-soft: rgba(34, 139, 230, 0.18);
+  --color-accent-muted: rgba(34, 139, 230, 0.1);
+
+  /* Neutral text + surfaces */
+  --color-text: var(--mantine-dark-0);
+  --color-text-muted: var(--mantine-dark-2);
+  --color-text-placeholder: var(--mantine-dark-2);
+
+  --dialogue-surface: var(--mantine-dark-6);
+  --dialogue-surface-hover: var(--mantine-dark-5);
+  --dialogue-surface-top: var(--mantine-dark-6);
+  --dialogue-surface-accent-top: var(--mantine-dark-6);
+
+  --color-border: var(--mantine-dark-4);
+  --color-border-emphasis: var(--mantine-dark-3);
+  --color-border-focus: var(--type-info);
+  --color-border-hover: var(--mantine-dark-3);
+  --color-focus: var(--type-info);
+  /* ox_lib / Mantine: blue focus, no light “selected” halo */
+  --focus-ring: none;
+  --focus-ring-inset: inset 0 0 0 1px var(--type-info);
+  --focus-ring-error: inset 0 0 0 1px var(--type-error-border);
+  --dialogue-input-min-height: 36px;
+  --dialogue-shadow: transparent;
+  --shadow-ink: transparent;
+  --shadow-ink-soft: transparent;
+  --shadow-ink-faint: transparent;
+  --shadow-panel: none;
+  --shadow-button: none;
+  --shadow-button-hover: none;
+  --shadow-button-active: none;
+  --shadow-control: none;
+  --shadow-control-inset: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-image: none;
+  --dialogue-progress-track: var(--mantine-dark-7);
+  --hud-plate: rgba(26, 27, 30, 0.94);
+  --hud-plate-quiet: rgba(20, 21, 23, 0.94);
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+
+  --dialogue-radius: 6px;
+  --dialogue-radius-inner: 4px;
+  --dialogue-option-radius: 6px;
+
+  /* Flat neutral option surfaces */
+  --dialogue-option-surface: var(--mantine-dark-6);
+  --dialogue-option-surface-hover: var(--mantine-dark-5);
+  --dialogue-option-info-bg: var(--type-info-soft);
+  --dialogue-option-info-bg-hover: #223a52;
+  --dialogue-option-success-bg: var(--type-success-soft);
+  --dialogue-option-success-bg-hover: #1f3d34;
+  --dialogue-option-warning-bg: var(--type-warning-soft);
+  --dialogue-option-warning-bg-hover: #40351f;
+  --dialogue-option-error-bg: var(--type-error-soft);
+  --dialogue-option-error-bg-hover: #402626;
+  --dialogue-max-width: 1120px;
+  --dialogue-option-min: 200px;
+  --dialogue-option-cols: 1;
+  --dialogue-options-max-height: min(42vh, 360px);
+
+  /* Typography */
+  --font-family-ui: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --text-meta: 0.875rem;
+  --text-subtitle: 0.875rem;
+  --text-label: 1rem;
+  --text-body: 1rem;
+  --text-display: 1.25rem;
+  --text-display-sm: 1.125rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.4;
+  --tracking-tight: -0.01em;
+  --tracking-body: 0.01em;
+
+  /* Mantine v6 colorScheme fills (ox_lib progress / metadata) */
+  --scheme-blue: #228be6;
+  --scheme-teal: #12b886;
+  --scheme-green: #40c057;
+  --scheme-red: #fa5252;
+  --scheme-orange: #fd7e14;
+  --scheme-yellow: #fab005;
+  --scheme-cyan: #15aabf;
+  --scheme-grape: #be4bdb;
+  --scheme-violet: #7950f2;
+  --scheme-indigo: #4c6ef5;
+  --scheme-pink: #e64980;
+  --scheme-lime: #82c91e;
+  --scheme-gray: var(--mantine-dark-2);
+  --scheme-dark: var(--mantine-dark-4);
+}

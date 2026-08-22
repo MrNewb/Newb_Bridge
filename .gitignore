@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+web/node_modules/
+
+# NUI production output — CI copies this into the release zip
+web/build/
+
+# Local / workflow staging
+release/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log

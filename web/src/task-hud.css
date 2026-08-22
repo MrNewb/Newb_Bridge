@@ -1,0 +1,240 @@
+.task-hud {
+  position: fixed;
+  top: 18vh;
+  z-index: 20;
+  width: min(22rem, calc(100vw - 2rem));
+  pointer-events: none;
+  font-family: var(--font-family-ui);
+  color: var(--color-text);
+}
+
+.task-hud--left {
+  left: 1.5rem;
+}
+
+.task-hud--right {
+  right: 1.5rem;
+}
+
+/* Shared plate: title always sits on a backed surface (never floats over the world). */
+.task-hud__plate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: var(--dialogue-radius-inner);
+  background: var(--hud-plate);
+  border: 1px solid var(--color-border);
+}
+
+.task-hud__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.task-hud__title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-display-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-snug);
+  text-wrap: balance;
+}
+
+.task-hud--complete .task-hud__title {
+  color: var(--type-success);
+}
+
+.task-hud__rule {
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--type-info);
+}
+
+.task-hud--complete .task-hud__rule {
+  background: var(--type-success);
+}
+
+.task-hud__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.task-hud__description {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-relaxed);
+}
+
+.task-hud__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.task-hud__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  line-height: var(--leading-relaxed);
+  font-variant-numeric: tabular-nums;
+}
+
+.task-hud__row-label {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.task-hud__row-value {
+  flex: 0 0 auto;
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.task-hud__complete-bar {
+  width: 100%;
+  height: 0.35rem;
+  overflow: hidden;
+  border-radius: var(--dialogue-radius-inner);
+  background: var(--dialogue-progress-track);
+}
+
+.task-hud__complete-bar-fill {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--type-success);
+  animation-name: task-hud-complete-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.task-hud__hint {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.15rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  line-height: var(--leading-snug);
+}
+
+.task-hud__key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35rem;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--dialogue-radius-inner);
+  background: var(--mantine-dark-7);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+}
+
+/* dense — large-info / multi-row contracts (default, closest to current) */
+.task-hud--dense {
+  width: min(24rem, calc(100vw - 2rem));
+}
+
+.task-hud--dense .task-hud__list {
+  max-height: min(42vh, 18rem);
+  overflow-y: auto;
+  padding-right: 0.15rem;
+}
+
+/* weight — quiet long-lived step: hierarchy by weight, opaque plate, no shadow */
+.task-hud--weight {
+  width: min(20rem, calc(100vw - 2rem));
+}
+
+.task-hud--weight .task-hud__plate {
+  border-color: var(--color-border);
+  background: var(--hud-plate-quiet);
+  padding: 0.55rem 0.65rem;
+}
+
+.task-hud--weight .task-hud__title {
+  font-size: 0.95rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.task-hud--weight .task-hud__rule {
+  width: 2.5rem;
+  height: 1px;
+}
+
+.task-hud--weight .task-hud__description {
+  font-size: 0.88rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.task-hud--weight .task-hud__row {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.task-hud--weight .task-hud__row-value {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.task-hud--weight .task-hud__hint {
+  opacity: 0.75;
+}
+
+/* gather — rests as title + description; detail rows fold under when expanded */
+.task-hud--gather .task-hud__plate {
+  background: var(--hud-plate);
+  border-color: var(--color-border);
+}
+
+.task-hud--gather .task-hud__description {
+  font-size: 0.95rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.task-hud--gather .task-hud__list {
+  gap: 0.2rem;
+  padding-top: 0.15rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.task-hud--gather .task-hud__row {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.task-hud--gather.task-hud--resting .task-hud__rule {
+  width: 2rem;
+}
+
+@keyframes task-hud-complete-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .task-hud__complete-bar-fill {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

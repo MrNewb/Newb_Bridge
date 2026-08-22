@@ -1,0 +1,248 @@
+/* Gizmo editor panel — matches placer / dialogue design tokens */
+
+.gizmo-panel {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-body);
+  text-rendering: optimizeLegibility;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.gizmo-panel__panel {
+  position: absolute;
+  top: 50%;
+  right: clamp(var(--space-lg), 3vw, var(--space-xl));
+  transform: translateY(-50%);
+  width: min(320px, calc(100vw - 48px));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border-radius: var(--dialogue-radius);
+  border: 1px solid var(--color-border);
+  background: var(--dialogue-surface);
+  box-shadow: none;
+  opacity: 0;
+  visibility: hidden;
+  translate: 12px 0;
+  transition:
+    opacity var(--dialogue-enter-duration) var(--ease-out-quart),
+    visibility var(--dialogue-enter-duration) var(--ease-out-quart),
+    translate var(--dialogue-enter-duration) var(--ease-out-quart);
+}
+
+.gizmo-panel--visible .gizmo-panel__panel {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+}
+
+.gizmo-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.gizmo-panel__title {
+  margin: 0;
+  padding: 0 var(--space-xs);
+  font-size: var(--text-display-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  text-wrap: balance;
+}
+
+.gizmo-panel__subtitle {
+  margin: var(--space-xs) 0 0;
+  padding: 0 var(--space-xs);
+  font-size: var(--text-subtitle);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
+
+.gizmo-panel__status {
+  flex-shrink: 0;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--dialogue-radius-inner);
+  border: 1px solid var(--color-border);
+  background: var(--dialogue-surface);
+  font-size: var(--text-meta);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text-muted);
+}
+
+.gizmo-panel__status--success {
+  --ds-type: var(--type-success);
+  --ds-type-border: var(--type-success-border);
+  --ds-type-soft: var(--type-success-soft);
+  border-color: var(--ds-type-border);
+  background: var(--ds-type-soft);
+  color: var(--ds-type);
+}
+
+.gizmo-panel__status--info {
+  --ds-type: var(--type-info);
+  --ds-type-border: var(--type-info-border);
+  --ds-type-soft: var(--type-info-soft);
+  border-color: var(--ds-type-border);
+  background: var(--ds-type-soft);
+  color: var(--ds-type);
+}
+
+.gizmo-panel__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+.gizmo-panel__stat {
+  padding: var(--space-md);
+  border-radius: var(--dialogue-radius);
+  border: 1px solid var(--color-border);
+  background: var(--dialogue-progress-track);
+}
+
+.gizmo-panel__stat--wide {
+  grid-column: 1 / -1;
+}
+
+.gizmo-panel__stat-label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-meta);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text-muted);
+}
+
+.gizmo-panel__stat-value {
+  display: block;
+  font-size: var(--text-meta);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.gizmo-panel__controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.gizmo-panel__controls-title {
+  margin: 0;
+  padding: 0 var(--space-xs);
+  font-size: var(--text-meta);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text-muted);
+}
+
+.gizmo-panel__control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  min-height: 44px;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--dialogue-radius);
+  border: 1px solid var(--color-border);
+  background: var(--dialogue-surface);
+  box-shadow: none;
+  transition:
+    border-color var(--dialogue-enter-duration) var(--ease-out-quart),
+    background var(--dialogue-enter-duration) var(--ease-out-quart);
+}
+
+.gizmo-panel__control--active {
+  --ds-type: var(--type-success);
+  --ds-type-border: var(--type-success-border);
+  --ds-type-soft: var(--type-success-soft);
+  border-color: var(--ds-type-border);
+  background: var(--ds-type-soft);
+}
+
+.gizmo-panel__key {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 2.75rem;
+  min-height: 28px;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--dialogue-radius-inner);
+  border: 1px solid var(--color-border-emphasis);
+  background: var(--dialogue-surface-hover);
+  color: var(--color-text);
+  font-size: var(--text-meta);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-body);
+  font-family: inherit;
+  transition:
+    border-color var(--dialogue-enter-duration) var(--ease-out-quart),
+    background var(--dialogue-enter-duration) var(--ease-out-quart),
+    color var(--dialogue-enter-duration) var(--ease-out-quart);
+}
+
+.gizmo-panel__key--active {
+  --ds-type: var(--type-success);
+  --ds-type-border: var(--type-success-border);
+  --ds-type-soft: var(--type-success-soft);
+  border-color: var(--ds-type-border);
+  background: var(--dialogue-surface);
+  color: var(--ds-type);
+}
+
+.gizmo-panel__key--state {
+  --ds-type: var(--type-info);
+  --ds-type-border: var(--type-info-border);
+  border-color: var(--ds-type-border);
+  color: var(--ds-type);
+}
+
+.gizmo-panel__key-badge {
+  max-width: 4.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ds-type, var(--type-success));
+  opacity: 0.95;
+}
+
+.gizmo-panel__control-label {
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gizmo-panel__panel {
+    transition: none;
+  }
+}

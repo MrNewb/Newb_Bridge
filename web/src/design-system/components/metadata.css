@@ -1,0 +1,46 @@
+.dialogue-button-metadata-inline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.dialogue-button-metadata-inline-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-xs);
+  font-size: var(--text-meta);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-body);
+}
+
+.dialogue-button-metadata-label {
+  color: var(--color-text-muted);
+}
+
+.dialogue-button-metadata-label::after {
+  content: ':';
+}
+
+.dialogue-button-metadata-value {
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+
+.dialogue-button--info .dialogue-button-metadata-value {
+  color: var(--type-info-on-soft);
+}
+
+.dialogue-button--success .dialogue-button-metadata-value {
+  color: var(--type-success);
+}
+
+.dialogue-button--warning .dialogue-button-metadata-value {
+  color: var(--type-warning);
+}
+
+.dialogue-button--error .dialogue-button-metadata-value {
+  color: var(--type-error);
+}

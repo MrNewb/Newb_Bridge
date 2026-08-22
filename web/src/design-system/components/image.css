@@ -1,0 +1,65 @@
+.dialogue-image-wrap {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dialogue-image-wrap--menu {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--dialogue-radius);
+  border: 1px solid var(--color-border);
+  background: var(--dialogue-surface-top);
+  box-shadow: var(--shadow-image);
+}
+
+.dialogue-image-wrap--option {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--dialogue-radius-inner);
+  border: 1px solid var(--color-border);
+  background: var(--dialogue-surface-top);
+  box-shadow: var(--shadow-control);
+}
+
+.dialogue-image-wrap--icon {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--dialogue-radius-inner);
+}
+
+.dialogue-image-skeleton {
+  position: absolute;
+  inset: 0;
+  background: var(--dialogue-surface-top);
+  animation: dialogue-image-skeleton-pulse 1.2s var(--ease-out-quart) infinite;
+}
+
+.dialogue-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  transition: opacity var(--dialogue-feedback-duration) var(--ease-out-quart);
+}
+
+.dialogue-image.is-loaded {
+  opacity: 1;
+}
+
+.dialogue-image--menu,
+.dialogue-image--option,
+.dialogue-image--icon {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+}

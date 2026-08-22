@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newb_Bridge</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./src/main.jsx"></script>
+    <script>
+      function isTableJSON(jsonString) {
+        try {
+          return JSON.parse(jsonString)
+        } catch {
+          return false
+        }
+      }
+
+      function copyWithExecCommand(str) {
+        const el = document.createElement('textarea')
+        el.value = str
+        el.setAttribute('readonly', '')
+        el.style.position = 'fixed'
+        el.style.left = '-9999px'
+        document.body.appendChild(el)
+        el.select()
+        document.execCommand('copy')
+        document.body.removeChild(el)
+      }
+
+      async function copyToClipboard(str) {
+        if (navigator.clipboard?.writeText) {
+          try {
+            await navigator.clipboard.writeText(str)
+            return
+          } catch {
+            // FiveM CEF often lacks document focus — fall back to execCommand.
+          }
+        }
+
+        copyWithExecCommand(str)
+      }
+
+      window.addEventListener('message', (event) => {
+        if (event?.data?.type === 'copytoclipboard') {
+          let str = event.data.text
+
+          if (isTableJSON(str)) {
+            str = str.replace(/\[/g, '{')
+            str = str.replace(/\]/g, '}')
+            str = str.replace(/:/g, '=')
+            str = str.replace(/"([^"]+)"=/g, '$1=')
+          }
+
+          void copyToClipboard(str)
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+@keyframes dialogue-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dialogue-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dialogue-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dialogue-text-in {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialogue-option-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dialogue-pending-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.82;
+    transform: scale(0.995);
+  }
+}
+
+@keyframes dialogue-options-unfold {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dialogue-divider-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0.35);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes dialogue-text-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes dialogue-swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dialogue-icon-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dialogue-icon-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes dialogue-icon-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+@keyframes dialogue-icon-beat {
+  0%, 100% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+}
+
+@keyframes dialogue-icon-fade {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes dialogue-icon-bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-3px) scale(1.06); }
+  60% { transform: translateY(-1px) scale(1.02); }
+}
+
+@keyframes dialogue-icon-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  75% { transform: translateX(1px); }
+}
+
+@keyframes dialogue-icon-placeholder-pulse {
+  0%, 100% { opacity: 0.42; }
+  50% { opacity: 0.72; }
+}
+
+@keyframes dialogue-image-skeleton-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.82; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialogue-container,
+  .dialogue-container.is-open,
+  .dialogue-container.is-closing,
+  .dialogue-header,
+  .dialogue-header-copy,
+  .dialogue-title,
+  .dialogue-menu-description,
+  .dialogue-speech-divider,
+  .dialogue-text,
+  .dialogue-text-content,
+  .dialogue-image,
+  .dialogue-button,
+  .dialogue-button-arrow,
+  .dialogue-button-icon,
+  .dialogue-button--pending,
+  .dialogue-button-progress-fill,
+  .dialogue-back-button,
+  .dialogue-back-icon,
+  .dialogue-icon-placeholder,
+  .dialogue-icon-svg,
+  .dialogue-image-skeleton,
+  .dialogue-image {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .dialogue-icon-svg--visible,
+  .dialogue-icon-svg--fallback {
+    opacity: 1;
+  }
+
+  .dialogue-text-live.dialogue-text-content--typing::after,
+  .dialogue-options--revealed,
+  .dialogue-options--revealed .dialogue-button {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .dialogue-options--pending {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .dialogue-button-progress-fill {
+    transform: scaleX(var(--progress-scale, 0));
+  }
+
+  .dialogue-container.is-open {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .dialogue-container.is-closing {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0);
+  }
+}

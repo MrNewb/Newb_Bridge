@@ -1,0 +1,12 @@
+/* FiveM CEF — transparent page; dialogue panel provides its own surface. */
+:root,
+html {
+  color-scheme: normal !important;
+}
+
+html[data-preview-mode='cef'],
+html[data-preview-mode='cef'] body,
+html[data-preview-mode='cef'] #root {
+  background: transparent !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+}

@@ -1,0 +1,125 @@
+.dialogue-container {
+  position: fixed;
+  bottom: clamp(var(--space-xl), 5vh, 42px);
+  left: 50%;
+  width: min(92vw, var(--dialogue-max-width));
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px) scale(0.985);
+  pointer-events: none;
+  contain: layout style;
+}
+
+.dialogue-frame {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-sm);
+  width: 100%;
+  align-items: start;
+}
+
+.dialogue-frame:not(:has(.dialogue-back-button)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.dialogue-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.dialogue-container.is-open {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+  transition:
+    opacity var(--dialogue-enter-duration) var(--ease-out-expo),
+    transform var(--dialogue-enter-duration) var(--ease-out-expo);
+}
+
+.dialogue-container.is-closing {
+  opacity: 0;
+  transform: translateX(-50%) translateY(12px) scale(0.985);
+  pointer-events: none;
+  transition:
+    opacity var(--dialogue-exit-duration) var(--ease-out-quart),
+    transform var(--dialogue-exit-duration) var(--ease-out-quart);
+}
+
+.dialogue-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.dialogue-body:has(.dialogue-input-picker.is-open) {
+  overflow: visible;
+}
+
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='enter'] .dialogue-header-copy {
+  animation: dialogue-panel-in 300ms var(--ease-out-expo) both;
+}
+
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='enter'] .dialogue-title {
+  animation: dialogue-fade-up 240ms var(--ease-out-quart) 50ms both;
+}
+
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='enter'] .dialogue-menu-description {
+  animation: dialogue-fade-up 240ms var(--ease-out-quart) 90ms both;
+}
+
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='enter'] .dialogue-speech-divider {
+  animation: dialogue-divider-in 280ms var(--ease-out-expo) 130ms both;
+  transform-origin: center;
+}
+
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='enter'] .dialogue-text {
+  animation: dialogue-fade-up 260ms var(--ease-out-quart) 150ms both;
+}
+
+.dialogue-container--typewriter.is-open:not(.is-closing)[data-content-phase='enter'] .dialogue-text {
+  animation: dialogue-text-in 220ms var(--ease-out-quart) 120ms both;
+}
+
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='enter'] .dialogue-image--menu {
+  animation: dialogue-panel-in 280ms var(--ease-out-expo) 40ms both;
+}
+
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='enter'] .dialogue-back-button {
+  animation: dialogue-fade-up 240ms var(--ease-out-quart) 30ms both;
+}
+
+.dialogue-options--revealed {
+  animation: dialogue-options-unfold 280ms var(--ease-out-expo) both;
+}
+
+.dialogue-options--revealed .dialogue-button {
+  animation: dialogue-option-pop-in 280ms var(--ease-out-expo) both;
+  animation-delay: calc(var(--dialogue-stagger-base) + var(--i, 0) * var(--dialogue-stagger-step));
+}
+
+.dialogue-options--revealed[data-content-phase='swap'] .dialogue-button {
+  animation-duration: 200ms;
+  animation-delay: calc(var(--i, 0) * var(--dialogue-swap-stagger-step));
+}
+
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='swap'] .dialogue-header-copy,
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='swap'] .dialogue-image--menu,
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='swap'] .dialogue-title,
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='swap'] .dialogue-menu-description,
+.dialogue-container.is-open:not(.is-closing)[data-content-phase='swap'] .dialogue-text {
+  animation: dialogue-swap-in var(--dialogue-swap-duration) var(--ease-out-expo) both;
+}
+
+.dialogue-header + .dialogue-body,
+.dialogue-header + .dialogue-options,
+.dialogue-body + .dialogue-options,
+.dialogue-stack > .dialogue-header + .dialogue-body,
+.dialogue-stack > .dialogue-header + .dialogue-options,
+.dialogue-stack > .dialogue-body + .dialogue-options {
+  margin-top: var(--space-xl);
+}

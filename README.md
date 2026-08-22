@@ -1,6 +1,8 @@
 # Newb_Bridge
 
-Shared compatibility layer for FiveM. Import it, call `bridge.*`, and stop copying inventory / target / notify code into every resource.
+The spiritual successor to [Community Bridge](https://github.com/TheOrderFivem/community_bridge).
+
+Built first and foremost for MrNewbScripts resources. That is what sets the scope, the release cadence, and what gets added. You are welcome to use it, ship against it, and open issues or PRs — just go in knowing the roadmap answers to my scripts, not to a feature backlog.
 
 ox_lib, ox_inventory, and ox_target are the reference implementations. Other providers map onto the same calls.
 
@@ -111,9 +113,26 @@ Detection order is in [`settings/auto_detect.lua`](settings/auto_detect.lua). To
 
 ## Community Bridge
 
-[Community Bridge](https://github.com/MrNewb/community_bridge) is still maintained if you're on it. Newb_Bridge is a new resource, not a rename — I wanted lazy loading and didn't want to break years of existing exports to get there.
+[Community Bridge](https://github.com/TheOrderFivem/community_bridge) is still maintained if you're on it, and nothing here forces you off it.
 
-Deprecation here is short: marked functions get two weeks, then they come out. Read the changelog in that window. Notes for people converting over are on the [docs site](https://mrnewbscripts.github.io/docs/newb_bridge/getting-started).
+I'll be straight about why this exists. I strongly believe Community Bridge diverged so far past the scope it started with that it can't be pulled back. I wanted that project to work. By the time it was clear how far it had derailed, the damage was structural rather than something a few PRs would fix.
+
+Trimming it back is not an option I have. Its compatibility surface is load-bearing for resources whose authors may have moved on years ago, and plenty of those ship escrowed — if an export disappears, the server owner can't open the file and patch the call themselves. They'd be left with something broken over a decision they had no part in and no way to work around. So Community Bridge keeps every bit of compatibility it has, and I keep maintaining it for the creators who built on it. That's an obligation to their users, not a roadmap.
+
+Newb_Bridge is what I'd write if I started over, which is exactly what it is. A successor in intent, not a rename or a fork. No Community Bridge source ships here — the interaction and spawn pipeline is a ground-up rewrite that borrows the model, and anything genuinely derived from another project is listed in [ATTRIBUTIONS.md](ATTRIBUTIONS.md). I wanted lazy loading and wasn't willing to break years of existing exports to get it, so this became its own resource with its own scope from day one.
+
+Notes for people converting over are on the [docs site](https://mrnewbscripts.github.io/docs/newb_bridge/getting-started). -- ill post at some point soon, for now read the code if you wana use it.
+
+## Scope and maintenance
+
+Read this before you build something load-bearing on it.
+
+- **I maintain this alone.** One maintainer, one roadmap. There is no team behind it and no plan for one.
+- **Scope is deliberately narrow.** It covers what MrNewbScripts resources need. A provider or module that nothing of mine uses is unlikely to land, however reasonable the request — that is the cost of keeping it small and predictable.
+- **Deprecation is short.** Functions marked deprecated get two weeks, then they come out. Read the changelog inside that window. If a two-week cycle doesn't suit how you ship, pin a release tag.
+- **Issues and PRs are welcome.** Bug reports, provider fixes, and new provider folders under `modules/<category>/` are the ones most likely to be merged. Ping me on [Discord](https://discord.gg/mrnewbscripts) if something needs a conversation first.
+
+None of this restricts what the licence grants you — it's GPL-3.0, fork it if my scope doesn't fit yours. It's here so nobody plans around a support model that doesn't exist.
 
 ## License
 

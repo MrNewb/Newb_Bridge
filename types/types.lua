@@ -7,16 +7,27 @@
 ---@field Inventory "auto" | "ox_inventory" | "m-Inventory" | "one_inventory" | "jaksam_inventory" | "origen_inventory" | "tgiann-inventory" | "codem-inventory" | "core_inventory" | "qs-inventory" | "qb-inventory" | "qb-framework" | "esx-framework"
 ---@field Target "auto" | "ox_target" | "tgiann-target" | "core_focus" | "qb-target" | "sleepless_interact"
 ---@field VehicleKeys "auto" | "MrNewbVehicleKeys" | "qbx_vehiclekeys" | "cd_garage" | "mVehicle" | "okokGarage" | "qb-vehiclekeys" | "vehicles_keys" | "wasabi_carlock" | "Renewed-Vehiclekeys" | "mk_vehiclekeys" | "ak47_vehiclekeys" | "0r-vehiclekeys"
----@field VehicleFuel "auto" | "ox_fuel" | "rcore_fuel" | "okokGasStation" | "LegacyFuel" | "cdn-fuel" | "lc_fuel" | "qb-fuel" | "Renewed-Fuel" | "renewed-fuel" | "ps-fuel" | "qs-fuelstations" | "hrs_fuel" | "ti_fuel" | "internal"
+---@field VehicleFuel "auto" | "ox_fuel" | "rcore_fuel" | "okokGasStation" | "LegacyFuel" | "cdn-fuel" | "lc_fuel" | "qb-fuel" | "Renewed-Fuel" | "ps-fuel" | "qs-fuelstations" | "ti_fuel" | "internal"
 ---@field Menu "auto" | "ox_lib" | "lation_ui" | "qb-menu"
 ---@field Notifications "auto" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "zsx_uiv2"
 ---@field Inputs "auto" | "ox_lib" | "lation_ui"
----@field TextUI "auto" | "ox_lib" | "lation_ui" | "okokTextUI" | "cd_drawtextui" | "jg-textui" | "lab-hintui" | "lab-TextUI" | "zsx_uiv2"
+---@field TextUI "auto" | "ox_lib" | "lation_ui" | "okokTextUI" | "cd_drawtextui" | "jg-textui" | "lab-TextUI" | "zsx_uiv2"
 ---@field ProgressBar "auto" | "ox_lib" | "lation_ui" | "wasabi_uikit" | "progressbar" | "zsx_uiv2"
 ---@field BossMenu "auto" | "qbx_management" | "qb-management" | "esx_society" | "vms_bossmenu" | "tk_bosstablet" | "okokBossMenu" | "codem-bossmenu" | "zat-bossmenu" | "m-BossMenu"
 ---@field Dispatch "auto" | "ps-dispatch" | "cd_dispatch" | "tk_dispatch" | "rcore_dispatch" | "lb-tablet" | "origen_police" | "core_dispatch" | "kartik-mdt" | "codem-dispatch" | "wasabi_mdt" | "redutzu-mdt" | "internal"
 ---@field Debug boolean
 ---@field VersionCheck boolean
+---@field Providers table<string, string|nil> Module name → resolved provider after auto-detect.
+---@field TaskGroups ConfigTaskGroups
+
+---@class ConfigTaskGroups
+---@field DefaultMaxPlayers number
+---@field MaxMaxPlayers number
+---@field MinMaxPlayers number
+---@field DefaultImage string
+---@field InviteRadius number
+---@field JoinCodeLength number
+---@field MaxNameLength number
 
 ---@class OxProgressAnim
 ---@field dict? string
@@ -422,6 +433,8 @@
 ---@field description? string Objective summary under the title.
 ---@field tasks? BridgeTaskItem[] Progress rows.
 ---@field position? 'left'|'right' Screen side. Default `left`.
+---@field type? 'dense'|'weight'|'gather' NUI style. Default `dense`.
+---@field expanded? boolean Gather only: show detail rows (default true).
 
 ---@class BridgeTask
 ---@field show fun(data: BridgeTaskPayload) Starts/replaces the task and shows the HUD.
@@ -475,6 +488,7 @@
 ---@field getOnlineCountJob fun(jobName: string): number Returns how many players are online with a job.
 ---@field getJobCounts fun(jobName: string): BridgeJobCountSnapshot Returns `{ count, onDuty }` for a job.
 ---@field getPlayersOnDuty fun(jobName: string): table<number, true> Returns server ids of players on duty for a job.
+---@field getPlayersWithJob fun(jobName: string): table<number, true> Returns server ids of players online with the job (on or off duty).
 --- Job counts are mirrored to `GlobalState.newbsJobCounts` as `{ [jobName] = { count = number, onDuty = number } }`.
 ---@field registerItemUse fun(itemName: string, cb: fun(src: number, item: { name: string, label: string, metadata?: table, info?: table, slot?: number, id?: number, count: number })) Registers a useable item callback.
 ---@field getPlayers fun(): number[] Returns all connected player server ids.
@@ -679,7 +693,7 @@
 ---Input dialog module API exposed as `bridge.inputs`.
 ---@class BridgeInputs
 ---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
----@field inputdialog fun(heading: string, rows: string[]|InputDialogRowProps[], options?: InputDialogOptionsProps[]): string[]|number[]|boolean[]|nil Opens an input dialog. Returns submitted values, or nil when cancelled.
+---@field inputdialog fun(heading: string, rows: string[]|InputDialogRowProps[], options?: InputDialogOptionsProps): string[]|number[]|boolean[]|nil Opens an input dialog. Returns submitted values, or nil when cancelled.
 ---@field closeinput? fun() Closes the active input dialog when supported by the provider.
 
 ---TextUI module API exposed as `bridge.textui`.
@@ -697,7 +711,7 @@
 ---Dispatch module API exposed as `bridge.dispatch` (server only).
 ---@class BridgeDispatch
 ---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
----@field sendAlert fun(src: number|string, jobs: string[], coords: vector3, data: AlertData, blip: AlertBlip, alertFlash?: boolean): boolean|nil Sends a dispatch alert through the configured provider.
+---@field sendAlert fun(src: number|string, jobs: string|string[], coords: vector3, data: AlertData, blip: AlertBlip, alertFlash?: boolean): boolean|nil Sends a dispatch alert through the configured provider.
 
 ---Client vehicle keys module API exposed as `bridge.vehiclekeys`.
 ---@class BridgeVehicleKeysClient
@@ -965,13 +979,17 @@
 ---Bridge utility exports exposed from `Newb_Bridge` (prefer `exports[bridge.name]:...`).
 ---@class NewbsBridgeExports
 ---@field BridgeEnvironment fun(): { config: Config, resource: string } Returns the shared bridge config and host resource name.
+---@field Framework fun(): BridgeFrameworkClient|BridgeFrameworkServer Host-mounted framework table.
+---@field Inventory fun(): BridgeInventoryClient|BridgeInventoryServer Host-mounted inventory when the provider is qb-inventory / qb-framework / esx-framework.
+---@field Locale fun(key: string, params?: table): string Same as `bridge.locale`.
+---@field Locales fun(): table Same as `bridge.locales`.
 ---@field Dialogue fun(): Dialogue Returns the dialogue API object (client only).
----@field PropPlacer fun(model: string|number|string[]|number[]|PlacerCallOptions, forceGround?: boolean, allowedMaterials?: table<number, boolean>, maxDistance?: number, placementType?: 'auto'|'ped'|'prop'|'vehicle', marker?: PlacerMarker, previewBehavior?: PlacerPreviewBehavior|PlacerPreviewBehaviorCycle, options?: PlacerOptions): vector4|PlacerResult|PlacerMultiResult|nil Places a ped, prop, or vehicle and returns coords/heading (client only). Accepts either positional arguments or a single PlacerCallOptions table; pass `multi = true` to place several before finishing with Backspace.
+---@field PropPlacer fun(model: string|number|string[]|number[]|PlacerCallOptions, forceGround?: boolean, allowedMaterials?: table<number, boolean>, maxDistance?: number, placementType?: 'auto'|'ped'|'prop'|'vehicle', marker?: PlacerMarker, previewBehavior?: PlacerPreviewBehavior|PlacerPreviewBehaviorCycle, options?: PlacerOptions): vector4|PlacerResult|PlacerMultiResult|false Places a ped, prop, or vehicle and returns coords/heading (client only). Accepts either positional arguments or a single PlacerCallOptions table; pass `multi = true` to place several before finishing with Backspace. Returns `false` on cancel / already placing / invalid model.
 ---@field useGizmo fun(entity: number|GizmoCallOptions, options?: GizmoOptions): GizmoTransformResult|nil Opens the transform gizmo (client only). Pass an entity handle, or a GizmoCallOptions table (`{ model = ..., coords = ... }`) to spawn-and-edit a preview.
 ---@field RegisterCommand fun(commandName: string, callback: fun(source: number, args: string[], rawCommand: string), restricted?: boolean)
 ---@field RegisterKeybind fun(commandName: string, description: string, defaultKey: string|nil, callback: fun(source: number, args: string[], rawCommand: string))
 ---@field GetBoundKey fun(commandName: string): string|nil
----@field AddInteraction fun(id: string, payload: InteractionPayload): boolean
+---@field AddInteraction fun(id: string, payload: InteractionPayload): boolean, string? Returns `false, 'missing'` or `false, 'coords'` on failure. An existing id is replaced.
 ---@field AddInteractionsBatch fun(entries: InteractionBatchEntry[]|table<string, InteractionPayload>, options?: InteractionBatchOptions): number
 ---@field CancelInteractionBatch fun()
 ---@field BeginInteractionBulk fun()
@@ -982,7 +1000,7 @@
 ---@field GetClosestInteraction fun(): InteractionNearbySummary|nil
 ---@field GetNearbyInteractions fun(): InteractionNearbySummary[]
 ---@field GetInteractionByEntity fun(entity: number): string|nil, Interaction|nil
----@field VersionCheck fun()
+---@field VersionCheck fun(repoPath: string, resourceName: string)
 ---@field CreateZone fun(options?: ZoneCreatorOptions): ZoneCreatorResult|nil
 ---@field CreateDuiPlacement fun(options?: table): DuiPlacementResult
 ---@field CreateLaserTargetPlacement fun(options?: table): DuiPlacementResult
@@ -1025,7 +1043,7 @@
 ---@field vehiclekeys BridgeVehicleKeysClient|BridgeVehicleKeysServer Active vehicle keys module.
 ---@field vehiclefuel BridgeVehicleFuel Active vehicle fuel module.
 ---@field menu BridgeMenu Active menu module (client only).
----@field notifications BridgeNotifications Active notifications module (client only).
+---@field notifications BridgeNotifications Active notifications module (client `notify(data)`, server `notify(src, data)`).
 ---@field inputs BridgeInputs Active inputs module (client only).
 ---@field textui BridgeTextUI Active TextUI module (client only).
 ---@field progressbar BridgeProgressBar Active progress bar module (client only).

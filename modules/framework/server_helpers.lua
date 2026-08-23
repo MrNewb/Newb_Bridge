@@ -212,6 +212,10 @@ function ServerHelpers.attachSharedFrameworkApi(framework, dutyCache, registerUs
         return dutyCache.getPlayersOnDuty(jobName)
     end
 
+    function framework.getPlayersWithJob(jobName)
+        return dutyCache.getPlayersWithJob(jobName)
+    end
+
     if registerUsableItem then
         -- Host-backed framework stores consumer callbacks across the script-host
         -- boundary. If the owner stops/restarts without clearing QBX/QB/ESX

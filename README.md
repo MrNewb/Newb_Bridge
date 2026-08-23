@@ -6,7 +6,7 @@ Built first and foremost for MrNewbScripts resources. That is what sets the scop
 
 ox_lib, ox_inventory, and ox_target are the reference implementations. Other providers map onto the same calls.
 
-[Documentation](https://mrnewbscripts.github.io/docs/newb_bridge/getting-started) · [Modules](https://mrnewbscripts.github.io/docs/newb_bridge/modules) · [Utilities](https://mrnewbscripts.github.io/docs/newb_bridge/utilities) · [Config](https://mrnewbscripts.github.io/docs/newb_bridge/configuration) · [Discord](https://discord.gg/mrnewbscripts)
+[Documentation](https://mrnewbscripts.github.io/docs/newb_bridge/getting-started) · [Modules](https://mrnewbscripts.github.io/docs/newb_bridge/modules) · [Migrating](https://mrnewbscripts.github.io/docs/newb_bridge/migrating) · [Utilities](https://mrnewbscripts.github.io/docs/newb_bridge/utilities) · [Config](https://mrnewbscripts.github.io/docs/newb_bridge/configuration) · [Discord](https://discord.gg/mrnewbscripts)
 
 [![Total downloads](https://img.shields.io/github/downloads/MrNewb/Newb_Bridge/total?style=for-the-badge&logo=github)](https://github.com/MrNewb/Newb_Bridge/releases/latest/download/Newb_Bridge.zip)
 [![Latest release downloads](https://img.shields.io/github/downloads/MrNewb/Newb_Bridge/latest/total?style=for-the-badge&logo=github)](https://github.com/MrNewb/Newb_Bridge/releases/latest/download/Newb_Bridge.zip)
@@ -17,10 +17,11 @@ ox_lib, ox_inventory, and ox_target are the reference implementations. Other pro
 
 ## Install
 
-Needs [ox_lib](https://github.com/overextended/ox_lib) and a server with `lua54`. Drop the folder in resources and start it before anything that uses it:
+Needs [ox_lib](https://github.com/overextended/ox_lib), [oxmysql](https://github.com/overextended/oxmysql) (loaded for `getOwnedVehicles`), and a server with `lua54`. Drop the folder in resources and start it before anything that uses it:
 
 ```cfg
 ensure ox_lib
+ensure oxmysql
 ensure Newb_Bridge
 
 ensure your_script
@@ -98,11 +99,11 @@ Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a 
 | Inventory | ox_inventory, m-Inventory, one_inventory, jaksam_inventory, tgiann-inventory, codem-inventory, core_inventory, origen_inventory, qs-inventory, qb-inventory |
 | Target | ox_target, tgiann-target, core_focus, qb-target, sleepless_interact |
 | Vehicle keys | MrNewbVehicleKeys, qbx_vehiclekeys, cd_garage, mVehicle, okokGarage, qb-vehiclekeys, vehicles_keys, wasabi_carlock, Renewed-Vehiclekeys, mk_vehiclekeys, ak47_vehiclekeys, 0r-vehiclekeys |
-| Fuel | ox_fuel, rcore_fuel, okokGasStation, LegacyFuel, cdn-fuel, lc_fuel, qb-fuel, Renewed-Fuel, ps-fuel, qs-fuelstations, hrs_fuel, ti_fuel (plus an internal fallback) |
+| Fuel | ox_fuel, rcore_fuel, okokGasStation, LegacyFuel, cdn-fuel, lc_fuel, qb-fuel, Renewed-Fuel, ps-fuel, qs-fuelstations, ti_fuel (plus an internal fallback) |
 | Menu | ox_lib, lation_ui, qb-menu |
 | Notifications | ox_lib, vms_notifyv2, codem-notification, brutal_notify, fl-notify, mythic_notify, okokNotify, pnotify, solaire_notify, t-notify, lation_ui, wasabi_notify, zsx_uiv2 |
 | Inputs | ox_lib, lation_ui |
-| TextUI | ox_lib, lation_ui, okokTextUI, cd_drawtextui, jg-textui, lab-hintui, zsx_uiv2 |
+| TextUI | ox_lib, lation_ui, okokTextUI, cd_drawtextui, jg-textui, lab-TextUI, zsx_uiv2 |
 | Progress bar | ox_lib, lation_ui, wasabi_uikit, progressbar, zsx_uiv2 |
 | Boss menu | qbx_management, qb-management, esx_society, vms_bossmenu, tk_bosstablet, okokBossMenu, codem-bossmenu, zat-bossmenu, m-BossMenu |
 | Dispatch | ps-dispatch, cd_dispatch, tk_dispatch, rcore_dispatch, lb-tablet, origen_police, core_dispatch, kartik-mdt, codem-dispatch, wasabi_mdt, redutzu-mdt (plus an internal fallback) |
@@ -121,7 +122,7 @@ Trimming it back is not an option I have. Its compatibility surface is load-bear
 
 Newb_Bridge is what I'd write if I started over, which is exactly what it is. A successor in intent, not a rename or a fork. No Community Bridge source ships here — the interaction and spawn pipeline is a ground-up rewrite that borrows the model, and anything genuinely derived from another project is listed in [ATTRIBUTIONS.md](ATTRIBUTIONS.md). I wanted lazy loading and wasn't willing to break years of existing exports to get it, so this became its own resource with its own scope from day one.
 
-Notes for people converting over are on the [docs site](https://mrnewbscripts.github.io/docs/newb_bridge/getting-started). -- ill post at some point soon, for now read the code if you wana use it.
+Per-module conversion notes: [Migrating from community_bridge](https://mrnewbscripts.github.io/docs/newb_bridge/migrating).
 
 ## Scope and maintenance
 

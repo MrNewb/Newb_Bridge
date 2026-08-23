@@ -6,7 +6,7 @@ Built first and foremost for MrNewbScripts resources. That is what sets the scop
 
 ox_lib, ox_inventory, and ox_target are the reference implementations. Other providers map onto the same calls.
 
-[Documentation](https://mrnewbscripts.github.io/docs/newb_bridge/getting-started) · [Modules](https://mrnewbscripts.github.io/docs/newb_bridge/modules) · [Migrating](https://mrnewbscripts.github.io/docs/newb_bridge/migrating) · [Utilities](https://mrnewbscripts.github.io/docs/newb_bridge/utilities) · [Config](https://mrnewbscripts.github.io/docs/newb_bridge/configuration) · [Discord](https://discord.gg/mrnewbscripts)
+[Documentation](https://mrnewb.github.io/docs/newb_bridge/getting-started) · [Modules](https://mrnewb.github.io/docs/newb_bridge/modules) · [Migrating](https://mrnewb.github.io/docs/newb_bridge/migrating) · [Utilities](https://mrnewb.github.io/docs/newb_bridge/utilities) · [Config](https://mrnewb.github.io/docs/newb_bridge/configuration) · [Discord](https://discord.gg/mrnewbscripts)
 
 [![Total downloads](https://img.shields.io/github/downloads/MrNewb/Newb_Bridge/total?style=for-the-badge&logo=github)](https://github.com/MrNewb/Newb_Bridge/releases/latest/download/Newb_Bridge.zip)
 [![Latest release downloads](https://img.shields.io/github/downloads/MrNewb/Newb_Bridge/latest/total?style=for-the-badge&logo=github)](https://github.com/MrNewb/Newb_Bridge/releases/latest/download/Newb_Bridge.zip)
@@ -52,7 +52,7 @@ bridge.menu.openMenu({ id = 'my_menu', title = 'Shop', options = { ... } })
 
 Works the same on Qbox, QB, or ESX. UI modules take ox_lib-shaped tables.
 
-The full method list lives in the [docs](https://mrnewbscripts.github.io/docs/newb_bridge/modules), not here. For editor autocomplete, point LuaLS at [`types/types.lua`](types/types.lua).
+The full method list lives in the [docs](https://mrnewb.github.io/docs/newb_bridge/modules), not here. For editor autocomplete, point LuaLS at [`types/types.lua`](types/types.lua).
 
 ## Config
 
@@ -72,23 +72,23 @@ On start, the server console prints which provider each module resolved to.
 
 | Module | Side | Docs |
 |---|:---:|---|
-| `bridge.framework` | client / server | [Framework](https://mrnewbscripts.github.io/docs/newb_bridge/modules/framework) |
-| `bridge.inventory` | client / server | [Inventory](https://mrnewbscripts.github.io/docs/newb_bridge/modules/inventory) |
-| `bridge.target` | client | [Target](https://mrnewbscripts.github.io/docs/newb_bridge/modules/target) |
-| `bridge.menu` | client | [Menu](https://mrnewbscripts.github.io/docs/newb_bridge/modules/menu) |
-| `bridge.notifications` | client | [Notifications](https://mrnewbscripts.github.io/docs/newb_bridge/modules/notifications) |
-| `bridge.inputs` | client | [Inputs](https://mrnewbscripts.github.io/docs/newb_bridge/modules/inputs) |
-| `bridge.textui` | client | [TextUI](https://mrnewbscripts.github.io/docs/newb_bridge/modules/textui) |
-| `bridge.progressbar` | client | [Progress bar](https://mrnewbscripts.github.io/docs/newb_bridge/modules/progressbar) |
-| `bridge.vehiclekeys` | client / server | [Vehicle keys](https://mrnewbscripts.github.io/docs/newb_bridge/modules/vehiclekeys) |
-| `bridge.vehiclefuel` | client / server | [Vehicle fuel](https://mrnewbscripts.github.io/docs/newb_bridge/modules/vehiclefuel) |
-| `bridge.bossmenu` | server | [Boss menu](https://mrnewbscripts.github.io/docs/newb_bridge/modules/bossmenu) |
-| `bridge.dispatch` | server | [Dispatch](https://mrnewbscripts.github.io/docs/newb_bridge/modules/dispatch) |
-| `bridge.dialogue` | client | [Dialogue](https://mrnewbscripts.github.io/docs/newb_bridge/modules/dialogue) |
-| `bridge.taskGroups` | client / server | [Task Groups](https://mrnewbscripts.github.io/docs/newb_bridge/modules/taskgroups) |
-| `bridge.task` | client | [Task HUD](https://mrnewbscripts.github.io/docs/newb_bridge/modules/task) |
+| `bridge.framework` | client / server | [Framework](https://mrnewb.github.io/docs/newb_bridge/modules/framework) |
+| `bridge.inventory` | client / server | [Inventory](https://mrnewb.github.io/docs/newb_bridge/modules/inventory) |
+| `bridge.target` | client | [Target](https://mrnewb.github.io/docs/newb_bridge/modules/target) |
+| `bridge.menu` | client | [Menu](https://mrnewb.github.io/docs/newb_bridge/modules/menu) |
+| `bridge.notifications` | client | [Notifications](https://mrnewb.github.io/docs/newb_bridge/modules/notifications) |
+| `bridge.inputs` | client | [Inputs](https://mrnewb.github.io/docs/newb_bridge/modules/inputs) |
+| `bridge.textui` | client | [TextUI](https://mrnewb.github.io/docs/newb_bridge/modules/textui) |
+| `bridge.progressbar` | client | [Progress bar](https://mrnewb.github.io/docs/newb_bridge/modules/progressbar) |
+| `bridge.vehiclekeys` | client / server | [Vehicle keys](https://mrnewb.github.io/docs/newb_bridge/modules/vehiclekeys) |
+| `bridge.vehiclefuel` | client / server | [Vehicle fuel](https://mrnewb.github.io/docs/newb_bridge/modules/vehiclefuel) |
+| `bridge.bossmenu` | server | [Boss menu](https://mrnewb.github.io/docs/newb_bridge/modules/bossmenu) |
+| `bridge.dispatch` | server | [Dispatch](https://mrnewb.github.io/docs/newb_bridge/modules/dispatch) |
+| `bridge.dialogue` | client | [Dialogue](https://mrnewb.github.io/docs/newb_bridge/modules/dialogue) |
+| `bridge.taskGroups` | client / server | [Task Groups](https://mrnewb.github.io/docs/newb_bridge/modules/taskgroups) |
+| `bridge.task` | client | [Task HUD](https://mrnewb.github.io/docs/newb_bridge/modules/task) |
 
-Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a few others. See [Utilities](https://mrnewbscripts.github.io/docs/newb_bridge/utilities).
+Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a few others. See [Utilities](https://mrnewb.github.io/docs/newb_bridge/utilities).
 
 <details>
 <summary>Supported providers</summary>
@@ -122,7 +122,7 @@ Trimming it back is not an option I have. Its compatibility surface is load-bear
 
 Newb_Bridge is what I'd write if I started over, which is exactly what it is. A successor in intent, not a rename or a fork. No Community Bridge source ships here — the interaction and spawn pipeline is a ground-up rewrite that borrows the model, and anything genuinely derived from another project is listed in [ATTRIBUTIONS.md](ATTRIBUTIONS.md). I wanted lazy loading and wasn't willing to break years of existing exports to get it, so this became its own resource with its own scope from day one.
 
-Per-module conversion notes: [Migrating from community_bridge](https://mrnewbscripts.github.io/docs/newb_bridge/migrating).
+Per-module conversion notes: [Migrating from community_bridge](https://mrnewb.github.io/docs/newb_bridge/migrating).
 
 ## Scope and maintenance
 

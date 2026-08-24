@@ -6,7 +6,9 @@ Built first and foremost for MrNewbScripts resources. That is what sets the scop
 
 ox_lib, ox_inventory, and ox_target are the reference implementations. Other providers map onto the same calls.
 
-[Documentation](https://mrnewb.github.io/docs/newb_bridge/getting-started) · [Modules](https://mrnewb.github.io/docs/newb_bridge/modules) · [Migrating](https://mrnewb.github.io/docs/newb_bridge/migrating) · [Utilities](https://mrnewb.github.io/docs/newb_bridge/utilities) · [Config](https://mrnewb.github.io/docs/newb_bridge/configuration) · [Discord](https://discord.gg/mrnewbscripts)
+[Documentation](https://mrnewb.github.io/docs/newb_bridge) · [Install guide](https://mrnewb.github.io/docs/newb_bridge/getting-started) · [Tebex](https://mrnewbscripts.tebex.io/) · [Discord](https://discord.gg/mrnewbscripts)
+
+[Modules](https://mrnewb.github.io/docs/newb_bridge/modules) · [Migrating](https://mrnewb.github.io/docs/newb_bridge/migrating) · [Utilities](https://mrnewb.github.io/docs/newb_bridge/utilities) · [Config](https://mrnewb.github.io/docs/newb_bridge/configuration)
 
 [![Total downloads](https://img.shields.io/github/downloads/MrNewb/Newb_Bridge/total?style=for-the-badge&logo=github)](https://github.com/MrNewb/Newb_Bridge/releases/latest/download/Newb_Bridge.zip)
 [![Latest release downloads](https://img.shields.io/github/downloads/MrNewb/Newb_Bridge/latest/total?style=for-the-badge&logo=github)](https://github.com/MrNewb/Newb_Bridge/releases/latest/download/Newb_Bridge.zip)

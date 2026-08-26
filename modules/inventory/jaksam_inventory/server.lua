@@ -117,15 +117,17 @@ function inventory.openShop(src, shopType)
     return false
 end
 
--- STUB: jaksam_inventory uses a separate hook event system (`onItemTransferred`, etc.).
+-- jaksam_inventory's own hook events (onItemAdded, onItemRemoved, onItemTransferred,
+-- onPreUseItem, onPostUseItem, onInventoryCreated) are not ox-style event names, so callers
+-- must pass jaksam's own event names here — there is no ox-name translation.
 function inventory.registerHook(eventName, callback, options)
-    lib.print.debug(('[bridge-inventory] Warning: jaksam_inventory has no ox-style hook API, cannot register hook for event "%s".'):format(eventName))
-    return false
+    return jaksam:registerHook(eventName, callback, options)
 end
 
 function inventory.removeHooks(hookId)
-    lib.print.debug(('[bridge-inventory] Warning: jaksam_inventory has no ox-style hook API, cannot remove hook with id "%s".'):format(hookId))
-    return false
+    if not hookId then return false end
+
+    return jaksam:unregisterHook(hookId)
 end
 
 return inventory

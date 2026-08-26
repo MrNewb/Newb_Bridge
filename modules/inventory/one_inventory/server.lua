@@ -176,17 +176,11 @@ function inventory.openShop(src, shopType)
 end
 
 function inventory.registerHook(eventName, callback, options)
-    if one_inventory.registerHook then
-        return one_inventory:registerHook(eventName, callback, options)
-    end
-
-    return false
+    return one_inventory:RegisterHook(eventName, callback, options)
 end
 
 function inventory.removeHooks(hookId)
-    if one_inventory.removeHooks then
-        return one_inventory:removeHooks(hookId)
-    end
+    return one_inventory:RemoveHook(hookId)
 end
 
 return inventory

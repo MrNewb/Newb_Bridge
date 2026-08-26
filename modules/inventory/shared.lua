@@ -27,7 +27,8 @@ local function NormalizeInventoryItem(itemData, slotFallback)
 
     local slot = itemData.slot or slotFallback
     if type(slot) == 'string' then
-        slot = tonumber(slot)
+        -- jaksam_inventory keys its item list by "SLOT-<n>" strings instead of plain numbers.
+        slot = tonumber(slot:match('^SLOT%-(%d+)$') or slot)
     end
 
     local metadata = itemData.metadata or itemData.info
@@ -87,6 +88,9 @@ local function NormalizeItemDefinition(itemName, itemData)
     if stack == nil and itemData.unique ~= nil then
         stack = not itemData.unique
     end
+    if stack == nil and itemData.stackable ~= nil then
+        stack = itemData.stackable
+    end
 
     local close = itemData.close
     if close == nil and itemData.shouldClose ~= nil then
@@ -107,7 +111,7 @@ local function NormalizeItemDefinition(itemName, itemData)
     if itemData.degrade ~= nil then normalized.degrade = itemData.degrade end
     if itemData.durability ~= nil then normalized.durability = itemData.durability end
     if itemData.weapon ~= nil then normalized.weapon = itemData.weapon end
-    if itemData.ammoName then normalized.ammoName = itemData.ammoName end
+    if itemData.ammoName or itemData.ammo then normalized.ammoName = itemData.ammoName or itemData.ammo end
     if itemData.image and not (normalized.client and normalized.client.image) then
         normalized.client = normalized.client or {}
         normalized.client.image = itemData.image

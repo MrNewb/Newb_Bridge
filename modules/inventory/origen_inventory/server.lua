@@ -59,7 +59,11 @@ function inventory.getItemCount(inv, item, metadata)
 end
 
 function inventory.hasItem(inv, item, count, metadata)
-    return inventory.getItemCount(inv, item, metadata) >= (count or 1)
+    if metadata then
+        return inventory.getItemCount(inv, item, metadata) >= (count or 1)
+    end
+
+    return origin:HasItem(inv, item, count or 1)
 end
 
 function inventory.getInventoryItems(inv)
@@ -125,29 +129,61 @@ function inventory.openStash(src, id)
     return true
 end
 
--- origen_inventory has no runtime shop registration export.
-function inventory.registerShop(shopType, shopData)
-    return false
+local function mapShopItems(items)
+    if type(items) ~= 'table' then return {} end
+
+    local mapped = {}
+
+    for i = 1, #items do
+        local entry = items[i]
+        if type(entry) == 'table' and entry.name then
+            mapped[#mapped + 1] = {
+                name = entry.name,
+                price = entry.price,
+                amount = entry.count or 0,
+                metadata = entry.metadata or {},
+            }
+        end
+    end
+
+    return mapped
 end
 
--- No server-side shop open export either.
+-- Accepts ox-format `shopData`; maps `inventory` items to origen's `amount` field
+-- (createShop, aliased RegisterShop) and `coords`/`locations` to origen's `locations` array.
+function inventory.registerShop(shopType, shopData)
+    if type(shopType) ~= 'string' or shopType == '' then return false end
+
+    shopData = shopData or {}
+
+    local locations = shopData.locations
+    if not locations and shopData.coords then
+        locations = { shopData.coords }
+    end
+
+    origin:createShop(shopType, {
+        label = shopData.label or shopData.name or shopType,
+        slots = shopData.slots,
+        items = mapShopItems(shopData.inventory),
+        locations = locations,
+    })
+
+    return true
+end
+
+-- origen_inventory's shops are accessed via registered world point locations, not a
+-- server-forced open export — `OpenInventory`/`OpenInventoryById` are only documented for
+-- stash/trunk/glovebox.
 function inventory.openShop(src, shopType)
     return false
 end
 
--- origen slot data may use qb-style fields internally — payloads are normalized to ox shape.
 function inventory.registerHook(eventName, callback, options)
-    local registerHook = origin.registerHook or origin.RegisterHook
-    if not registerHook then return false end
-
-    return registerHook(origin, eventName, WrapInventoryHookCallback(eventName, callback), options)
+    return origin:registerHook(eventName, callback, options)
 end
 
 function inventory.removeHooks(hookId)
-    local removeHooks = origin.removeHooks or origin.RemoveHooks
-    if removeHooks then
-        return removeHooks(origin, hookId)
-    end
+    return origin:removeHooks(hookId)
 end
 
 return inventory

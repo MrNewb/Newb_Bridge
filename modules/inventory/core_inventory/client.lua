@@ -7,7 +7,7 @@ local function getItems()
     local data = core:getInventory()
 
     if type(data) == 'table' then
-        return data.items or data
+        return data.content or data.items or data
     end
 
     return {}

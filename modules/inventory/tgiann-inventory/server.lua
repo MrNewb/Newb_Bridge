@@ -100,7 +100,29 @@ end
 
 function inventory.clearInventory(inv, keep)
     if isStash(inv) then
-        tgi:DeleteInventory('stash', inv)
+        if not keep then
+            tgi:DeleteInventory('stash', inv)
+            return true
+        end
+
+        local keepSet = {}
+
+        if type(keep) == 'string' then
+            keepSet[keep] = true
+        elseif type(keep) == 'table' then
+            for i = 1, #keep do
+                keepSet[keep[i]] = true
+            end
+        end
+
+        local items = tgi:GetSecondaryInventoryItems('stash', inv) or {}
+
+        for _, itemData in pairs(items) do
+            if itemData.name and not keepSet[itemData.name] then
+                tgi:RemoveItemFromSecondaryInventory('stash', inv, itemData.name, itemData.amount or itemData.count or 0, itemData.slot)
+            end
+        end
+
         return true
     end
 

@@ -2,7 +2,7 @@ local inventory = {}
 
 local core = exports['core_inventory']
 
----@type table<string, { slots?: number, maxWeight?: number, owner?: string|boolean, groups?: table }>
+---@type table<string, { label?: string, owner?: string|boolean, groups?: table }>
 local registeredStashes = {}
 
 -- Stash ids are normalized to core_inventory's `stash-<id>` naming with spaces stripped,
@@ -21,7 +21,7 @@ local function getItems(inv)
     local data = core:getInventory(resolveInv(inv))
 
     if type(data) == 'table' then
-        return data.items or data
+        return data.content or data.items or data
     end
 
     return {}
@@ -43,14 +43,19 @@ local function countItems(inv, item, metadata)
     return total
 end
 
--- core_inventory's removeItem takes a slot, not a metadata filter — resolve the slot
--- ourselves by scanning for the first item matching both name and metadata.
-local function resolveRemoveSlot(inv, item, metadata, slot)
-    if slot or not metadata then return slot end
+-- removeItemExact wants the item's unique content key (`itemName-uniqueString`), not a slot
+-- index — core_inventory has no by-slot removal export at all. When the caller gives a slot
+-- and/or metadata filter we resolve the matching stack's content key ourselves; otherwise
+-- removeItem() (by name, first match) is used directly.
+local function resolveRemoveUniqueId(inv, item, metadata, slot)
+    if not slot and not metadata then return nil end
 
-    for itemSlot, itemData in pairs(getItems(inv)) do
-        if itemData.name == item and InventoryMetadataMatches(InventoryItemMetadata(itemData), metadata) then
-            return itemData.slot or itemSlot
+    for contentKey, itemData in pairs(getItems(inv)) do
+        if itemData.name == item
+            and (not slot or itemData.slot == slot)
+            and InventoryMetadataMatches(InventoryItemMetadata(itemData), metadata)
+        then
+            return contentKey
         end
     end
 
@@ -71,22 +76,26 @@ function inventory.getItemInfo(itemName)
 end
 
 -- core_inventory's addItem has no slot-targeted placement — items stack/place automatically.
+-- `inventoryType` is passed for named (non-player) inventories so a missing one auto-creates
+-- as a stash, matching the `stash-<id>` naming `resolveInv` already applies.
 function inventory.addItem(inv, item, count, metadata, slot)
-    return core:addItem(resolveInv(inv), item, count or 1, metadata)
+    local inventoryType = type(inv) == 'string' and 'stash' or nil
+    return core:addItem(resolveInv(inv), item, count or 1, metadata, inventoryType)
 end
 
--- core_inventory splits this into two exports: `removeItemExact(inv, slot, count)` for a
--- known slot, and `removeItem(inv, item, count)` by name search otherwise. A `metadata`
--- filter is resolved to a matching slot first so it can go through `removeItemExact`.
+-- core_inventory splits this into two exports: `removeItemExact(inv, uniqueId, count)` for a
+-- specific stack, and `removeItem(inv, item, count)` by name search otherwise. A `slot` or
+-- `metadata` filter is resolved to the matching stack's content key first.
 function inventory.removeItem(inv, item, count, metadata, slot)
-    slot = resolveRemoveSlot(inv, item, metadata, slot)
     count = count or 1
+    local uniqueId = resolveRemoveUniqueId(inv, item, metadata, slot)
 
-    if slot then
-        return core:removeItemExact(resolveInv(inv), slot, count)
+    if uniqueId then
+        return core:removeItemExact(resolveInv(inv), uniqueId, count)
     end
 
-    return core:removeItem(resolveInv(inv), item, count)
+    local inventoryType = type(inv) == 'string' and 'stash' or nil
+    return core:removeItem(resolveInv(inv), item, count, inventoryType)
 end
 
 function inventory.hasItem(inv, item, count, metadata)
@@ -132,9 +141,9 @@ function inventory.clearInventory(inv, keep)
         end
     end
 
-    for slot, itemData in pairs(getItems(inv)) do
+    for contentKey, itemData in pairs(getItems(inv)) do
         if itemData.name and not keepSet[itemData.name] then
-            core:removeItemExact(resolveInv(inv), itemData.slot or slot, InventoryItemAmount(itemData))
+            core:removeItemExact(resolveInv(inv), contentKey, InventoryItemAmount(itemData))
         end
     end
 end
@@ -144,15 +153,15 @@ function inventory.canCarryItem(inv, item, count, metadata)
 end
 
 -- core_inventory has no separate stash-registration export — a stash is created implicitly
--- the first time `openInventory` is called for its id, with slot/weight passed positionally.
--- This stores slots/maxWeight/owner/groups locally so `openStash` can pass them through.
--- confirmed parameter position accepts a custom label for `openInventory`.
+-- the first time `openInventory` is called for its id. `openInventory` only takes
+-- (source, inventory, inventoryType, label, restrictedTo, openForSource); it has no
+-- slots/maxWeight params, so stash sizing is whatever Config.Inventories.stash defines on
+-- the core_inventory side, not something this bridge can override per-stash.
 function inventory.registerStash(id, label, slots, maxWeight, owner, groups, coords)
     if type(id) ~= 'string' or id == '' then return false end
 
     registeredStashes[id] = {
-        slots = slots,
-        maxWeight = maxWeight,
+        label = label,
         owner = owner,
         groups = groups,
     }
@@ -164,10 +173,8 @@ function inventory.openStash(src, id)
     if type(src) ~= 'number' or type(id) ~= 'string' or id == '' then return false end
 
     local stash = registeredStashes[id]
-    local slots = (stash and stash.slots) or 300
-    local maxWeight = (stash and stash.maxWeight) or 100000
 
-    core:openInventory(src, resolveInv(id), 'stash', slots, maxWeight, true, nil, false)
+    core:openInventory(src, resolveInv(id), 'stash', stash and stash.label, nil, true)
     return true
 end
 

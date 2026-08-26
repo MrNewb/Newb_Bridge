@@ -205,12 +205,11 @@ function inventory.registerStash(id, label, slots, maxWeight, owner, groups, coo
     return true
 end
 
--- `RegisterStash` is qs-inventory's per-player
--- open call (it takes a player source, unlike a global registration export), so this
--- reuses the bridge's own stash bookkeeping for slots/weight if the id was registered.
--- STUB: qs-inventory's docs have no dedicated "force open for player" export, so this is
--- inferred from `RegisterStash(playerSource, ...)` being the only stash export that takes
--- a player source. Unverified against a live qs-inventory server — test before relying on it.
+-- qs-inventory has no dedicated "force open for player" export — the documented server
+-- `RegisterStash(playerSource, stashID, stashSlots, stashWeight)` both creates and opens a
+-- stash for that specific player, so it doubles as openStash. Bridge-registered stash config
+-- (slots/maxWeight from `inventory.registerStash`) is passed through here since qs-inventory
+-- itself has no separate global stash-registration export.
 function inventory.openStash(src, id)
     if type(src) ~= 'number' or type(id) ~= 'string' or id == '' then return false end
 

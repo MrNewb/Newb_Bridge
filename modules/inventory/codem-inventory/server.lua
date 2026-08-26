@@ -10,6 +10,14 @@ local function getStashItems(stashId)
     return codem:GetStashItems(stashId) or {}
 end
 
+local function getPlayerItems(inv)
+    local data = codem:GetInventory(nil, inv)
+
+    if type(data) ~= 'table' then return {} end
+
+    return data.items or data
+end
+
 local function countItems(inv, item, metadata)
     if isPlayer(inv) and not metadata then
         return codem:GetItemsTotalAmount(inv, item) or 0
@@ -185,13 +193,7 @@ end
 
 function inventory.getInventoryItems(inv)
     if isPlayer(inv) then
-        local data = codem:GetInventory(nil, inv)
-
-        if type(data) == 'table' then
-            return NormalizeInventoryItems(data.items or data)
-        end
-
-        return {}
+        return NormalizeInventoryItems(getPlayerItems(inv))
     end
 
     return NormalizeInventoryItems(getStashItems(inv))
@@ -234,7 +236,7 @@ function inventory.clearInventory(inv, keep)
             return codem:ClearInventory(inv)
         end
 
-        local items = codem:GetInventory(inv) or {}
+        local items = getPlayerItems(inv)
         for _, itemData in pairs(items) do
             if itemData.name and not keepSet[itemData.name] then
                 local slot = itemData.slot

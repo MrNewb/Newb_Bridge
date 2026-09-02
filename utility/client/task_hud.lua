@@ -166,7 +166,6 @@ local function clearCompleteState()
 end
 
 local function unpaint()
-    if not shown then return end
     push('taskHud:hide')
     shown = false
 end
@@ -242,8 +241,6 @@ function Task.update(data)
 end
 
 function Task.hide()
-    if not active and not shown and not completing then return end
-
     clearCompleteState()
     active = nil
     unpaint()
@@ -251,11 +248,7 @@ end
 
 -- finishes and closes immediately, skipping the 30s complete bar
 function Task.complete()
-    if not active and not shown and not completing then return end
-
-    clearCompleteState()
-    active = nil
-    unpaint()
+    Task.hide()
 end
 
 -- collapse or restore; while completing it dismisses the task entirely.

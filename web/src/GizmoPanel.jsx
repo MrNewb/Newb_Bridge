@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { takePendingOpen } from './placement-message-buffer'
-import './design-system/index.css'
+import { hideRootIfIdle, showRoot } from './nui-visibility'
+import {
+  OverlayControls,
+  OverlayControl,
+  OverlayHeader,
+  OverlayShell,
+  OverlayStat,
+  OverlayStats,
+} from './components/overlay-panel'
 
 const DEFAULT_LOCALES = {
   title: 'Object gizmo',
@@ -55,20 +63,6 @@ function formatCoord(value) {
   return value.toFixed(2)
 }
 
-function shouldHideRoot() {
-  return !document.querySelector('.dialogue-container.is-open')
-    && !document.querySelector('.prop-placer--visible')
-    && !document.querySelector('.gizmo-panel--visible')
-    && !document.querySelector('.zone-creator--visible')
-    && !document.querySelector('.dui-creator--visible')
-    && !document.querySelector('.task-group-menu')
-    && !document.querySelector('.task-hud--visible')
-}
-
-function getRootElement() {
-  return document.getElementById('root')
-}
-
 function GizmoPanel() {
   const [visible, setVisible] = useState(false)
   const [locales, setLocales] = useState(DEFAULT_LOCALES)
@@ -81,13 +75,11 @@ function GizmoPanel() {
 
   const closePanel = useCallback(() => {
     setVisible(false)
-    if (shouldHideRoot()) {
-      getRootElement()?.classList.add('hidden')
-    }
+    hideRootIfIdle()
   }, [])
 
   const openPanel = useCallback((payload) => {
-    getRootElement()?.classList.remove('hidden')
+    showRoot()
     setLocales(normalizeLocales(payload?.locales))
     setEntityLabel(typeof payload?.entityLabel === 'string' ? payload.entityLabel : '')
     setMode(typeof payload?.mode === 'string' ? payload.mode : 'Translate')
@@ -185,67 +177,44 @@ function GizmoPanel() {
   }, [cursorActive, locales, mode, spaceLabel])
 
   return (
-    <div className={`gizmo-panel${visible ? ' gizmo-panel--visible' : ''}`} aria-hidden={!visible}>
-      <aside className="gizmo-panel__panel" role="complementary" aria-label={locales.title}>
-        <div className="gizmo-panel__header">
-          <div>
-            <h2 className="gizmo-panel__title">{locales.title}</h2>
-            <p className="gizmo-panel__subtitle">
-              {entityLabel || locales.subtitle}
-            </p>
-          </div>
-          <span className={`gizmo-panel__status gizmo-panel__status--${cursorActive ? 'success' : 'info'}`}>
-            {cursorActive ? locales.cursor_on : locales.cursor_off}
-          </span>
-        </div>
-
-        <div className="gizmo-panel__stats">
-          <div className="gizmo-panel__stat">
-            <span className="gizmo-panel__stat-label">{locales.mode}</span>
-            <span className="gizmo-panel__stat-value">{modeName}</span>
-          </div>
-          <div className="gizmo-panel__stat">
-            <span className="gizmo-panel__stat-label">{locales.space}</span>
-            <span className="gizmo-panel__stat-value">{spaceLabel}</span>
-          </div>
-          <div className="gizmo-panel__stat gizmo-panel__stat--wide">
-            <span className="gizmo-panel__stat-label">{locales.position}</span>
-            <span className="gizmo-panel__stat-value">
-              {formatCoord(position.x)}, {formatCoord(position.y)}, {formatCoord(position.z)}
-            </span>
-          </div>
-          <div className="gizmo-panel__stat gizmo-panel__stat--wide">
-            <span className="gizmo-panel__stat-label">{locales.rotation}</span>
-            <span className="gizmo-panel__stat-value">
-              {formatCoord(rotation.x)}, {formatCoord(rotation.y)}, {formatCoord(rotation.z)}
-            </span>
-          </div>
-        </div>
-
-        <div className="gizmo-panel__controls">
-          <p className="gizmo-panel__controls-title">{locales.controls_heading}</p>
-          {controls.map((control) => {
-            const showBadge = control.badge && (control.active || control.showBadgeAlways)
-            const keyActive = control.active || control.keyActive
-
-            return (
-            <div
-              className={`gizmo-panel__control${control.active ? ' gizmo-panel__control--active' : ''}`}
+    <OverlayShell visible={visible} name="gizmo-panel" label={locales.title}>
+      <OverlayHeader
+        title={locales.title}
+        subtitle={entityLabel || locales.subtitle}
+        status={cursorActive ? locales.cursor_on : locales.cursor_off}
+        statusTone={cursorActive ? 'success' : 'info'}
+      />
+      <OverlayStats>
+        <OverlayStat label={locales.mode} value={modeName} />
+        <OverlayStat label={locales.space} value={spaceLabel} />
+        <OverlayStat
+          wide
+          label={locales.position}
+          value={`${formatCoord(position.x)}, ${formatCoord(position.y)}, ${formatCoord(position.z)}`}
+        />
+        <OverlayStat
+          wide
+          label={locales.rotation}
+          value={`${formatCoord(rotation.x)}, ${formatCoord(rotation.y)}, ${formatCoord(rotation.z)}`}
+        />
+      </OverlayStats>
+      <OverlayControls title={locales.controls_heading}>
+        {controls.map((control) => {
+          const showBadge = control.badge && (control.active || control.showBadgeAlways)
+          const keyTone = control.active ? 'success' : control.keyActive ? 'info' : undefined
+          return (
+            <OverlayControl
               key={control.id}
-            >
-              <kbd className={`gizmo-panel__key${keyActive ? ' gizmo-panel__key--active' : ''}${control.keyActive && !control.active ? ' gizmo-panel__key--state' : ''}`}>
-                {control.key}
-                {showBadge ? (
-                  <span className="gizmo-panel__key-badge">{control.badge}</span>
-                ) : null}
-              </kbd>
-              <span className="gizmo-panel__control-label">{control.label}</span>
-            </div>
-            )
-          })}
-        </div>
-      </aside>
-    </div>
+              active={control.active}
+              keys={control.key}
+              label={control.label}
+              badge={showBadge ? control.badge : undefined}
+              keyTone={keyTone}
+            />
+          )
+        })}
+      </OverlayControls>
+    </OverlayShell>
   )
 }
 

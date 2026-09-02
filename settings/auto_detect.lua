@@ -16,7 +16,7 @@ local modules = {
     vehiclekeys = { configKey = "VehicleKeys", "MrNewbVehicleKeys", "qbx_vehiclekeys", "cd_garage", "mVehicle", "okokGarage", "qb-vehiclekeys", "vehicles_keys", "wasabi_carlock", "Renewed-Vehiclekeys", "mk_vehiclekeys", "ak47_vehiclekeys", "0r-vehiclekeys" },
     vehiclefuel = { configKey = "VehicleFuel", fallback = "internal", "ox_fuel", "rcore_fuel", "okokGasStation", "LegacyFuel", "cdn-fuel", "lc_fuel", "qb-fuel", "Renewed-Fuel", "ps-fuel", "qs-fuelstations", "ti_fuel" },
     menu = { configKey = "Menu", "ox_lib", "lation_ui", "qb-menu" },
-    notifications = { configKey = "Notifications", "ox_lib", "vms_notifyv2", "codem-notification", "brutal_notify", "fl-notify", "mythic_notify", "okokNotify", "pnotify", "solaire_notify", "t-notify", "lation_ui", "wasabi_notify", "zsx_uiv2" },
+    notifications = { configKey = "Notifications", fallback = "internal", "ox_lib", "vms_notifyv2", "codem-notification", "brutal_notify", "fl-notify", "mythic_notify", "okokNotify", "pnotify", "solaire_notify", "t-notify", "lation_ui", "wasabi_notify", "zsx_uiv2" },
     inputs = { configKey = "Inputs", "ox_lib", "lation_ui" },
     textui = { configKey = "TextUI", "ox_lib", "lation_ui", "okokTextUI", "cd_drawtextui", "jg-textui", "lab-TextUI", "zsx_uiv2" },
     progressbar = { configKey = "ProgressBar", "ox_lib", "lation_ui", "wasabi_uikit", "progressbar", "zsx_uiv2" },

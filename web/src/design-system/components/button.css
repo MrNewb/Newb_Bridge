@@ -115,20 +115,10 @@
   transition-duration: 80ms;
 }
 
-/* No mouse outline; keyboard focus uses the same inset ring as inputs. */
-.dialogue-button:focus {
+.dialogue-button:focus,
+.dialogue-button:focus-visible,
+.dialogue-button:focus-within {
   outline: none;
-}
-
-.dialogue-button:focus-visible:not(.dialogue-button--input) {
-  outline: none;
-  border-color: var(--color-border-focus);
-  box-shadow: var(--focus-ring-inset);
-}
-
-.dialogue-button--input:focus,
-.dialogue-button--input:focus-visible,
-.dialogue-button--input:focus-within {
   border-color: var(--color-border);
   box-shadow: none;
 }
@@ -197,14 +187,6 @@
 .dialogue-button--error:hover:not(:disabled):not(.dialogue-button--input):not(.dialogue-button--readonly) {
   border-color: var(--ds-type-border);
   background: var(--ds-type-soft-hover);
-}
-
-.dialogue-button--info:focus-visible:not(.dialogue-button--input),
-.dialogue-button--success:focus-visible:not(.dialogue-button--input),
-.dialogue-button--warning:focus-visible:not(.dialogue-button--input),
-.dialogue-button--error:focus-visible:not(.dialogue-button--input) {
-  border-color: var(--color-border-focus);
-  box-shadow: var(--focus-ring-inset);
 }
 
 .dialogue-button--info .dialogue-button-icon,

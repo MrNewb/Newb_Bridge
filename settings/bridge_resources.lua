@@ -24,7 +24,7 @@ Config.VehicleFuel = "auto"
 ---@type "auto" | "ox_lib" | "lation_ui" | "qb-menu"
 Config.Menu = "auto"
 
----@type "auto" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "zsx_uiv2"
+---@type "auto" | "internal" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "zsx_uiv2"
 Config.Notifications = "auto"
 
 ---@type "auto" | "ox_lib" | "lation_ui"
@@ -40,7 +40,7 @@ Config.ProgressBar = "auto"
 Config.BossMenu = "auto"
 
 ---@type "auto" | "ps-dispatch" | "cd_dispatch" | "tk_dispatch" | "rcore_dispatch" | "lb-tablet" | "origen_police" | "core_dispatch" | "kartik-mdt" | "codem-dispatch" | "wasabi_mdt" | "redutzu-mdt" | "internal"
-Config.Dispatch = "internal"
+Config.Dispatch = "auto"
 
 ---Task group menu limits, shared by the client menu and the server callbacks.
 Config.TaskGroups = {

@@ -1,6 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { takePendingOpen } from './placement-message-buffer'
-import './design-system/index.css'
+import { hideRootIfIdle, showRoot } from './nui-visibility'
+import {
+  OverlayControls,
+  OverlayControl,
+  OverlayHeader,
+  OverlayShell,
+  OverlayStat,
+  OverlayStats,
+  OverlayToggle,
+} from './components/overlay-panel'
 
 const DEFAULT_LOCALES = {
   title: 'Zone creator',
@@ -64,20 +73,6 @@ function formatCoord(value) {
   return value.toFixed(2)
 }
 
-function shouldHideRoot() {
-  return !document.querySelector('.dialogue-container.is-open')
-    && !document.querySelector('.prop-placer--visible')
-    && !document.querySelector('.gizmo-panel--visible')
-    && !document.querySelector('.zone-creator--visible')
-    && !document.querySelector('.dui-creator--visible')
-    && !document.querySelector('.task-group-menu')
-    && !document.querySelector('.task-hud--visible')
-}
-
-function getRootElement() {
-  return document.getElementById('root')
-}
-
 function ZoneCreatorPanel() {
   const [visible, setVisible] = useState(false)
   const [locales, setLocales] = useState(DEFAULT_LOCALES)
@@ -101,13 +96,11 @@ function ZoneCreatorPanel() {
 
   const closePanel = useCallback(() => {
     setVisible(false)
-    if (shouldHideRoot()) {
-      getRootElement()?.classList.add('hidden')
-    }
+    hideRootIfIdle()
   }, [])
 
   const openPanel = useCallback((payload) => {
-    getRootElement()?.classList.remove('hidden')
+    showRoot()
     setLocales(normalizeLocales(payload?.locales))
     setZoneType(typeof payload?.zoneType === 'string' ? payload.zoneType : 'poly')
     setZoneName(typeof payload?.zoneName === 'string' ? payload.zoneName : '')
@@ -229,110 +222,69 @@ function ZoneCreatorPanel() {
   }, [controlsActive, locales, modeToggleKey, placementMode, zoneType])
 
   return (
-    <div className={`zone-creator${visible ? ' zone-creator--visible' : ''}`} aria-hidden={!visible}>
-      <aside className="zone-creator__panel" role="complementary" aria-label={locales.title}>
-        <div className="zone-creator__header">
-          <div>
-            <h2 className="zone-creator__title">{locales.title}</h2>
-            <p className="zone-creator__subtitle">{subtitle}</p>
-            {zoneName ? (
-              <p className="zone-creator__zone-name">{locales.zone_name}: {zoneName}</p>
-            ) : null}
-          </div>
-          <span className={`zone-creator__status zone-creator__status--${placementMode === 'onfoot' ? 'onfoot' : controlsActive ? 'edit' : 'camera'}`}>
-            {statusLabel}
-          </span>
-        </div>
-
-        <div className="zone-creator__stats">
-          <div className="zone-creator__stat">
-            <span className="zone-creator__stat-label">{locales.step}</span>
-            <span className="zone-creator__stat-value">
-              {formatCoord(step.distance)}m / {formatCoord(step.rotation)}°
-            </span>
-          </div>
-          {placementMode === 'freecam' ? (
-            <div className="zone-creator__stat">
-              <span className="zone-creator__stat-label">{locales.bounds}</span>
-              <span className="zone-creator__stat-value">{formatCoord(maxDistance)}m</span>
-            </div>
-          ) : null}
-          <div className="zone-creator__stat zone-creator__stat--wide">
-            <span className="zone-creator__stat-label">{positionLabel}</span>
-            <span className="zone-creator__stat-value">
-              {formatCoord(position.x)}, {formatCoord(position.y)}, {formatCoord(position.z)}
-            </span>
-          </div>
-          {placementMode === 'freecam' ? (
-            <div className="zone-creator__stat">
-              <span className="zone-creator__stat-label">{locales.distance}</span>
-              <span className="zone-creator__stat-value">{formatCoord(distanceFromCenter)}m</span>
-            </div>
-          ) : null}
-          {zoneType === 'poly' ? (
-            <div className="zone-creator__stat">
-              <span className="zone-creator__stat-label">{locales.points}</span>
-              <span className="zone-creator__stat-value">{pointCount}</span>
-            </div>
-          ) : null}
-          {zoneType === 'box' ? (
-            <>
-              <div className="zone-creator__stat">
-                <span className="zone-creator__stat-label">{locales.heading}</span>
-                <span className="zone-creator__stat-value">{formatCoord(heading)}°</span>
-              </div>
-              <div className="zone-creator__stat">
-                <span className="zone-creator__stat-label">{locales.width}</span>
-                <span className="zone-creator__stat-value">{formatCoord(width)}</span>
-              </div>
-              <div className="zone-creator__stat">
-                <span className="zone-creator__stat-label">{locales.length}</span>
-                <span className="zone-creator__stat-value">{formatCoord(length)}</span>
-              </div>
-              <div className="zone-creator__stat">
-                <span className="zone-creator__stat-label">{locales.height}</span>
-                <span className="zone-creator__stat-value">{formatCoord(height)}</span>
-              </div>
-            </>
-          ) : null}
-          {zoneType === 'sphere' ? (
-            <div className="zone-creator__stat">
-              <span className="zone-creator__stat-label">{locales.radius}</span>
-              <span className="zone-creator__stat-value">{formatCoord(height)}</span>
-            </div>
-          ) : null}
-          {zoneType === 'poly' ? (
-            <div className="zone-creator__stat">
-              <span className="zone-creator__stat-label">{locales.height}</span>
-              <span className="zone-creator__stat-value">{formatCoord(height)}</span>
-            </div>
-          ) : null}
-        </div>
-
-        {placementMode === 'onfoot' && movementToggle ? (
-          <div className="zone-creator__toggle" aria-label={locales.toggle_movement}>
-            <kbd className="zone-creator__key">{movementToggleKey}</kbd>
-            <span className="zone-creator__toggle-label">{locales.toggle_movement}</span>
-            <span className="zone-creator__toggle-state">
-              {allowMovement ? locales.movement_free : locales.movement_locked}
-            </span>
-            <span className={`zone-creator__toggle-track${allowMovement ? ' zone-creator__toggle-track--on' : ''}`}>
-              <span className="zone-creator__toggle-thumb" />
-            </span>
-          </div>
+    <OverlayShell visible={visible} name="zone-creator" label={locales.title}>
+      <OverlayHeader
+        title={locales.title}
+        subtitle={subtitle}
+        extra={zoneName ? (
+          <p className="overlay-section-label mt-1">{locales.zone_name}: {zoneName}</p>
         ) : null}
-
-        <div className="zone-creator__controls">
-          <p className="zone-creator__controls-title">{locales.controls_heading}</p>
-          {controls.map((control) => (
-            <div className="zone-creator__control" key={`${control.key}-${control.label}`}>
-              <kbd className="zone-creator__key">{control.key}</kbd>
-              <span className="zone-creator__control-label">{control.label}</span>
-            </div>
-          ))}
-        </div>
-      </aside>
-    </div>
+        status={statusLabel}
+        statusTone={placementMode === 'onfoot' ? 'onfoot' : controlsActive ? 'edit' : 'camera'}
+      />
+      <OverlayStats>
+        <OverlayStat
+          label={locales.step}
+          value={`${formatCoord(step.distance)}m / ${formatCoord(step.rotation)}°`}
+        />
+        {placementMode === 'freecam' ? (
+          <OverlayStat label={locales.bounds} value={`${formatCoord(maxDistance)}m`} />
+        ) : null}
+        <OverlayStat
+          wide
+          label={positionLabel}
+          value={`${formatCoord(position.x)}, ${formatCoord(position.y)}, ${formatCoord(position.z)}`}
+        />
+        {placementMode === 'freecam' ? (
+          <OverlayStat label={locales.distance} value={`${formatCoord(distanceFromCenter)}m`} />
+        ) : null}
+        {zoneType === 'poly' ? (
+          <OverlayStat label={locales.points} value={pointCount} />
+        ) : null}
+        {zoneType === 'box' ? (
+          <>
+            <OverlayStat label={locales.heading} value={`${formatCoord(heading)}°`} />
+            <OverlayStat label={locales.width} value={formatCoord(width)} />
+            <OverlayStat label={locales.length} value={formatCoord(length)} />
+            <OverlayStat label={locales.height} value={formatCoord(height)} />
+          </>
+        ) : null}
+        {zoneType === 'sphere' ? (
+          <OverlayStat label={locales.radius} value={formatCoord(height)} />
+        ) : null}
+        {zoneType === 'poly' ? (
+          <OverlayStat label={locales.height} value={formatCoord(height)} />
+        ) : null}
+      </OverlayStats>
+      {placementMode === 'onfoot' && movementToggle ? (
+        <OverlayToggle
+          label={locales.toggle_movement}
+          pressed={allowMovement}
+          onLabel={locales.movement_free}
+          offLabel={locales.movement_locked}
+          shortcut={movementToggleKey}
+        />
+      ) : null}
+      <OverlayControls title={locales.controls_heading}>
+        {controls.map((control) => (
+          <OverlayControl
+            key={`${control.key}-${control.label}`}
+            keys={control.key}
+            label={control.label}
+          />
+        ))}
+      </OverlayControls>
+    </OverlayShell>
   )
 }
 

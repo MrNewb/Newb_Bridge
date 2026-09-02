@@ -55,7 +55,7 @@
 
 .dialogue-options--scrollable::-webkit-scrollbar-thumb {
   background: var(--color-border-emphasis);
-  border-radius: 999px;
+  border-radius: var(--radius-full);
 }
 
 .dialogue-options--scrollable::-webkit-scrollbar-track {
@@ -111,7 +111,7 @@
   width: 100%;
 }
 
-/* Flat ox_lib chips — soft fills, no selected halo */
+/* Option chips: surface fill, no selected halo */
 .dialogue-options .dialogue-button {
   border-radius: var(--dialogue-option-radius);
   background: var(--dialogue-option-surface);
@@ -129,14 +129,12 @@
   box-shadow: none;
 }
 
-.dialogue-options .dialogue-button:focus {
+.dialogue-options .dialogue-button:focus,
+.dialogue-options .dialogue-button:focus-visible,
+.dialogue-options .dialogue-button:focus-within {
   outline: none;
-}
-
-.dialogue-options .dialogue-button:focus-visible:not(.dialogue-button--input) {
-  outline: none;
-  border-color: var(--color-border-focus);
-  box-shadow: var(--focus-ring-inset);
+  border-color: var(--color-border);
+  box-shadow: none;
 }
 
 .dialogue-options .dialogue-button--input:focus,
@@ -175,11 +173,6 @@
   border-color: var(--type-info-border);
 }
 
-.dialogue-options .dialogue-button--info:focus-visible:not(.dialogue-button--input) {
-  border-color: var(--color-border-focus);
-  box-shadow: var(--focus-ring-inset);
-}
-
 .dialogue-options .dialogue-button--success {
   background: var(--dialogue-option-success-bg);
   border-color: var(--color-border);
@@ -188,11 +181,6 @@
 .dialogue-options .dialogue-button--success:hover:not(:disabled):not(.dialogue-button--input):not(.dialogue-button--readonly) {
   background: var(--dialogue-option-success-bg-hover);
   border-color: var(--type-success-border);
-}
-
-.dialogue-options .dialogue-button--success:focus-visible:not(.dialogue-button--input) {
-  border-color: var(--color-border-focus);
-  box-shadow: var(--focus-ring-inset);
 }
 
 .dialogue-options .dialogue-button--warning {
@@ -205,11 +193,6 @@
   border-color: var(--type-warning-border);
 }
 
-.dialogue-options .dialogue-button--warning:focus-visible:not(.dialogue-button--input) {
-  border-color: var(--color-border-focus);
-  box-shadow: var(--focus-ring-inset);
-}
-
 .dialogue-options .dialogue-button--error {
   background: var(--dialogue-option-error-bg);
   border-color: var(--color-border);
@@ -218,11 +201,6 @@
 .dialogue-options .dialogue-button--error:hover:not(:disabled):not(.dialogue-button--input):not(.dialogue-button--readonly) {
   background: var(--dialogue-option-error-bg-hover);
   border-color: var(--type-error-border);
-}
-
-.dialogue-options .dialogue-button--error:focus-visible:not(.dialogue-button--input) {
-  border-color: var(--color-border-focus);
-  box-shadow: var(--focus-ring-inset);
 }
 
 .dialogue-options .dialogue-button-progress {

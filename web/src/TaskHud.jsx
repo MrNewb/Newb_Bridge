@@ -1,26 +1,9 @@
 import { useEffect, useState } from 'react'
+import { hideRootIfIdle, showRoot } from './nui-visibility'
+import { Card } from '@/components/ui/card'
+import { Kbd } from '@/components/ui/kbd'
+import { cn } from '@/lib/utils'
 import './task-hud.css'
-
-function getRoot() {
-  return document.getElementById('root')
-}
-
-function otherUiOpen() {
-  return document.querySelector('.dialogue-container.is-open')
-    || document.querySelector('.prop-placer--visible')
-    || document.querySelector('.gizmo-panel--visible')
-    || document.querySelector('.zone-creator--visible')
-    || document.querySelector('.dui-creator--visible')
-    || document.querySelector('.task-group-menu')
-}
-
-function maybeHideRoot() {
-  requestAnimationFrame(() => {
-    if (!otherUiOpen() && !document.querySelector('.task-hud--visible')) {
-      getRoot()?.classList.add('hidden')
-    }
-  })
-}
 
 function progressText(task) {
   if (typeof task.value === 'string' && task.value.trim()) return task.value.trim()
@@ -93,7 +76,7 @@ export default function TaskHud() {
         const next = parsePayload(msg.data)
         if (!next) return
         if (msg.action === 'taskHud:complete') next.complete = true
-        getRoot()?.classList.remove('hidden')
+        showRoot()
         setPayload(next)
         setOpen(true)
         return
@@ -108,14 +91,16 @@ export default function TaskHud() {
 
       if (msg.action === 'taskHud:collapse') {
         setOpen(false)
-        maybeHideRoot()
+        document.querySelector('.task-hud--visible')?.classList.remove('task-hud--visible')
+        hideRootIfIdle()
         return
       }
 
       if (msg.action === 'taskHud:hide') {
         setOpen(false)
         setPayload(null)
-        maybeHideRoot()
+        document.querySelector('.task-hud--visible')?.classList.remove('task-hud--visible')
+        hideRootIfIdle()
       }
     }
 
@@ -126,35 +111,50 @@ export default function TaskHud() {
   if (!open || !payload) return null
 
   const showGatheredRows = payload.type !== 'gather' || payload.expanded
-  const plateClass = [
-    'task-hud',
-    `task-hud--${payload.position}`,
-    `task-hud--${payload.type}`,
-    'task-hud--visible',
-    payload.complete ? 'task-hud--complete' : '',
-    payload.type === 'gather' && !payload.expanded && !payload.complete ? 'task-hud--resting' : '',
-  ].filter(Boolean).join(' ')
+  const resting = payload.type === 'gather' && !payload.expanded && !payload.complete
 
   return (
-    <aside className={plateClass} aria-label={payload.title}>
-      <div className="task-hud__plate">
-        <header className="task-hud__header">
-          <h2 className="task-hud__title">{payload.title}</h2>
-          <div className="task-hud__rule" aria-hidden="true" />
+    <aside
+      className={cn(
+        'task-hud task-hud--visible pointer-events-none fixed top-[18vh] z-20 font-sans text-card-foreground',
+        payload.position === 'right' ? 'right-6' : 'left-6',
+        payload.type === 'dense' && 'w-[min(24rem,calc(100vw-2rem))]',
+        payload.type === 'weight' && 'w-[min(20rem,calc(100vw-2rem))]',
+        payload.type === 'gather' && 'w-[min(22rem,calc(100vw-2rem))]',
+      )}
+      aria-label={payload.title}
+    >
+      <Card className={cn('flex flex-col gap-2 p-3', payload.type === 'weight' && 'gap-1.5 p-2.5')}>
+        <header className="flex flex-col gap-1.5">
+          <h2 className={cn(
+            'm-0 text-lg font-semibold leading-snug tracking-tight text-foreground',
+            payload.type === 'weight' && 'text-base',
+          )}>
+            {payload.title}
+          </h2>
+          <div
+            className={cn(
+              'h-px rounded-[1px] bg-border',
+              payload.complete && 'bg-primary',
+              payload.type === 'weight' && 'w-10',
+              resting && 'w-8',
+              payload.type !== 'weight' && !resting && 'w-full',
+            )}
+            aria-hidden="true"
+          />
         </header>
 
-        <div className="task-hud__body">
+        <div className="flex flex-col gap-2">
           {payload.complete ? (
             <>
               {payload.description ? (
-                <p className="task-hud__description">{payload.description}</p>
+                <p className="m-0 text-sm font-medium leading-relaxed text-muted-foreground">
+                  {payload.description}
+                </p>
               ) : null}
-              <div
-                className="task-hud__complete-bar"
-                aria-hidden="true"
-              >
+              <div className="h-1.5 w-full overflow-hidden rounded-md bg-muted" aria-hidden="true">
                 <div
-                  className="task-hud__complete-bar-fill"
+                  className="task-hud__complete-bar-fill h-full w-full origin-left bg-primary"
                   style={{ animationDuration: `${payload.durationMs}ms` }}
                 />
               </div>
@@ -162,17 +162,32 @@ export default function TaskHud() {
           ) : (
             <>
               {payload.description ? (
-                <p className="task-hud__description">{payload.description}</p>
+                <p className={cn(
+                  'm-0 font-medium leading-relaxed text-muted-foreground',
+                  payload.type === 'gather' ? 'text-icon' : 'text-sm',
+                  payload.type === 'weight' && 'text-meta',
+                )}>
+                  {payload.description}
+                </p>
               ) : null}
 
               {showGatheredRows && payload.tasks.length > 0 ? (
-                <ul className="task-hud__list">
+                <ul className={cn(
+                  'm-0 flex list-none flex-col gap-1 p-0',
+                  payload.type === 'dense' && 'max-h-[min(42vh,18rem)] overflow-y-auto pr-0.5',
+                  payload.type === 'gather' && 'gap-0.5 border-t border-border pt-1.5',
+                )}>
                   {payload.tasks.map((task) => {
                     const value = progressText(task)
                     return (
-                      <li key={task.id} className="task-hud__row">
-                        <span className="task-hud__row-label">{task.label}</span>
-                        {value ? <span className="task-hud__row-value">{value}</span> : null}
+                      <li
+                        key={task.id}
+                        className="flex items-baseline justify-between gap-3 text-sm leading-relaxed text-muted-foreground [font-variant-numeric:tabular-nums]"
+                      >
+                        <span className="min-w-0 flex-1">{task.label}</span>
+                        {value ? (
+                          <span className="flex-none font-medium text-foreground">{value}</span>
+                        ) : null}
                       </li>
                     )
                   })}
@@ -181,12 +196,12 @@ export default function TaskHud() {
             </>
           )}
 
-          <p className="task-hud__hint">
-            <kbd className="task-hud__key">{payload.hideKey}</kbd>
+          <p className="mt-0.5 mb-0 flex items-center gap-1.5 text-xs leading-snug text-muted-foreground">
+            <Kbd className="min-h-6 min-w-6 px-1.5 py-0.5">{payload.hideKey}</Kbd>
             <span>{payload.hideLabel}</span>
           </p>
         </div>
-      </div>
+      </Card>
     </aside>
   )
 }

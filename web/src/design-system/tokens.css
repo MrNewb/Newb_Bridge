@@ -10,76 +10,103 @@
   --dialogue-stagger-step: 55ms;
   --dialogue-swap-stagger-step: 40ms;
 
-  /* Mantine dark palette */
-  --mantine-dark-0: #c1c2c5;
-  --mantine-dark-1: #a6a7ab;
-  --mantine-dark-2: #909296;
-  --mantine-dark-3: #5c5f66;
-  --mantine-dark-4: #373a40;
-  --mantine-dark-5: #2c2e33;
-  --mantine-dark-6: #25262b;
-  --mantine-dark-7: #1a1b1e;
-  --mantine-dark-8: #141517;
-  --mantine-dark-9: #101113;
+  /* shadcn zinc (dark) */
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #18181b;
+  --card-foreground: #fafafa;
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #18181b;
+  --primary-hover: #e4e4e7;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: #3f3f46;
+  --input: #3f3f46;
+  --ring: #d4d4d8;
+  --radius: 0.5rem;
 
-  /* Semantic option types — ox_lib / Mantine v6 palette (notify icon colors) */
-  --type-info: #228be6;           /* blue.6 */
-  --type-info-border: #1c7ed6;    /* blue.7 */
-  --type-info-soft: #1c2f42;
-  --type-info-on-soft: #74c0fc;   /* blue.4 — body text on info-soft (AA) */
+  --success: #22c55e;
+  --success-foreground: #052e16;
+  --warning: #eab308;
+  --warning-foreground: #422006;
+  --info: #3b82f6;
+  --info-foreground: #eff6ff;
 
-  --type-success: #12b886;        /* teal.6 — ox_lib success, not green */
-  --type-success-border: #0ca678; /* teal.7 */
-  --type-success-soft: #1a332c;
+  --zinc-50: #fafafa;
+  --zinc-100: #f4f4f5;
+  --zinc-200: #e4e4e7;
+  --zinc-300: #d4d4d8;
+  --zinc-400: #a1a1aa;
+  --zinc-500: #71717a;
+  --zinc-600: #52525b;
+  --zinc-700: #3f3f46;
+  --zinc-800: #27272a;
+  --zinc-900: #18181b;
+  --zinc-950: #09090b;
 
-  --type-warning: #fab005;        /* yellow.6 */
-  --type-warning-border: #f59f00; /* yellow.7 */
-  --type-warning-soft: #332c1a;
+  --type-info: var(--info);
+  --type-info-border: #2563eb;
+  --type-info-soft: #172554;
+  --type-info-on-soft: #93c5fd;
 
-  --type-error: #fa5252;          /* red.6 */
-  --type-error-border: #f03e3e;   /* red.7 */
-  --type-error-soft: #331e1e;
+  --type-success: var(--success);
+  --type-success-border: #16a34a;
+  --type-success-soft: #052e16;
 
-  /* Brand accent follows info blue */
-  --color-accent: var(--type-info);
-  --color-accent-bright: var(--type-info-on-soft);
-  --color-accent-soft: rgba(34, 139, 230, 0.18);
-  --color-accent-muted: rgba(34, 139, 230, 0.1);
+  --type-warning: var(--warning);
+  --type-warning-border: #ca8a04;
+  --type-warning-soft: #422006;
 
-  /* Neutral text + surfaces */
-  --color-text: var(--mantine-dark-0);
-  --color-text-muted: var(--mantine-dark-2);
-  --color-text-placeholder: var(--mantine-dark-2);
+  --type-error: var(--destructive);
+  --type-error-border: #dc2626;
+  --type-error-soft: #450a0a;
 
-  --dialogue-surface: var(--mantine-dark-6);
-  --dialogue-surface-hover: var(--mantine-dark-5);
-  --dialogue-surface-top: var(--mantine-dark-6);
-  --dialogue-surface-accent-top: var(--mantine-dark-6);
+  --color-accent: var(--foreground);
+  --color-accent-bright: var(--zinc-200);
+  --color-accent-soft: rgba(250, 250, 250, 0.12);
+  --color-accent-muted: rgba(250, 250, 250, 0.08);
 
-  --color-border: var(--mantine-dark-4);
-  --color-border-emphasis: var(--mantine-dark-3);
-  --color-border-focus: var(--type-info);
-  --color-border-hover: var(--mantine-dark-3);
-  --color-focus: var(--type-info);
-  /* ox_lib / Mantine: blue focus, no light “selected” halo */
+  --color-text: var(--foreground);
+  --color-text-muted: var(--muted-foreground);
+  --color-text-placeholder: var(--muted-foreground);
+
+  --dialogue-surface: var(--zinc-900);
+  --dialogue-surface-hover: var(--zinc-800);
+  --dialogue-surface-top: var(--zinc-900);
+  --dialogue-surface-accent-top: var(--zinc-900);
+
+  --color-border: var(--border);
+  --color-border-emphasis: var(--zinc-600);
+  --color-border-focus: var(--ring);
+  --color-border-hover: var(--zinc-600);
+  --color-focus: var(--ring);
   --focus-ring: none;
-  --focus-ring-inset: inset 0 0 0 1px var(--type-info);
-  --focus-ring-error: inset 0 0 0 1px var(--type-error-border);
-  --dialogue-input-min-height: 36px;
+  --focus-ring-inset: inset 0 0 0 1px var(--ring);
+  --focus-ring-error: inset 0 0 0 1px var(--destructive);
+  --dialogue-input-min-height: 40px;
   --dialogue-shadow: transparent;
-  --shadow-ink: transparent;
-  --shadow-ink-soft: transparent;
-  --shadow-ink-faint: transparent;
+  --shadow-ink: rgba(0, 0, 0, 0.5);
+  --shadow-ink-soft: rgba(0, 0, 0, 0.4);
+  --shadow-ink-faint: rgba(0, 0, 0, 0.8);
+  --shadow-float: 0 10px 15px -3px var(--shadow-ink), 0 4px 6px -4px var(--shadow-ink-soft);
   --shadow-panel: none;
   --shadow-button: none;
   --shadow-button-hover: none;
   --shadow-button-active: none;
   --shadow-control: none;
-  --shadow-control-inset: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-control-inset: inset 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-image: none;
-  --dialogue-progress-track: var(--mantine-dark-7);
-  --hud-plate: rgba(26, 27, 30, 0.94);
-  --hud-plate-quiet: rgba(20, 21, 23, 0.94);
+  --dialogue-progress-track: var(--muted);
+  --hud-plate: var(--card);
+  --hud-plate-quiet: var(--background);
 
   --space-xs: 4px;
   --space-sm: 8px;
@@ -88,32 +115,35 @@
   --space-xl: 24px;
   --space-2xl: 32px;
 
-  --dialogue-radius: 6px;
-  --dialogue-radius-inner: 4px;
-  --dialogue-option-radius: 6px;
+  --radius-xs: 2px;
+  --radius-full: 999px;
+  --dialogue-radius: var(--radius);
+  --dialogue-radius-inner: calc(var(--radius) - 2px);
+  --dialogue-option-radius: var(--radius);
 
-  /* Flat neutral option surfaces */
-  --dialogue-option-surface: var(--mantine-dark-6);
-  --dialogue-option-surface-hover: var(--mantine-dark-5);
+  --dialogue-option-surface: var(--zinc-900);
+  --dialogue-option-surface-hover: var(--zinc-800);
   --dialogue-option-info-bg: var(--type-info-soft);
-  --dialogue-option-info-bg-hover: #223a52;
+  --dialogue-option-info-bg-hover: #1e3a8a;
   --dialogue-option-success-bg: var(--type-success-soft);
-  --dialogue-option-success-bg-hover: #1f3d34;
+  --dialogue-option-success-bg-hover: #14532d;
   --dialogue-option-warning-bg: var(--type-warning-soft);
-  --dialogue-option-warning-bg-hover: #40351f;
+  --dialogue-option-warning-bg-hover: #713f12;
   --dialogue-option-error-bg: var(--type-error-soft);
-  --dialogue-option-error-bg-hover: #402626;
+  --dialogue-option-error-bg-hover: #7f1d1d;
   --dialogue-max-width: 1120px;
   --dialogue-option-min: 200px;
   --dialogue-option-cols: 1;
   --dialogue-options-max-height: min(42vh, 360px);
 
-  /* Typography */
-  --font-family-ui: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-family-ui: ui-sans-serif, system-ui, sans-serif;
   --text-meta: 0.875rem;
   --text-subtitle: 0.875rem;
   --text-label: 1rem;
   --text-body: 1rem;
+  --text-icon: 0.95rem;
+  --text-kbd: 11px;
+  --text-kbd-badge: 0.625rem;
   --text-display: 1.25rem;
   --text-display-sm: 1.125rem;
   --font-weight-regular: 400;
@@ -126,19 +156,18 @@
   --tracking-tight: -0.01em;
   --tracking-body: 0.01em;
 
-  /* Mantine v6 colorScheme fills (ox_lib progress / metadata) */
-  --scheme-blue: #228be6;
-  --scheme-teal: #12b886;
-  --scheme-green: #40c057;
-  --scheme-red: #fa5252;
-  --scheme-orange: #fd7e14;
-  --scheme-yellow: #fab005;
-  --scheme-cyan: #15aabf;
-  --scheme-grape: #be4bdb;
-  --scheme-violet: #7950f2;
-  --scheme-indigo: #4c6ef5;
-  --scheme-pink: #e64980;
-  --scheme-lime: #82c91e;
-  --scheme-gray: var(--mantine-dark-2);
-  --scheme-dark: var(--mantine-dark-4);
+  --scheme-blue: #3b82f6;
+  --scheme-teal: #14b8a6;
+  --scheme-green: #22c55e;
+  --scheme-red: #ef4444;
+  --scheme-orange: #f97316;
+  --scheme-yellow: #eab308;
+  --scheme-cyan: #06b6d4;
+  --scheme-grape: #a855f7;
+  --scheme-violet: #8b5cf6;
+  --scheme-indigo: #6366f1;
+  --scheme-pink: #ec4899;
+  --scheme-lime: #84cc16;
+  --scheme-gray: var(--muted-foreground);
+  --scheme-dark: var(--border);
 }

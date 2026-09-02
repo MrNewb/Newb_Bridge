@@ -10,7 +10,7 @@
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: var(--mantine-dark-3);
+  background: var(--muted-foreground);
   transform: scaleX(var(--progress-scale, 0));
   transform-origin: left center;
   transition: transform 220ms var(--ease-out-quart);

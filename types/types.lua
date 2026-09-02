@@ -9,7 +9,7 @@
 ---@field VehicleKeys "auto" | "MrNewbVehicleKeys" | "qbx_vehiclekeys" | "cd_garage" | "mVehicle" | "okokGarage" | "qb-vehiclekeys" | "vehicles_keys" | "wasabi_carlock" | "Renewed-Vehiclekeys" | "mk_vehiclekeys" | "ak47_vehiclekeys" | "0r-vehiclekeys"
 ---@field VehicleFuel "auto" | "ox_fuel" | "rcore_fuel" | "okokGasStation" | "LegacyFuel" | "cdn-fuel" | "lc_fuel" | "qb-fuel" | "Renewed-Fuel" | "ps-fuel" | "qs-fuelstations" | "ti_fuel" | "internal"
 ---@field Menu "auto" | "ox_lib" | "lation_ui" | "qb-menu"
----@field Notifications "auto" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "zsx_uiv2"
+---@field Notifications "auto" | "internal" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "zsx_uiv2"
 ---@field Inputs "auto" | "ox_lib" | "lation_ui"
 ---@field TextUI "auto" | "ox_lib" | "lation_ui" | "okokTextUI" | "cd_drawtextui" | "jg-textui" | "lab-TextUI" | "zsx_uiv2"
 ---@field ProgressBar "auto" | "ox_lib" | "lation_ui" | "wasabi_uikit" | "progressbar" | "zsx_uiv2"
@@ -151,19 +151,20 @@
 ---@field radius? number
 
 ---@class OxNotification
----@field id? string Unique notification identifier
----@field title? string Notification title
----@field description? string Notification description (supports markdown)
+---@field id? string Unique notification identifier. Same id stays a single toast when spammed.
+---@field title? string Notification title. Required if there is no description.
+---@field description? string Notification description (supports markdown). Required if there is no title.
 ---@field duration? number Duration in milliseconds (default: 3000)
 ---@field showDuration? boolean Show duration indicator (default: true)
 ---@field position? 'top'|'top-right'|'top-left'|'bottom'|'bottom-right'|'bottom-left'|'center-right'|'center-left' Position on screen
 ---@field type? 'inform'|'error'|'success'|'warning' Notification type (default: 'inform')
----@field style? table React CSS styling format
----@field icon? string Font Awesome 6 icon name
----@field iconColor? string CSS color value for icon
+---@field style? table React CSS styling format. Nested keys such as `.description` style child nodes.
+---@field icon? string|table Font Awesome 6 icon name, or `{ prefix, name }` (e.g. `{ 'fas', 'ban' }`). Ignored when `image` is set.
+---@field image? string Inventory NUI path (`nui://ox_inventory/web/images/item.png` or `ox_inventory/web/images/item.png`) or http(s) URL. Replaces the icon.
+---@field iconColor? string CSS color value for icon. Removes the type-colored circular background.
 ---@field iconAnimation? 'spin'|'spinPulse'|'spinReverse'|'pulse'|'beat'|'fade'|'beatFade'|'bounce'|'shake' Icon animation
 ---@field alignIcon? 'top'|'center' Icon alignment (default: 'center')
----@field sound? table Audio bank, set, and name
+---@field sound? { bank?: string, set: string, name: string } Frontend sound; `bank` is requested when set
 
 ---@class OxTextUI
 ---@field text string Text content (supports markdown)

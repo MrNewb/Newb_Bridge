@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { takePendingOpen } from './placement-message-buffer'
-import './design-system/index.css'
+import { hideRootIfIdle, showRoot } from './nui-visibility'
+import {
+  OverlayControls,
+  OverlayControl,
+  OverlayHeader,
+  OverlayShell,
+  OverlayStat,
+  OverlayStats,
+} from './components/overlay-panel'
 
 const DEFAULT_LOCALES = {
   title: 'Prop placement',
@@ -62,20 +70,6 @@ function normalizeLocales(value) {
 function formatCoord(value) {
   if (typeof value !== 'number' || Number.isNaN(value)) return '—'
   return value.toFixed(2)
-}
-
-function shouldHideRoot() {
-  return !document.querySelector('.dialogue-container.is-open')
-    && !document.querySelector('.prop-placer--visible')
-    && !document.querySelector('.gizmo-panel--visible')
-    && !document.querySelector('.zone-creator--visible')
-    && !document.querySelector('.dui-creator--visible')
-    && !document.querySelector('.task-group-menu')
-    && !document.querySelector('.task-hud--visible')
-}
-
-function getRootElement() {
-  return document.getElementById('root')
 }
 
 function getAdjustmentModeLabel(locales, adjustmentMode) {
@@ -193,24 +187,16 @@ function buildControlGroups(locales, options) {
 
 function ControlRow({ control }) {
   const showBadge = control.badge && control.showBadgeAlways
+  const keyTone = control.active ? 'success' : control.keyActive ? 'info' : undefined
 
   return (
-    <div className={`prop-placer__control${control.active ? ' prop-placer__control--active' : ''}`}>
-      <div className="prop-placer__keys" aria-hidden="true">
-        {control.keys.map((key) => (
-          <kbd
-            className={`prop-placer__key${control.keyActive ? ' prop-placer__key--state' : ''}`}
-            key={key}
-          >
-            {key}
-            {showBadge ? (
-              <span className="prop-placer__key-badge">{control.badge}</span>
-            ) : null}
-          </kbd>
-        ))}
-      </div>
-      <span className="prop-placer__control-label">{control.label}</span>
-    </div>
+    <OverlayControl
+      active={control.active}
+      keys={control.keys}
+      label={control.label}
+      badge={showBadge ? control.badge : undefined}
+      keyTone={keyTone}
+    />
   )
 }
 
@@ -237,13 +223,11 @@ function PropPlacer() {
 
   const closePanel = useCallback(() => {
     setVisible(false)
-    if (shouldHideRoot()) {
-      getRootElement()?.classList.add('hidden')
-    }
+    hideRootIfIdle()
   }, [])
 
   const openPanel = useCallback((payload) => {
-    getRootElement()?.classList.remove('hidden')
+    showRoot()
     setLocales(normalizeLocales(payload?.locales))
     setModelLabel(typeof payload?.modelLabel === 'string' ? payload.modelLabel : '')
     setMaxDistance(typeof payload?.maxDistance === 'number' ? payload.maxDistance : 10)
@@ -347,81 +331,55 @@ function PropPlacer() {
     return locales.status_aiming
   })()
 
-  const statusClass = status === 'ready'
-    ? 'prop-placer__status--success'
+  const statusTone = status === 'ready'
+    ? 'success'
     : status === 'too_far'
-      ? 'prop-placer__status--warning'
+      ? 'warning'
       : status === 'invalid_material'
-        ? 'prop-placer__status--error'
-        : 'prop-placer__status--info'
+        ? 'error'
+        : 'info'
 
   return (
-    <div className={`prop-placer${visible ? ' prop-placer--visible' : ''}`} aria-hidden={!visible}>
-      <aside className="prop-placer__panel" role="complementary" aria-label={locales.title}>
-        <div className="prop-placer__header">
-          <div>
-            <h2 className="prop-placer__title">{locales.title}</h2>
-            <p className="prop-placer__subtitle">
-              {modelLabel || locales.subtitle}
-            </p>
-          </div>
-          <span className={`prop-placer__status ${statusClass}`}>{statusLabel}</span>
-        </div>
-
-        <div className="prop-placer__stats">
-          {multiPlace ? (
-            <div className="prop-placer__stat">
-              <span className="prop-placer__stat-label">{locales.placed}</span>
-              <span className="prop-placer__stat-value">
-                {maxPlacements ? `${placedCount} / ${maxPlacements}` : placedCount}
-              </span>
-            </div>
-          ) : null}
-          {adjustmentModeToggleAvailable ? (
-            <div className="prop-placer__stat">
-              <span className="prop-placer__stat-label">{locales.controls_preview}</span>
-              <span className="prop-placer__stat-value">{adjustmentModeLabel}</span>
-            </div>
-          ) : null}
-          <div className="prop-placer__stat">
-            <span className="prop-placer__stat-label">{locales.position}</span>
-            <span className="prop-placer__stat-value">
-              {formatCoord(coords.x)}, {formatCoord(coords.y)}, {formatCoord(coords.z)}
-            </span>
-          </div>
-          <div className="prop-placer__stat">
-            <span className="prop-placer__stat-label">{locales.heading}</span>
-            <span className="prop-placer__stat-value">{formatCoord(heading)}°</span>
-          </div>
-          <div className="prop-placer__stat">
-            <span className="prop-placer__stat-label">{locales.distance}</span>
-            <span className="prop-placer__stat-value">{formatCoord(distance)} m</span>
-          </div>
-          <div className="prop-placer__stat">
-            <span className="prop-placer__stat-label">{locales.max_distance}</span>
-            <span className="prop-placer__stat-value">{formatCoord(maxDistance)} m</span>
-          </div>
-          {animationCycling && adjustmentMode === 'animation' ? (
-            <div className="prop-placer__stat">
-              <span className="prop-placer__stat-label">{locales.animation}</span>
-              <span className="prop-placer__stat-value">{animationLabel || '—'}</span>
-            </div>
-          ) : null}
-        </div>
-
-        <div className="prop-placer__controls">
-          <p className="prop-placer__controls-title">{locales.controls}</p>
-          {controlGroups.map((group) => (
-            <section className="prop-placer__control-group" key={group.id} aria-label={group.title}>
-              <p className="prop-placer__controls-title">{group.title}</p>
-              {group.items.map((control) => (
-                <ControlRow key={control.id} control={control} />
-              ))}
-            </section>
-          ))}
-        </div>
-      </aside>
-    </div>
+    <OverlayShell visible={visible} name="prop-placer" label={locales.title}>
+      <OverlayHeader
+        title={locales.title}
+        subtitle={modelLabel || locales.subtitle}
+        status={statusLabel}
+        statusTone={statusTone}
+      />
+      <OverlayStats>
+        {multiPlace ? (
+          <OverlayStat
+            label={locales.placed}
+            value={maxPlacements ? `${placedCount} / ${maxPlacements}` : placedCount}
+          />
+        ) : null}
+        {adjustmentModeToggleAvailable ? (
+          <OverlayStat label={locales.controls_preview} value={adjustmentModeLabel} />
+        ) : null}
+        <OverlayStat
+          wide
+          label={locales.position}
+          value={`${formatCoord(coords.x)}, ${formatCoord(coords.y)}, ${formatCoord(coords.z)}`}
+        />
+        <OverlayStat label={locales.heading} value={`${formatCoord(heading)}°`} />
+        <OverlayStat label={locales.distance} value={`${formatCoord(distance)} m`} />
+        <OverlayStat label={locales.max_distance} value={`${formatCoord(maxDistance)} m`} />
+        {animationCycling && adjustmentMode === 'animation' ? (
+          <OverlayStat label={locales.animation} value={animationLabel || '—'} />
+        ) : null}
+      </OverlayStats>
+      <OverlayControls title={locales.controls}>
+        {controlGroups.map((group) => (
+          <section className="flex flex-col gap-2" key={group.id} aria-label={group.title}>
+            <p className="overlay-section-label">{group.title}</p>
+            {group.items.map((control) => (
+              <ControlRow key={control.id} control={control} />
+            ))}
+          </section>
+        ))}
+      </OverlayControls>
+    </OverlayShell>
   )
 }
 

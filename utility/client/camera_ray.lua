@@ -13,6 +13,10 @@ function ray.forward(rot)
     return vector3(-math.sin(yaw) * cosPitch, math.cos(yaw) * cosPitch, math.sin(pitch))
 end
 
+local function isHit(hit)
+    return hit == 1 or hit == true
+end
+
 -- the normal is flipped back toward the origin so callers never see a back-face
 ---@return boolean hit
 ---@return vector3|nil coords
@@ -21,10 +25,16 @@ end
 ---@return vector3|nil normal
 function ray.probe(origin, target, rayFlags, ignoreEntity)
     rayFlags = rayFlags or 511
-    local handle = StartExpensiveSynchronousShapeTestLosProbe(origin.x, origin.y, origin.z, target.x, target.y, target.z, rayFlags, ignoreEntity or cache.ped, 0)
-    local _, hit, coords, normal, material, entity = GetShapeTestResultIncludingMaterial(handle)
+    local handle = StartExpensiveSynchronousShapeTestLosProbe(
+        origin.x, origin.y, origin.z,
+        target.x, target.y, target.z,
+        rayFlags,
+        ignoreEntity or cache.ped,
+        4
+    )
+    local status, hit, coords, normal, material, entity = GetShapeTestResultIncludingMaterial(handle)
 
-    if hit ~= 1 or not coords then
+    if status == 1 or not isHit(hit) or not coords then
         return false, nil, entity or 0, material
     end
 
@@ -49,11 +59,12 @@ end
 ---@return number|nil material
 ---@return vector3|nil normal
 ---@return vector3 origin Camera coord the ray started from
+---@return vector3 direction Unit look direction used for the cast
 function ray.cast(maxDistance, ignoreEntity, rayFlags, skipObjectEntities)
     rayFlags = rayFlags or 511
     local camCoord = GetFinalRenderedCamCoord()
     local direction = ray.forward()
-    local origin = camCoord
+    local origin = camCoord + (direction * 0.15)
     local remaining = maxDistance + 5.0
     local ignored = { [cache.ped] = true }
     local material, normal
@@ -73,28 +84,28 @@ function ray.cast(maxDistance, ignoreEntity, rayFlags, skipObjectEntities)
         normal = hitNormal or normal
 
         if not hit or not coords then
-            return false, nil, entity, material, normal, camCoord
+            return false, nil, entity, material, normal, camCoord, direction
         end
 
         local stepThrough = ignored[entity]
             or (skipObjectEntities and entity ~= 0 and GetEntityType(entity) == 3)
 
         if not stepThrough then
-            return true, coords, entity, material, hitNormal, camCoord
+            return true, coords, entity, material, hitNormal, camCoord, direction
         end
 
         ignored[entity] = true
 
         local traveled = #(coords - origin)
         if traveled < 0.01 then
-            return false, coords, entity, material, normal, camCoord
+            return false, coords, entity, material, normal, camCoord, direction
         end
 
         origin = coords + (direction * 0.08)
         remaining = remaining - traveled - 0.08
     end
 
-    return false, nil, 0, material, normal, camCoord
+    return false, nil, 0, material, normal, camCoord, direction
 end
 
 return ray

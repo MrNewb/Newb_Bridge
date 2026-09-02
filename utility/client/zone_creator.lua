@@ -243,7 +243,7 @@ local function drawLines()
 end
 
 local function drawLaser()
-    local from = laserStart or camPos or GetFinalRenderedCamCoord()
+    local from = laserStart or GetFinalRenderedCamCoord()
     local to = laserEnd or from
     local color = laserHit and colors.laser or colors.laserMiss
 
@@ -343,17 +343,10 @@ local function raycast(from, to)
 end
 
 local function updateLaser()
-    local origin, direction
-
-    if placementMode == 'freecam' then
-        origin = camPos
-        direction = ray.forward(camRot)
-    else
-        origin = GetFinalRenderedCamCoord()
-        direction = ray.forward(GetFinalRenderedCamRot(2))
-    end
-
-    local hit, coords, entity = raycast(origin, origin + direction * (maxDistance + 5.0))
+    local origin = GetFinalRenderedCamCoord()
+    local direction = ray.forward(GetFinalRenderedCamRot(2))
+    local probeOrigin = origin + (direction * 0.15)
+    local hit, coords, entity = raycast(probeOrigin, probeOrigin + direction * (maxDistance + 5.0))
 
     if hit and placementMode == 'onfoot' and entity == cache.ped then
         hit = false
@@ -362,12 +355,10 @@ local function updateLaser()
     laserStart = origin
     laserHit = hit
 
-    if hit then
-        laserEnd = coords
-    elseif placementMode == 'onfoot' then
-        laserEnd = origin + direction * 20.0 -- shorten the miss laser
+    if hit and coords then
+        laserEnd = origin + direction * #(coords - origin)
     else
-        laserEnd = coords
+        laserEnd = origin + direction * 20.0
     end
 
     if not hit then return end

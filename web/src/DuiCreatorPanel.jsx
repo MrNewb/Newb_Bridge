@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { takePendingOpen } from './placement-message-buffer'
-import './design-system/index.css'
+import { hideRootIfIdle, showRoot } from './nui-visibility'
+import {
+  OverlayControls,
+  OverlayControl,
+  OverlayHeader,
+  OverlayShell,
+  OverlayStat,
+  OverlayStats,
+} from './components/overlay-panel'
 
 const DEFAULT_LOCALES = {
   title: 'DUI surface placement',
@@ -44,20 +52,6 @@ function formatCoord(value) {
   return value.toFixed(2)
 }
 
-function shouldHideRoot() {
-  return !document.querySelector('.dialogue-container.is-open')
-    && !document.querySelector('.prop-placer--visible')
-    && !document.querySelector('.gizmo-panel--visible')
-    && !document.querySelector('.zone-creator--visible')
-    && !document.querySelector('.dui-creator--visible')
-    && !document.querySelector('.task-group-menu')
-    && !document.querySelector('.task-hud--visible')
-}
-
-function getRootElement() {
-  return document.getElementById('root')
-}
-
 function DuiCreatorPanel() {
   const [visible, setVisible] = useState(false)
   const [locales, setLocales] = useState(DEFAULT_LOCALES)
@@ -72,13 +66,11 @@ function DuiCreatorPanel() {
 
   const closePanel = useCallback(() => {
     setVisible(false)
-    if (shouldHideRoot()) {
-      getRootElement()?.classList.add('hidden')
-    }
+    hideRootIfIdle()
   }, [])
 
   const openPanel = useCallback((payload) => {
-    getRootElement()?.classList.remove('hidden')
+    showRoot()
     setLocales(normalizeLocales(payload?.locales))
     setLabel(typeof payload?.label === 'string' ? payload.label : '')
     setMaxDistance(typeof payload?.maxDistance === 'number' ? payload.maxDistance : 20)
@@ -134,11 +126,11 @@ function DuiCreatorPanel() {
     return locales.status_aiming
   })()
 
-  const statusClass = status === 'ready'
-    ? 'dui-creator__status--success'
+  const statusTone = status === 'ready'
+    ? 'success'
     : status === 'too_far'
-      ? 'dui-creator__status--warning'
-      : 'dui-creator__status--info'
+      ? 'warning'
+      : 'info'
 
   const isTarget = phase === 'target'
 
@@ -174,51 +166,36 @@ function DuiCreatorPanel() {
     : '—'
 
   return (
-    <div className={`dui-creator${visible ? ' dui-creator--visible' : ''}`} aria-hidden={!visible}>
-      <aside className="dui-creator__panel" role="complementary" aria-label={locales.title}>
-        <div className="dui-creator__header">
-          <div>
-            <h2 className="dui-creator__title">{locales.title}</h2>
-            <p className="dui-creator__subtitle">{label || subtitle}</p>
-            <p className="dui-creator__phase">{phaseLabel}</p>
-          </div>
-          <span className={`dui-creator__status ${statusClass}`}>{statusLabel}</span>
-        </div>
-
-        <div className="dui-creator__stats">
-          <div className="dui-creator__stat">
-            <span className="dui-creator__stat-label">{locales.position}</span>
-            <span className="dui-creator__stat-value">
-              {formatCoord(coords.x)}, {formatCoord(coords.y)}, {formatCoord(coords.z)}
-            </span>
-          </div>
-          <div className="dui-creator__stat">
-            <span className="dui-creator__stat-label">{locales.distance}</span>
-            <span className="dui-creator__stat-value">{formatCoord(distance)} m</span>
-          </div>
-          <div className="dui-creator__stat">
-            <span className="dui-creator__stat-label">{locales.max_distance}</span>
-            <span className="dui-creator__stat-value">{formatCoord(maxDistance)} m</span>
-          </div>
-          {isTarget ? null : (
-            <div className="dui-creator__stat">
-              <span className="dui-creator__stat-label">{locales.world_size}</span>
-              <span className="dui-creator__stat-value">{sizeLabel}</span>
-            </div>
-          )}
-        </div>
-
-        <div className="dui-creator__controls">
-          <p className="dui-creator__controls-title">{locales.controls}</p>
-          {controls.map((control, index) => (
-            <div className="dui-creator__control" key={`${control.key}-${index}`}>
-              <kbd className="dui-creator__key">{control.key}</kbd>
-              <span className="dui-creator__control-label">{control.label}</span>
-            </div>
-          ))}
-        </div>
-      </aside>
-    </div>
+    <OverlayShell visible={visible} name="dui-creator" label={locales.title}>
+      <OverlayHeader
+        title={locales.title}
+        subtitle={label || subtitle}
+        extra={<p className="overlay-section-label mt-1">{phaseLabel}</p>}
+        status={statusLabel}
+        statusTone={statusTone}
+      />
+      <OverlayStats>
+        <OverlayStat
+          wide
+          label={locales.position}
+          value={`${formatCoord(coords.x)}, ${formatCoord(coords.y)}, ${formatCoord(coords.z)}`}
+        />
+        <OverlayStat label={locales.distance} value={`${formatCoord(distance)} m`} />
+        <OverlayStat label={locales.max_distance} value={`${formatCoord(maxDistance)} m`} />
+        {isTarget ? null : (
+          <OverlayStat label={locales.world_size} value={sizeLabel} />
+        )}
+      </OverlayStats>
+      <OverlayControls title={locales.controls}>
+        {controls.map((control, index) => (
+          <OverlayControl
+            key={`${control.key}-${index}`}
+            keys={control.key}
+            label={control.label}
+          />
+        ))}
+      </OverlayControls>
+    </OverlayShell>
   )
 }
 

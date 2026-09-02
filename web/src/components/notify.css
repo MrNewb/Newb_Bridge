@@ -1,0 +1,154 @@
+@import '../design-system/tokens.css';
+
+.notify-stack {
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  overflow: hidden;
+}
+
+.notify-toast {
+  background-color: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-float);
+  padding: 1rem;
+  width: min(22rem, calc(100vw - 2rem));
+  overflow-wrap: anywhere;
+}
+
+.notify-toast .title,
+.notify-toast .description,
+.notify-toast .description span,
+.notify-toast .description strong,
+.notify-toast .description em,
+.notify-toast .description code {
+  color: var(--foreground);
+  text-shadow: 0 1px 1px var(--shadow-ink-faint);
+}
+
+.notify-toast .title,
+.notify-toast .description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.notify-toast .title {
+  -webkit-line-clamp: 3;
+}
+
+.notify-toast .description {
+  -webkit-line-clamp: 6;
+}
+
+.notify-toast-image {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  border-radius: var(--dialogue-radius-inner);
+}
+
+.notify-duration {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 0.25rem;
+  width: 100%;
+  transform-origin: left center;
+  animation-name: notify-duration;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+html[dir="rtl"] .notify-duration {
+  transform-origin: right center;
+}
+
+@keyframes notify-duration {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+.notify-icon--spin {
+  animation: notify-spin 1s linear infinite;
+}
+
+.notify-icon--spin-reverse {
+  animation: notify-spin 1s linear infinite reverse;
+}
+
+.notify-icon--spin-pulse {
+  animation: notify-spin 1s linear infinite, notify-pulse 1.4s ease-in-out infinite;
+}
+
+.notify-icon--pulse {
+  animation: notify-pulse 1.4s ease-in-out infinite;
+}
+
+.notify-icon--beat {
+  animation: notify-fade 1.2s var(--ease-out-quart) infinite;
+}
+
+.notify-icon--fade {
+  animation: notify-fade 1.2s var(--ease-out-quart) infinite;
+}
+
+.notify-icon--beat-fade {
+  animation: notify-fade 1.2s var(--ease-out-quart) infinite;
+}
+
+.notify-icon--bounce {
+  animation: notify-fade 1.2s var(--ease-out-quart) infinite;
+}
+
+.notify-icon--shake {
+  animation: notify-fade 1.2s var(--ease-out-quart) infinite;
+}
+
+@keyframes notify-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes notify-pulse {
+  50% { transform: scale(1.08); }
+}
+
+@keyframes notify-fade {
+  50% { opacity: 0.45; }
+}
+
+@media (max-height: 540px) {
+  .notify-stack {
+    gap: 0.375rem;
+    max-height: calc(100vh - 1rem);
+    max-height: calc(100dvh - 1rem);
+  }
+
+  .notify-toast {
+    padding: 0.75rem;
+  }
+
+  .notify-toast .description {
+    -webkit-line-clamp: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notify-duration,
+  .notify-icon--spin,
+  .notify-icon--spin-reverse,
+  .notify-icon--spin-pulse,
+  .notify-icon--pulse,
+  .notify-icon--beat,
+  .notify-icon--fade,
+  .notify-icon--beat-fade,
+  .notify-icon--bounce,
+  .notify-icon--shake {
+    animation: none;
+  }
+
+  .notify-duration {
+    transform: none;
+  }
+}

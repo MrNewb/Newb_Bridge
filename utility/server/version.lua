@@ -43,8 +43,13 @@ local function fetchAndPrint(branch, resource, repoPath, localVersion)
         local newer = collectNewerVersions(resourceData.versions or resourceData, localVersion)
         if #newer == 0 then return end
 
-        local repoUrl = resourceData.repo or resourceData.actualRepoPath
-        local downloadUrl = repoUrl and ('https://github.com/%s/releases/latest'):format(repoUrl) or url
+        local githubRepo = resourceData.repo or resourceData.actualRepoPath
+        local downloadUrl = 'https://portal.cfx.re/assets/granted-assets'
+        if type(githubRepo) == 'string' and githubRepo ~= '' then
+            downloadUrl = ('https://github.com/%s'):format(githubRepo)
+        elseif type(resourceData.portal) == 'string' and resourceData.portal ~= '' then
+            downloadUrl = resourceData.portal
+        end
 
         print(bridge.locale('system.version_update_available', {
             resource = resource,
@@ -83,7 +88,7 @@ end
 
 if Config.VersionCheck then
     print(bridge.locale('system.version_check_start'))
-    VersionCheck("MrNewb/Newb_Bridge", GetCurrentResourceName())
+    VersionCheck("MrNewb/patchnotes", GetCurrentResourceName())
 end
 
 exports('VersionCheck', VersionCheck)

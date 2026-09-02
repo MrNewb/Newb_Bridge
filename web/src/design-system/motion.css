@@ -122,26 +122,9 @@
   50% { transform: scale(1.12); }
 }
 
-@keyframes dialogue-icon-beat {
-  0%, 100% { transform: scale(1); }
-  30% { transform: scale(1.2); }
-}
-
 @keyframes dialogue-icon-fade {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.35; }
-}
-
-@keyframes dialogue-icon-bounce {
-  0%, 100% { transform: translateY(0) scale(1); }
-  40% { transform: translateY(-3px) scale(1.06); }
-  60% { transform: translateY(-1px) scale(1.02); }
-}
-
-@keyframes dialogue-icon-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-1px); }
-  75% { transform: translateX(1px); }
 }
 
 @keyframes dialogue-icon-placeholder-pulse {

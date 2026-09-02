@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { fetchNui } from './fetch.jsx'
 import { trapFocus } from './dialogue-a11y'
-import './design-system/index.css'
-import './task-group-menu.css'
+import { hideRootIfIdle, showRoot } from './nui-visibility'
+import { showNotify } from './notify-utils'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const DEFAULT_LOCALES = {
   menuBrand: 'Newbs Bridge',
@@ -57,20 +62,6 @@ function formatLocale(template, ...args) {
   })
 }
 
-function getRootElement() {
-  return document.getElementById('root')
-}
-
-function shouldHideRoot() {
-  return !document.querySelector('.dialogue-container.is-open')
-    && !document.querySelector('.prop-placer--visible')
-    && !document.querySelector('.gizmo-panel--visible')
-    && !document.querySelector('.zone-creator--visible')
-    && !document.querySelector('.dui-creator--visible')
-    && !document.querySelector('.task-group-menu')
-    && !document.querySelector('.task-hud--visible')
-}
-
 function applyActionResult(result, setGroups, setMyGroup, notify) {
   if (!result || typeof result !== 'object') return
 
@@ -95,7 +86,6 @@ export default function TaskGroupMenu() {
   const [groups, setGroups] = useState([])
   const [myGroup, setMyGroup] = useState(null)
   const [myServerId, setMyServerId] = useState(0)
-  const [toast, setToast] = useState(null)
   const [joinCode, setJoinCode] = useState('')
   const [createForm, setCreateForm] = useState({
     name: '',
@@ -109,20 +99,21 @@ export default function TaskGroupMenu() {
 
   const notify = useCallback((message, success = true) => {
     if (!message) return
-    setToast({ message, success })
-    window.setTimeout(() => setToast(null), 3200)
+    showNotify({
+      description: message,
+      type: success ? 'inform' : 'error',
+      duration: 3200,
+    })
   }, [])
 
   const closeMenu = useCallback(() => {
     setOpen(false)
     fetchNui('taskGroupMenu:close').catch(() => undefined)
-    if (shouldHideRoot()) {
-      getRootElement()?.classList.add('hidden')
-    }
+    hideRootIfIdle()
   }, [])
 
   const openMenu = useCallback((payload) => {
-    getRootElement()?.classList.remove('hidden')
+    showRoot()
     setLocales(normalizeLocales(payload?.locales))
     setConfig(payload?.config ?? {})
     setGroups(Array.isArray(payload?.groups) ? payload.groups : [])
@@ -148,9 +139,7 @@ export default function TaskGroupMenu() {
 
       if (payload.action === 'taskGroupMenu:close') {
         setOpen(false)
-        if (shouldHideRoot()) {
-          getRootElement()?.classList.add('hidden')
-        }
+        hideRootIfIdle()
         return
       }
 
@@ -170,19 +159,6 @@ export default function TaskGroupMenu() {
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
         closeMenu()
-        return
-      }
-
-      const tabs = shellRef.current
-        ? Array.from(shellRef.current.querySelectorAll('[role="tab"]'))
-        : []
-      const focusedTabIndex = tabs.indexOf(event.target)
-      if (focusedTabIndex !== -1 && (event.key === 'ArrowRight' || event.key === 'ArrowLeft')) {
-        event.preventDefault()
-        const step = event.key === 'ArrowRight' ? 1 : -1
-        const nextTab = tabs[(focusedTabIndex + step + tabs.length) % tabs.length]
-        nextTab.click()
-        nextTab.focus()
         return
       }
 
@@ -216,6 +192,10 @@ export default function TaskGroupMenu() {
     }
   }, [open])
 
+  useEffect(() => {
+    if (tab === 'manage' && !myGroup) setTab('browse')
+  }, [tab, myGroup])
+
   const isLeader = useMemo(() => {
     if (!myGroup) return false
     return Number(myGroup.leader) === Number(myServerId)
@@ -233,250 +213,192 @@ export default function TaskGroupMenu() {
     setInviteCandidates(Array.isArray(result?.candidates) ? result.candidates : [])
   }, [])
 
+  const resolvedTab = tab === 'manage' && !myGroup ? 'browse' : tab
+
   if (!open) return null
 
   return (
-    <>
-      <div className="task-group-menu">
-        <div
-          ref={shellRef}
-          className="task-group-menu__shell"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="task-group-menu-title"
-        >
-          <div className="task-group-menu__header">
-            <div>
-              <p className="task-group-menu__brand">{locales.menuBrand}</p>
-              <h2 id="task-group-menu-title" className="task-group-menu__title">{locales.menuTitle}</h2>
-            </div>
-            <button
-              ref={closeButtonRef}
-              type="button"
-              className="task-group-menu__btn task-group-menu__btn--compact task-group-menu__btn--ghost"
-              onClick={closeMenu}
-            >
-              {locales.close}
-            </button>
+    <div className="task-group-menu task-group-menu--visible pointer-events-auto fixed inset-0 z-40 flex items-center justify-center select-none">
+      <div
+        ref={shellRef}
+        className="flex max-h-[min(720px,calc(100vh-48px))] w-[min(560px,calc(100vw-32px))] flex-col overflow-hidden rounded-lg border border-solid border-border bg-background shadow-toast"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="task-group-menu-title"
+      >
+        <div className="flex items-start justify-between gap-3 border-b border-border p-4">
+          <div>
+            <p className="m-0 text-sm text-muted-foreground">{locales.menuBrand}</p>
+            <h2 id="task-group-menu-title" className="mt-1 text-lg font-semibold leading-none tracking-tight text-foreground">
+              {locales.menuTitle}
+            </h2>
           </div>
+          <Button ref={closeButtonRef} variant="ghost" size="sm" onClick={closeMenu}>
+            {locales.close}
+          </Button>
+        </div>
 
-          <div className="task-group-menu__tabs" role="tablist" aria-label={locales.menuTitle}>
-            {[
-              { id: 'browse', label: locales.tabBrowse },
-              { id: 'create', label: locales.tabCreate },
-              ...(myGroup ? [{ id: 'manage', label: locales.tabManage }] : []),
-            ].map((entry) => (
-              <button
-                key={entry.id}
-                type="button"
-                role="tab"
-                id={`task-group-tab-${entry.id}`}
-                aria-selected={tab === entry.id}
-                aria-controls="task-group-panel"
-                className={`task-group-menu__tab ${tab === entry.id ? 'task-group-menu__tab--active' : ''}`}
-                onClick={() => setTab(entry.id)}
+        <Tabs value={resolvedTab} onValueChange={setTab} className="min-h-0 flex-1">
+          <TabsList className="mx-4 mt-2 w-[calc(100%-2rem)]" aria-label={locales.menuTitle}>
+            <TabsTrigger value="browse">{locales.tabBrowse}</TabsTrigger>
+            <TabsTrigger value="create">{locales.tabCreate}</TabsTrigger>
+            {myGroup ? <TabsTrigger value="manage">{locales.tabManage}</TabsTrigger> : null}
+          </TabsList>
+
+          <TabsContent value="browse" className="flex flex-col gap-3">
+            <div className="rounded-md bg-card px-4 py-4">
+              <Label htmlFor="join-code">{locales.joinWithCode}</Label>
+              <Input
+                id="join-code"
+                value={joinCode}
+                onChange={(event) => setJoinCode(event.target.value.replace(/\D/g, '').slice(0, config.joinCodeLength || 6))}
+                placeholder={locales.joinCodeHint}
+              />
+              <Button
+                variant="default"
+                size="block"
+                className="mt-3"
+                onClick={() => runAction('taskGroupMenu:joinByCode', { joinCode })}
               >
-                {entry.label}
-              </button>
-            ))}
-          </div>
+                {locales.join}
+              </Button>
+            </div>
 
-          <div
-            className="task-group-menu__body"
-            role="tabpanel"
-            id="task-group-panel"
-            aria-labelledby={`task-group-tab-${tab}`}
-          >
-            {tab === 'browse' && (
-              <div className="task-group-menu__stack">
-                <div className="task-group-menu__card">
-                  <label className="task-group-menu__label" htmlFor="join-code">{locales.joinWithCode}</label>
-                  <input
-                    id="join-code"
-                    className="dialogue-input-native"
-                    value={joinCode}
-                    onChange={(event) => setJoinCode(event.target.value.replace(/\D/g, '').slice(0, config.joinCodeLength || 6))}
-                    placeholder={locales.joinCodeHint}
-                  />
-                  <button
-                    type="button"
-                    className="task-group-menu__btn task-group-menu__btn--info task-group-menu__btn--block task-group-menu__card--action"
-                    onClick={() => runAction('taskGroupMenu:joinByCode', { joinCode })}
-                  >
-                    {locales.join}
-                  </button>
-                </div>
-
-                {groups.length === 0 ? (
-                  <div className="task-group-menu__empty">{locales.noPublicGroups}</div>
-                ) : groups.map((group) => (
-                  <div key={group.id} className="task-group-menu__card task-group-menu__row">
-                    <div className="task-group-menu__grow">
-                      <div className="task-group-menu__member-name">{group.name}</div>
-                      <div className="task-group-menu__member-meta">
-                        {formatLocale(locales.memberCount, group.players?.length ?? 0, group.maxPlayers)}
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="task-group-menu__btn task-group-menu__btn--info task-group-menu__btn--compact"
-                      onClick={() => runAction('taskGroupMenu:joinGroup', { groupId: group.id })}
-                    >
-                      {locales.join}
-                    </button>
-                  </div>
-                ))}
+            {groups.length === 0 ? (
+              <div className="rounded-md bg-muted px-4 py-8 text-center text-sm text-muted-foreground">
+                {locales.noPublicGroups}
               </div>
-            )}
-
-            {tab === 'create' && (
-              <div className="task-group-menu__stack">
-                <div>
-                  <h3 className="task-group-menu__title">{locales.createTitle}</h3>
-                  <p className="task-group-menu__subtitle">{locales.createHint}</p>
+            ) : groups.map((group) => (
+              <div key={group.id} className="flex items-center gap-3 rounded-md bg-card px-4 py-4">
+                <div className="min-w-0 flex-1">
+                  <div className="text-sm font-medium leading-snug text-foreground">{group.name}</div>
+                  <div className="mt-1 text-xs leading-snug text-muted-foreground">
+                    {formatLocale(locales.memberCount, group.players?.length ?? 0, group.maxPlayers)}
+                  </div>
                 </div>
-                <label className="task-group-menu__label" htmlFor="group-name">{locales.groupName}</label>
-                <input
-                  id="group-name"
-                  className="dialogue-input-native"
-                  value={createForm.name}
-                  maxLength={config.maxNameLength || 32}
-                  placeholder={locales.groupNamePlaceholder}
-                  onChange={(event) => setCreateForm({ ...createForm, name: event.target.value })}
-                />
-                <label className="task-group-menu__label" htmlFor="group-max">{locales.maxPlayers}</label>
-                <input
-                  id="group-max"
-                  type="number"
-                  className="dialogue-input-native"
-                  min={config.minMaxPlayers || 2}
-                  max={config.maxMaxPlayers || 8}
-                  value={createForm.maxplayers}
-                  onChange={(event) => setCreateForm({ ...createForm, maxplayers: Number(event.target.value) || 4 })}
-                />
-                <label className="dialogue-input-checkbox">
-                  <input
-                    id="group-public"
-                    type="checkbox"
-                    className="dialogue-input-checkbox-control"
-                    checked={createForm.public}
-                    onChange={(event) => setCreateForm({ ...createForm, public: event.target.checked })}
-                  />
-                  <span className="dialogue-input-checkbox-label">{locales.publicGroup}</span>
-                </label>
-                <button
-                  type="button"
-                  className="task-group-menu__btn task-group-menu__btn--info task-group-menu__btn--block"
-                  onClick={() => runAction('taskGroupMenu:createGroup', createForm)}
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => runAction('taskGroupMenu:joinGroup', { groupId: group.id })}
                 >
-                  {locales.createGroup}
-                </button>
+                  {locales.join}
+                </Button>
               </div>
-            )}
+            ))}
+          </TabsContent>
 
-            {tab === 'manage' && myGroup && (
-              <div className="task-group-menu__stack">
-                <div className="task-group-menu__card">
-                  <div className="task-group-menu__member-name">{myGroup.name}</div>
-                  <div className="task-group-menu__member-meta">
-                    {formatLocale(locales.memberCount, myGroup.players?.length ?? 0, myGroup.maxPlayers)}
-                  </div>
+          <TabsContent value="create" className="flex flex-col gap-3">
+            <div>
+              <h3 className="m-0 text-lg font-semibold leading-none tracking-tight text-foreground">{locales.createTitle}</h3>
+              <p className="mt-1.5 text-sm text-muted-foreground">{locales.createHint}</p>
+            </div>
+            <Label htmlFor="group-name">{locales.groupName}</Label>
+            <Input
+              id="group-name"
+              value={createForm.name}
+              maxLength={config.maxNameLength || 32}
+              placeholder={locales.groupNamePlaceholder}
+              onChange={(event) => setCreateForm({ ...createForm, name: event.target.value })}
+            />
+            <Label htmlFor="group-max">{locales.maxPlayers}</Label>
+            <Input
+              id="group-max"
+              type="number"
+              min={config.minMaxPlayers || 2}
+              max={config.maxMaxPlayers || 8}
+              value={createForm.maxplayers}
+              onChange={(event) => setCreateForm({ ...createForm, maxplayers: Number(event.target.value) || 4 })}
+            />
+            <label className="flex cursor-pointer items-center gap-2">
+              <Checkbox
+                id="group-public"
+                checked={createForm.public}
+                onCheckedChange={(checked) => setCreateForm({ ...createForm, public: checked === true })}
+              />
+              <span className="text-sm text-foreground">{locales.publicGroup}</span>
+            </label>
+            <Button variant="default" size="block" onClick={() => runAction('taskGroupMenu:createGroup', createForm)}>
+              {locales.createGroup}
+            </Button>
+          </TabsContent>
+
+          {myGroup ? (
+            <TabsContent value="manage" className="flex flex-col gap-3">
+              <div className="rounded-md bg-card px-4 py-4">
+                <div className="text-sm font-medium leading-snug text-foreground">{myGroup.name}</div>
+                <div className="mt-1 text-xs leading-snug text-muted-foreground">
+                  {formatLocale(locales.memberCount, myGroup.players?.length ?? 0, myGroup.maxPlayers)}
                 </div>
-
-                {myGroup.joinCode && (
-                  <button
-                    type="button"
-                    className="task-group-menu__btn task-group-menu__btn--info task-group-menu__btn--block"
-                    onClick={() => runAction('taskGroupMenu:copyJoinCode', { joinCode: myGroup.joinCode })}
-                  >
-                    {locales.copyJoinCode}
-                  </button>
-                )}
-
-                {(myGroup.players ?? []).map((player) => {
-                  const isSelf = Number(player.serverId) === Number(myServerId)
-                  return (
-                    <div key={player.serverId} className="task-group-menu__member">
-                      <div>
-                        <div className="task-group-menu__member-name">
-                          {player.name}
-                          {player.leader ? ` · ${locales.leader}` : ''}
-                          {isSelf ? ` · ${locales.you}` : ''}
-                        </div>
-                        <div className="task-group-menu__member-meta">ID {player.serverId}</div>
-                      </div>
-                      {isLeader && !isSelf && (
-                        <button
-                          type="button"
-                          className="task-group-menu__btn task-group-menu__btn--danger task-group-menu__btn--compact"
-                          onClick={() => runAction('taskGroupMenu:kickMember', { targetId: player.serverId })}
-                        >
-                          {locales.kick}
-                        </button>
-                      )}
-                    </div>
-                  )
-                })}
-
-                {isLeader && (
-                  <>
-                    <button
-                      type="button"
-                      className="task-group-menu__btn task-group-menu__btn--block"
-                      onClick={loadInviteCandidates}
-                    >
-                      {locales.inviteNearby}
-                    </button>
-                    {inviteCandidates.map((candidate) => (
-                      <div key={candidate.serverId} className="task-group-menu__member">
-                        <div>
-                          <div className="task-group-menu__member-name">{candidate.name}</div>
-                          <div className="task-group-menu__member-meta">ID {candidate.serverId}</div>
-                        </div>
-                        <button
-                          type="button"
-                          className="task-group-menu__btn task-group-menu__btn--info task-group-menu__btn--compact"
-                          onClick={() => runAction('taskGroupMenu:inviteMember', { targetId: candidate.serverId })}
-                        >
-                          {locales.join}
-                        </button>
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      className="task-group-menu__btn task-group-menu__btn--danger task-group-menu__btn--block"
-                      onClick={() => runAction('taskGroupMenu:disbandGroup')}
-                    >
-                      {locales.disbandGroup}
-                    </button>
-                  </>
-                )}
-
-                {!isLeader && (
-                  <button
-                    type="button"
-                    className="task-group-menu__btn task-group-menu__btn--ghost task-group-menu__btn--block"
-                    onClick={() => runAction('taskGroupMenu:leaveGroup')}
-                  >
-                    {locales.leaveGroup}
-                  </button>
-                )}
               </div>
-            )}
-          </div>
-        </div>
-      </div>
 
-      {toast && (
-        <div
-          className={`task-group-menu__toast ${toast.success ? 'task-group-menu__toast--info' : 'task-group-menu__toast--error'}`}
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {toast.message}
-        </div>
-      )}
-    </>
+              {myGroup.joinCode ? (
+                <Button
+                  variant="default"
+                  size="block"
+                  onClick={() => runAction('taskGroupMenu:copyJoinCode', { joinCode: myGroup.joinCode })}
+                >
+                  {locales.copyJoinCode}
+                </Button>
+              ) : null}
+
+              {(myGroup.players ?? []).map((player) => {
+                const isSelf = Number(player.serverId) === Number(myServerId)
+                return (
+                  <div key={player.serverId} className="flex items-center justify-between gap-3 rounded-md bg-muted px-3 py-2.5">
+                    <div>
+                      <div className="text-sm font-medium leading-snug text-foreground">
+                        {player.name}
+                        {player.leader ? ` · ${locales.leader}` : ''}
+                        {isSelf ? ` · ${locales.you}` : ''}
+                      </div>
+                      <div className="mt-1 text-xs leading-snug text-muted-foreground">ID {player.serverId}</div>
+                    </div>
+                    {isLeader && !isSelf ? (
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => runAction('taskGroupMenu:kickMember', { targetId: player.serverId })}
+                      >
+                        {locales.kick}
+                      </Button>
+                    ) : null}
+                  </div>
+                )
+              })}
+
+              {isLeader ? (
+                <>
+                  <Button variant="secondary" size="block" onClick={loadInviteCandidates}>
+                    {locales.inviteNearby}
+                  </Button>
+                  {inviteCandidates.map((candidate) => (
+                    <div key={candidate.serverId} className="flex items-center justify-between gap-3 rounded-md bg-muted px-3 py-2.5">
+                      <div>
+                        <div className="text-sm font-medium leading-snug text-foreground">{candidate.name}</div>
+                        <div className="mt-1 text-xs leading-snug text-muted-foreground">ID {candidate.serverId}</div>
+                      </div>
+                      <Button
+                        variant="default"
+                        size="sm"
+                        onClick={() => runAction('taskGroupMenu:inviteMember', { targetId: candidate.serverId })}
+                      >
+                        {locales.join}
+                      </Button>
+                    </div>
+                  ))}
+                  <Button variant="destructive" size="block" onClick={() => runAction('taskGroupMenu:disbandGroup')}>
+                    {locales.disbandGroup}
+                  </Button>
+                </>
+              ) : (
+                <Button variant="ghost" size="block" onClick={() => runAction('taskGroupMenu:leaveGroup')}>
+                  {locales.leaveGroup}
+                </Button>
+              )}
+            </TabsContent>
+          ) : null}
+        </Tabs>
+      </div>
+    </div>
   )
 }

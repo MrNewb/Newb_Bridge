@@ -1,8 +1,5 @@
 @media (max-width: 1280px) {
-  .prop-placer__panel,
-  .gizmo-panel__panel,
-  .zone-creator__panel,
-  .dui-creator__panel {
+  .overlay-shell-card {
     width: min(280px, calc(100vw - 32px));
     right: var(--space-md);
     padding: var(--space-md);
@@ -10,10 +7,7 @@
 }
 
 @media (max-height: 720px) {
-  .prop-placer__panel,
-  .gizmo-panel__panel,
-  .zone-creator__panel,
-  .dui-creator__panel {
+  .overlay-shell-card {
     top: auto;
     bottom: var(--space-md);
     transform: none;
@@ -21,19 +15,16 @@
     overflow-y: auto;
   }
 
-  .prop-placer--visible .prop-placer__panel,
-  .gizmo-panel--visible .gizmo-panel__panel,
-  .zone-creator--visible .zone-creator__panel,
-  .dui-creator--visible .dui-creator__panel {
+  .prop-placer--visible .overlay-shell-card,
+  .gizmo-panel--visible .overlay-shell-card,
+  .zone-creator--visible .overlay-shell-card,
+  .dui-creator--visible .overlay-shell-card {
     translate: 0 0;
   }
 }
 
 @media (min-width: 2560px) {
-  .prop-placer__panel,
-  .gizmo-panel__panel,
-  .zone-creator__panel,
-  .dui-creator__panel {
+  .overlay-shell-card {
     width: min(360px, calc(100vw - 64px));
   }
 }

@@ -52,14 +52,11 @@
   transform: translateX(0) scale(0.96);
 }
 
-.dialogue-back-button:focus {
-  outline: none;
-}
-
+.dialogue-back-button:focus,
 .dialogue-back-button:focus-visible {
   outline: none;
-  border-color: var(--color-border-focus);
-  box-shadow: var(--focus-ring-inset);
+  border-color: var(--color-border);
+  box-shadow: none;
 }
 
 .dialogue-back-icon {
@@ -86,7 +83,7 @@
 .dialogue-menu-description {
   margin: 0;
   padding: 0 var(--space-xs);
-  color: var(--mantine-dark-1);
+  color: var(--muted-foreground);
   font-size: var(--text-subtitle);
   font-weight: var(--font-weight-medium);
   line-height: var(--leading-relaxed);

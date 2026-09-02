@@ -6,7 +6,7 @@ name "Newb_Bridge"
 
 author "MrNewb"
 description "Newb_Bridge is a framework agnostic resource that provides a simple way to create bridges between your resources and other resources. It is designed to be easy to use and understand, while also being powerful enough to handle complex use cases."
-version "0.0.2"
+version "0.0.3"
 
 dependencies {
     "ox_lib",
@@ -110,6 +110,7 @@ exports {
     "OpenTaskGroupMenu",
     "CloseTaskGroupMenu",
     "IsTaskGroupMenuOpen",
+    "Notify",
     "Task",
     "CompleteTask",
 }

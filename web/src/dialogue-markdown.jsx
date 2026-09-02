@@ -1,6 +1,6 @@
-const MARKDOWN_PATTERN = /(\*\*[^*]+\*\*|\*[^*]+\*)/g
+const MARKDOWN_PATTERN = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)/g
 
-function renderInlineMarkdown(text) {
+function renderLine(text) {
   const parts = text.split(MARKDOWN_PATTERN).filter(Boolean)
 
   return parts.map((part, index) => {
@@ -12,8 +12,23 @@ function renderInlineMarkdown(text) {
       return <em key={index}>{part.slice(1, -1)}</em>
     }
 
+    if (part.startsWith('`') && part.endsWith('`')) {
+      return <code key={index}>{part.slice(1, -1)}</code>
+    }
+
     return <span key={index}>{part}</span>
   })
+}
+
+function renderInlineMarkdown(text) {
+  const lines = String(text).split('\n')
+
+  return lines.map((line, lineIndex) => (
+    <span key={lineIndex}>
+      {lineIndex > 0 ? <br /> : null}
+      {renderLine(line)}
+    </span>
+  ))
 }
 
 export default function DialogueMarkdown({ text, className }) {

@@ -22,7 +22,6 @@
         "position": "स्थिति",
         "heading": "दिशा",
         "distance": "दूरी",
-        "max_distance": "अधिकतम दूरी",
         "controls": "नियंत्रण",
         "controls_position": "स्थिति",
         "controls_preview": "पूर्वावलोकन",
@@ -40,7 +39,6 @@
         "animation": "एनिमेशन",
         "cycle_animation": "एनिमेशन बदलें",
         "clear_animation": "एनिमेशन हटाएँ",
-        "raise_lower_ped": "पेड ऊपर / नीचे करें",
         "raise_lower": "ऊपर / नीचे करें",
         "cycle_model": "मॉडल बदलें",
         "toggle_preview_mode": "समायोजन बदलें",
@@ -50,8 +48,6 @@
         "exit": "प्लेसर से बाहर निकलें",
         "finish": "समाप्त करें",
         "undo": "पिछला पूर्ववत करें",
-        "placed": "रख दिया गया",
-        "placed_count": "रखे गए ({count}) — रखना जारी रखें या समाप्त करने के लिए Backspace दबाएँ",
         "toggle_gizmo": "गिज़्मो से बारीक समायोजन",
         "debug": "सतह की सामग्री कॉपी करें",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "मुक्त चाल",
         "no_entity": "कोई इकाई चयनित नहीं",
         "keys_unbound": "गिज़्मो मोड की कुंजियाँ अनबाउंड हैं — Settings > Key Bindings > FiveM में W/R/Q सेट करें",
-        "mode_line": "वर्तमान मोड: {mode} | {space}",
         "space_relative": "सापेक्ष",
         "space_world": "विश्व",
         "modes": {
             "translate": "स्थानांतरण",
             "rotate": "घूर्णन"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - कर्सर सक्षम करें",
-            "cursor_disable": "[G]     - मुक्त चाल (चलना)",
-            "translate": "[W]     - स्थानांतरण मोड",
-            "rotate": "[R]     - घूर्णन मोड",
-            "toggle_space": "[Q]     - स्थानीय/विश्व स्पेस टॉगल करें",
-            "snap_ground": "[LALT]  - ज़मीन से चिपकाएँ",
-            "done": "[E / ENTER] - संपादन समाप्त"
         },
         "keybinds": {
             "select_object": "गिज़्मो अक्ष चुनें",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "ज़ोन क्रिएटर",
-        "subtitle_poly": "बहुभुज ज़ोन",
-        "subtitle_box": "बॉक्स ज़ोन",
-        "subtitle_sphere": "गोलाकार ज़ोन",
-        "zone_name": "ज़ोन",
         "mode_edit": "संपादन",
         "mode_onfoot": "पैदल",
         "mode_camera": "कैमरा",
         "step": "चरण आकार",
-        "position": "कर्सर स्थिति",
         "heading": "दिशा",
         "height": "ऊँचाई / मोटाई",
         "width": "चौड़ाई",
         "length": "लंबाई",
         "radius": "त्रिज्या",
         "points": "बिंदु",
-        "bounds": "अधिकतम क्षेत्र",
         "distance": "केंद्र से",
         "controls_heading": "नियंत्रण",
         "toggle_mode": "संपादन / कैमरा मोड टॉगल करें",
@@ -145,8 +125,6 @@
         "rotate": "दिशा घुमाएँ",
         "add_point": "बहुभुज बिंदु जोड़ें",
         "undo_point": "आखिरी बिंदु पूर्ववत करें",
-        "center_position": "ज़ोन केंद्र",
-        "allow_movement": "मुक्त चाल",
         "movement_free": "स्वतंत्र रूप से चलें",
         "movement_locked": "जगह पर लॉक",
         "toggle_movement": "मुक्त चाल टॉगल करें",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "ज़ोन क्रिएटर: उड़ान / पैदल टॉगल करें",
         "confirm": "ज़ोन समाप्त करें",
         "cancel": "रद्द करें",
-        "name_dialog_title": "अपने ज़ोन का नाम दें",
-        "name_label": "नाम",
         "errors": {
             "already_active": "आप पहले से एक ज़ोन बना रहे हैं",
             "invalid_type": "ज़ोन प्रकार poly, box, या sphere होना चाहिए",
             "outside_bounds": "वह स्थिति अनुमत क्षेत्र के बाहर है",
             "min_points": "समाप्त करने से पहले कम से कम 2 बिंदु जोड़ें",
             "missing_name": "क्रिएटर खोलने से पहले ज़ोन का नाम आवश्यक है",
-            "no_aim": "पुष्टि से पहले सतह पर निशाना लगाएँ",
-            "no_center": "समाप्त करने से पहले केंद्र स्थिति सेट करें"
+            "no_aim": "पुष्टि से पहले सतह पर निशाना लगाएँ"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "लेज़र टारगेट",
         "position": "निशाने की स्थिति",
         "distance": "दूरी",
-        "max_distance": "अधिकतम दूरी",
         "world_size": "बोर्ड का आकार",
         "controls": "नियंत्रण",
         "place_corner": "कोना सेट करें",
@@ -188,7 +162,6 @@
         "confirm_size": "आकार पुष्टि करें",
         "reset_corner": "ऊपरी-बाएँ रीसेट करें",
         "exit": "रखना रद्द करें",
-        "target_placement": "[E] टेक्सचर पर टारगेट सेट करें  ·  [Backspace] रद्द करें",
         "errors": {
             "already_active": "आप पहले से DUI सतह रख रहे हैं",
             "dui_failed": "DUI पूर्वावलोकन नहीं बन सका। URL जाँचें और फिर कोशिश करें।"
@@ -302,7 +275,6 @@
         "create_hint": "आप नेता बनते हैं। पास के सदस्यों को आमंत्रित किया जा सकता है।",
         "group_name": "समूह का नाम",
         "group_name_placeholder": "लूट का दल, रेस लॉबी…",
-        "image_url": "छवि URL",
         "max_players": "अधिकतम खिलाड़ी",
         "public_group": "ब्राउज़ में सार्वजनिक रूप से सूचीबद्ध करें",
         "create_group": "समूह बनाएँ",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] भाषा '{locale}' के लिए लोकेल फ़ाइल लोड नहीं हो सकी। जाँचें कि फ़ाइल मौजूद है और मान्य JSON है।",
         "version_check_start": "^2[Newb_Bridge]^7 अपडेट जाँचे जा रहे हैं...",
         "version_invalid_repo": "^1[Newb_Bridge] अमान्य रिपॉज़िटरी प्रारूप। अपेक्षित: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] \"{resource}\" के लिए कोई मान्य संस्करण नहीं मिला^7",

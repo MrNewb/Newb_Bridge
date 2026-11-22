@@ -3,13 +3,22 @@
   bottom: clamp(var(--space-xl), 5vh, 42px);
   left: 50%;
   width: min(92vw, var(--dialogue-max-width));
+  max-height: calc(100vh - 4.5rem);
+  min-height: 0;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   gap: 0;
   opacity: 0;
   transform: translateX(-50%) translateY(20px) scale(0.985);
   pointer-events: none;
+  overflow: hidden;
   contain: layout style;
+}
+
+.dialogue-container[data-open-picker],
+.dialogue-frame[data-open-picker] {
+  overflow: visible;
 }
 
 .dialogue-frame {
@@ -17,10 +26,14 @@
   grid-template-columns: auto minmax(0, 1fr);
   gap: var(--space-sm);
   width: 100%;
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: 100%;
   align-items: start;
+  overflow: hidden;
 }
 
-.dialogue-frame:not(:has(.dialogue-back-button)) {
+.dialogue-frame--no-back {
   grid-template-columns: minmax(0, 1fr);
 }
 
@@ -29,7 +42,15 @@
   flex-direction: column;
   gap: 0;
   min-width: 0;
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: 100%;
   width: 100%;
+  overflow: hidden;
+}
+
+.dialogue-stack[data-open-picker] {
+  overflow: visible;
 }
 
 .dialogue-container.is-open {
@@ -53,10 +74,14 @@
 .dialogue-body {
   display: flex;
   flex-direction: column;
+  flex: 0 1 auto;
   gap: var(--space-sm);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-.dialogue-body:has(.dialogue-input-picker.is-open) {
+.dialogue-body[data-open-picker] {
   overflow: visible;
 }
 

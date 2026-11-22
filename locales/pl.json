@@ -22,7 +22,6 @@
         "position": "Pozycja",
         "heading": "Kierunek",
         "distance": "Odległość",
-        "max_distance": "Maks. odległość",
         "controls": "Sterowanie",
         "controls_position": "Pozycja",
         "controls_preview": "Podgląd",
@@ -40,7 +39,6 @@
         "animation": "Animacja",
         "cycle_animation": "Zmień animację",
         "clear_animation": "Usuń animację",
-        "raise_lower_ped": "Podnieś / opuść peda",
         "raise_lower": "Podnieś / opuść",
         "cycle_model": "Zmień model",
         "toggle_preview_mode": "Zmień dostosowanie",
@@ -50,8 +48,6 @@
         "exit": "Wyjdź z trybu umieszczania",
         "finish": "Zakończ",
         "undo": "Cofnij ostatnie",
-        "placed": "Umieszczono",
-        "placed_count": "Umieszczono ({count}) — kontynuuj lub naciśnij Backspace, aby zakończyć",
         "toggle_gizmo": "Doprecyzuj gizmo",
         "debug": "Kopiuj materiał powierzchni",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Swobodny ruch",
         "no_entity": "Nie wybrano encji",
         "keys_unbound": "Klawisze trybu gizmo nie są przypisane — ustaw W/R/Q w Ustawienia > Przypisania klawiszy > FiveM",
-        "mode_line": "Aktualny tryb: {mode} | {space}",
         "space_relative": "Względny",
         "space_world": "Świat",
         "modes": {
             "translate": "Przesuwanie",
             "rotate": "Obrót"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Włącz kursor",
-            "cursor_disable": "[G]     - Swobodny ruch (chodzenie)",
-            "translate": "[W]     - Tryb przesuwania",
-            "rotate": "[R]     - Tryb obrotu",
-            "toggle_space": "[Q]     - Przełącz przestrzeń lokalną/świata",
-            "snap_ground": "[LALT]  - Przyciągnij do podłoża",
-            "done": "[E / ENTER] - Zakończ edycję"
         },
         "keybinds": {
             "select_object": "Wybierz oś gizmo",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Kreator stref",
-        "subtitle_poly": "Strefa wielokąta",
-        "subtitle_box": "Strefa prostokąta",
-        "subtitle_sphere": "Strefa kuli",
-        "zone_name": "Strefa",
         "mode_edit": "Edycja",
         "mode_onfoot": "Pieszo",
         "mode_camera": "Kamera",
         "step": "Rozmiar kroku",
-        "position": "Pozycja kursora",
         "heading": "Kierunek",
         "height": "Wysokość / grubość",
         "width": "Szerokość",
         "length": "Długość",
         "radius": "Promień",
         "points": "Punkty",
-        "bounds": "Maks. obszar",
         "distance": "Od środka",
         "controls_heading": "Sterowanie",
         "toggle_mode": "Przełącz tryb edycji / kamery",
@@ -145,8 +125,6 @@
         "rotate": "Obróć kierunek",
         "add_point": "Dodaj punkt wielokąta",
         "undo_point": "Cofnij ostatni punkt",
-        "center_position": "Środek strefy",
-        "allow_movement": "Swobodny ruch",
         "movement_free": "Poruszaj się swobodnie",
         "movement_locked": "Zablokowany w miejscu",
         "toggle_movement": "Przełącz swobodny ruch",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Kreator stref: przełącz lot / pieszo",
         "confirm": "Zakończ strefę",
         "cancel": "Anuluj",
-        "name_dialog_title": "Nazwij swoją strefę",
-        "name_label": "Nazwa",
         "errors": {
             "already_active": "Już tworzysz strefę",
             "invalid_type": "Typ strefy musi być poly, box lub sphere",
             "outside_bounds": "Ta pozycja jest poza dozwolonym obszarem",
             "min_points": "Dodaj co najmniej 2 punkty przed zakończeniem",
             "missing_name": "Nazwa strefy jest wymagana przed otwarciem kreatora",
-            "no_aim": "Wyceluj w powierzchnię przed potwierdzeniem",
-            "no_center": "Ustaw pozycję środka przed zakończeniem"
+            "no_aim": "Wyceluj w powierzchnię przed potwierdzeniem"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Cel lasera",
         "position": "Pozycja celowania",
         "distance": "Odległość",
-        "max_distance": "Maks. odległość",
         "world_size": "Rozmiar tablicy",
         "controls": "Sterowanie",
         "place_corner": "Ustaw róg",
@@ -188,7 +162,6 @@
         "confirm_size": "Potwierdź rozmiar",
         "reset_corner": "Resetuj lewy górny róg",
         "exit": "Anuluj umieszczanie",
-        "target_placement": "[E] Ustaw cel na teksturze  ·  [Backspace] Anuluj",
         "errors": {
             "already_active": "Już umieszczasz powierzchnię DUI",
             "dui_failed": "Nie udało się utworzyć podglądu DUI. Sprawdź URL i spróbuj ponownie."
@@ -302,7 +275,6 @@
         "create_hint": "Zostajesz liderem. Członków można zapraszać w pobliżu.",
         "group_name": "Nazwa grupy",
         "group_name_placeholder": "Ekipa napadu, lobby wyścigu…",
-        "image_url": "URL obrazu",
         "max_players": "Maks. graczy",
         "public_group": "Pokaż publicznie na liście",
         "create_group": "Utwórz grupę",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Nie udało się wczytać pliku locale dla '{locale}'. Sprawdź, czy plik istnieje i jest prawidłowym JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Sprawdzanie aktualizacji...",
         "version_invalid_repo": "^1[Newb_Bridge] Nieprawidłowy format repozytorium. Oczekiwano: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Nie znaleziono prawidłowej wersji dla \"{resource}\"^7",

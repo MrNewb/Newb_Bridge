@@ -49,10 +49,6 @@ export function showNotify(data) {
   for (const listener of notifyListeners) listener({ action: 'show', toast })
 }
 
-export function hideNotify(id) {
-  for (const listener of notifyListeners) listener({ action: 'hide', id })
-}
-
 function coerceText(value) {
   if (typeof value === 'string') return value
   if (typeof value === 'number' && Number.isFinite(value)) return String(value)
@@ -170,7 +166,7 @@ function nestedStyleName(key) {
   return String(key).replace(/^&/, '').replace(/^\s*\./, '').trim()
 }
 
-export function splitNotifyStyle(style) {
+function splitNotifyStyle(style) {
   if (!style || typeof style !== 'object' || Array.isArray(style)) {
     return { root: null, title: null, description: null }
   }
@@ -234,62 +230,4 @@ export function normalizeNotify(data) {
     titleStyle: styles.title,
     descriptionStyle: styles.description,
   }
-}
-
-const stringPayload = normalizeNotify('Saved')
-if (!stringPayload || stringPayload.type !== 'inform' || stringPayload.description !== 'Saved') {
-  throw new Error('notify string payload')
-}
-
-const infoAlias = normalizeNotify({ type: 'info', description: 'Hello' })
-if (!infoAlias || infoAlias.type !== 'inform' || infoAlias.position !== 'top-right') {
-  throw new Error('notify info alias')
-}
-
-const customPayload = normalizeNotify({
-  id: 12,
-  type: 'success',
-  title: 'Notification title',
-  description: 'Notification description',
-  showDuration: false,
-  position: 'top',
-  icon: ['fas', 'ban'],
-  image: 'ox_inventory/web/images/lockpick.png',
-  iconColor: '#C53030',
-  iconAnimation: 'spin',
-  alignIcon: 'top',
-  style: {
-    backgroundColor: '#141517',
-    color: '#C1C2C5',
-    '.description': { color: '#909296' },
-  },
-})
-if (
-  !customPayload
-  || customPayload.id !== '12'
-  || customPayload.showDuration !== false
-  || customPayload.icon !== 'fas ban'
-  || customPayload.image !== 'nui://ox_inventory/web/images/lockpick.png'
-  || customPayload.iconColor !== '#C53030'
-  || customPayload.alignIcon !== 'top'
-  || customPayload.style?.backgroundColor !== '#141517'
-  || customPayload.descriptionStyle?.color !== '#909296'
-) {
-  throw new Error('notify ox_lib custom payload')
-}
-
-const darkClamp = normalizeNotify({
-  description: 'Saved',
-  style: { backgroundColor: '#09090b', color: '#333333' },
-})
-if (!darkClamp || darkClamp.style?.color !== '#fafafa') {
-  throw new Error('notify contrast clamp dark')
-}
-
-const lightClamp = normalizeNotify({
-  description: 'Saved',
-  style: { backgroundColor: '#fafafa', color: '#eeeeee' },
-})
-if (!lightClamp || lightClamp.style?.color !== '#09090b') {
-  throw new Error('notify contrast clamp light')
 }

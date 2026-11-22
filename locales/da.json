@@ -22,7 +22,6 @@
         "position": "Position",
         "heading": "Retning",
         "distance": "Afstand",
-        "max_distance": "Maks. afstand",
         "controls": "Styring",
         "controls_position": "Position",
         "controls_preview": "Forhåndsvisning",
@@ -40,7 +39,6 @@
         "animation": "Animation",
         "cycle_animation": "Skift animation",
         "clear_animation": "Fjern animation",
-        "raise_lower_ped": "Hæv / sænk ped",
         "raise_lower": "Hæv / sænk",
         "cycle_model": "Skift model",
         "toggle_preview_mode": "Skift justering",
@@ -50,8 +48,6 @@
         "exit": "Afslut placering",
         "finish": "Afslut",
         "undo": "Fortryd sidste",
-        "placed": "Placeret",
-        "placed_count": "Placeret ({count}) — fortsæt med at placere, eller tryk på Backspace for at afslutte",
         "toggle_gizmo": "Finjuster med gizmo",
         "debug": "Kopiér flademateriale",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Fri bevægelse",
         "no_entity": "Ingen enhed valgt",
         "keys_unbound": "Gizmo-taster er ikke bundet — sæt W/R/Q under Indstillinger > Tastaturgenveje > FiveM",
-        "mode_line": "Nuværende tilstand: {mode} | {space}",
         "space_relative": "Relativ",
         "space_world": "Verden",
         "modes": {
             "translate": "Flyt",
             "rotate": "Roter"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Aktivér markør",
-            "cursor_disable": "[G]     - Fri bevægelse (gå)",
-            "translate": "[W]     - Flyttetilstand",
-            "rotate": "[R]     - Rotationstilstand",
-            "toggle_space": "[Q]     - Skift lokalt/verdensrum",
-            "snap_ground": "[LALT]  - Snap til jorden",
-            "done": "[E / ENTER] - Afslut redigering"
         },
         "keybinds": {
             "select_object": "Vælg gizmo-akse",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Zoneopretter",
-        "subtitle_poly": "Polygonzone",
-        "subtitle_box": "Bokszone",
-        "subtitle_sphere": "Kuglezone",
-        "zone_name": "Zone",
         "mode_edit": "Redigerer",
         "mode_onfoot": "Til fods",
         "mode_camera": "Kamera",
         "step": "Trinstørrelse",
-        "position": "Markørposition",
         "heading": "Retning",
         "height": "Højde / tykkelse",
         "width": "Bredde",
         "length": "Længde",
         "radius": "Radius",
         "points": "Punkter",
-        "bounds": "Maks. område",
         "distance": "Fra centrum",
         "controls_heading": "Styring",
         "toggle_mode": "Skift redigering / kamera",
@@ -145,8 +125,6 @@
         "rotate": "Roter retning",
         "add_point": "Tilføj polygonpunkt",
         "undo_point": "Fortryd sidste punkt",
-        "center_position": "Zonecentrum",
-        "allow_movement": "Fri bevægelse",
         "movement_free": "Bevæg dig frit",
         "movement_locked": "Låst på plads",
         "toggle_movement": "Skift fri bevægelse",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Zoneopretter: skift flyv / til fods",
         "confirm": "Afslut zone",
         "cancel": "Annuller",
-        "name_dialog_title": "Navngiv din zone",
-        "name_label": "Navn",
         "errors": {
             "already_active": "Du opretter allerede en zone",
             "invalid_type": "Zonetype skal være poly, box eller sphere",
             "outside_bounds": "Den position ligger uden for det tilladte område",
             "min_points": "Tilføj mindst 2 punkter, før du afslutter",
             "missing_name": "Et zonenavn er påkrævet, før opretteren åbnes",
-            "no_aim": "Sigte på en flade, før du bekræfter",
-            "no_center": "Angiv en midterposition, før du afslutter"
+            "no_aim": "Sigte på en flade, før du bekræfter"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Lasermål",
         "position": "Sigteposition",
         "distance": "Afstand",
-        "max_distance": "Maks. afstand",
         "world_size": "Tavlestørrelse",
         "controls": "Styring",
         "place_corner": "Sæt hjørne",
@@ -188,7 +162,6 @@
         "confirm_size": "Bekræft størrelse",
         "reset_corner": "Nulstil øverste venstre",
         "exit": "Annuller placering",
-        "target_placement": "[E] Sæt mål på tekstur  ·  [Backspace] Annuller",
         "errors": {
             "already_active": "Du placerer allerede en DUI-flade",
             "dui_failed": "Kunne ikke oprette DUI-forhåndsvisningen. Tjek URL'en, og prøv igen."
@@ -302,7 +275,6 @@
         "create_hint": "Du bliver lederen. Medlemmer kan inviteres i nærheden.",
         "group_name": "Gruppenavn",
         "group_name_placeholder": "Røverihold, racelobby…",
-        "image_url": "Billed-URL",
         "max_players": "Maks. spillere",
         "public_group": "Vis offentligt under Gennemse",
         "create_group": "Opret gruppe",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Kunne ikke indlæse locale-filen for '{locale}'. Tjek, om filen findes og er gyldig JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Tjekker for opdateringer...",
         "version_invalid_repo": "^1[Newb_Bridge] Ugyldigt repository-format. Forventet: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Ingen gyldig version fundet for \"{resource}\"^7",

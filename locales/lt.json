@@ -22,7 +22,6 @@
         "position": "Pozicija",
         "heading": "Kryptis",
         "distance": "Atstumas",
-        "max_distance": "Maks. atstumas",
         "controls": "Valdymas",
         "controls_position": "Pozicija",
         "controls_preview": "Peržiūra",
@@ -40,7 +39,6 @@
         "animation": "Animacija",
         "cycle_animation": "Keisti animaciją",
         "clear_animation": "Pašalinti animaciją",
-        "raise_lower_ped": "Pakelti / nuleisti ped",
         "raise_lower": "Pakelti / nuleisti",
         "cycle_model": "Keisti modelį",
         "toggle_preview_mode": "Keisti koregavimą",
@@ -50,8 +48,6 @@
         "exit": "Išeiti iš dėjimo",
         "finish": "Baigti",
         "undo": "Atšaukti paskutinį",
-        "placed": "Padėta",
-        "placed_count": "Padėta ({count}) — tęskite dėjimą arba spauskite Backspace, kad baigtumėte",
         "toggle_gizmo": "Tikslinti su gizmo",
         "debug": "Kopijuoti paviršiaus medžiagą",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Laisvas judėjimas",
         "no_entity": "Nepasirinktas objektas",
         "keys_unbound": "Gizmo režimo klavišai nepriskirti — nustatykite W/R/Q skiltyje Nustatymai > Klavišų priskyrimai > FiveM",
-        "mode_line": "Dabartinis režimas: {mode} | {space}",
         "space_relative": "Santykinė",
         "space_world": "Pasaulis",
         "modes": {
             "translate": "Perkėlimas",
             "rotate": "Sukimas"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Įjungti žymeklį",
-            "cursor_disable": "[G]     - Laisvas judėjimas (ėjimas)",
-            "translate": "[W]     - Perkėlimo režimas",
-            "rotate": "[R]     - Sukimo režimas",
-            "toggle_space": "[Q]     - Perjungti vietinę/pasaulio erdvę",
-            "snap_ground": "[LALT]  - Pritraukti prie žemės",
-            "done": "[E / ENTER] - Baigti redagavimą"
         },
         "keybinds": {
             "select_object": "Pasirinkti gizmo ašį",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Zonų kūrėjas",
-        "subtitle_poly": "Daugiakampė zona",
-        "subtitle_box": "Dėžės zona",
-        "subtitle_sphere": "Sferos zona",
-        "zone_name": "Zona",
         "mode_edit": "Redagavimas",
         "mode_onfoot": "Pėsčiomis",
         "mode_camera": "Kamera",
         "step": "Žingsnio dydis",
-        "position": "Žymeklio pozicija",
         "heading": "Kryptis",
         "height": "Aukštis / storis",
         "width": "Plotis",
         "length": "Ilgis",
         "radius": "Spindulys",
         "points": "Taškai",
-        "bounds": "Maks. plotas",
         "distance": "Nuo centro",
         "controls_heading": "Valdymas",
         "toggle_mode": "Perjungti redagavimo / kameros režimą",
@@ -145,8 +125,6 @@
         "rotate": "Pasukti kryptį",
         "add_point": "Pridėti daugiakampio tašką",
         "undo_point": "Atšaukti paskutinį tašką",
-        "center_position": "Zonos centras",
-        "allow_movement": "Laisvas judėjimas",
         "movement_free": "Judėkite laisvai",
         "movement_locked": "Užrakinta vietoje",
         "toggle_movement": "Perjungti laisvą judėjimą",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Zonų kūrėjas: perjungti skrydį / pėsčiomis",
         "confirm": "Baigti zoną",
         "cancel": "Atšaukti",
-        "name_dialog_title": "Suteikite zonai pavadinimą",
-        "name_label": "Pavadinimas",
         "errors": {
             "already_active": "Jau kuriate zoną",
             "invalid_type": "Zonos tipas turi būti poly, box arba sphere",
             "outside_bounds": "Ši pozicija yra už leidžiamo ploto",
             "min_points": "Prieš baigdami pridėkite bent 2 taškus",
             "missing_name": "Prieš atidarant kūrėją reikalingas zonos pavadinimas",
-            "no_aim": "Prieš patvirtindami nutaikykite į paviršių",
-            "no_center": "Prieš baigdami nustatykite centro poziciją"
+            "no_aim": "Prieš patvirtindami nutaikykite į paviršių"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Lazerio taikinys",
         "position": "Taikymosi pozicija",
         "distance": "Atstumas",
-        "max_distance": "Maks. atstumas",
         "world_size": "Lentos dydis",
         "controls": "Valdymas",
         "place_corner": "Nustatyti kampą",
@@ -188,7 +162,6 @@
         "confirm_size": "Patvirtinti dydį",
         "reset_corner": "Atstatyti viršutinį kairįjį",
         "exit": "Atšaukti dėjimą",
-        "target_placement": "[E] Nustatyti taikinį ant tekstūros  ·  [Backspace] Atšaukti",
         "errors": {
             "already_active": "Jau dedate DUI paviršių",
             "dui_failed": "Nepavyko sukurti DUI peržiūros. Patikrinkite URL ir bandykite dar kartą."
@@ -302,7 +275,6 @@
         "create_hint": "Tampate vadovu. Narius galima kviesti netoliese.",
         "group_name": "Grupės pavadinimas",
         "group_name_placeholder": "Apiplėšimo komanda, lenktynių kambarys…",
-        "image_url": "Paveikslo URL",
         "max_players": "Maks. žaidėjų",
         "public_group": "Rodyti viešai sąraše",
         "create_group": "Sukurti grupę",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Nepavyko įkelti locale failo kalbai '{locale}'. Patikrinkite, ar failas egzistuoja ir yra tinkamas JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Tikrinama, ar yra atnaujinimų...",
         "version_invalid_repo": "^1[Newb_Bridge] Netinkamas saugyklos formatas. Tikimasi: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Nerasta tinkamos versijos \"{resource}\"^7",

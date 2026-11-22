@@ -1,14 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { takePendingOpen } from './placement-message-buffer'
+import { takePendingOpen, takePendingUpdate } from './placement-message-buffer'
 import { hideRootIfIdle, showRoot } from './nui-visibility'
-import {
-  OverlayControls,
-  OverlayControl,
-  OverlayHeader,
-  OverlayShell,
-  OverlayStat,
-  OverlayStats,
-} from './components/overlay-panel'
+import { ActionKeys, MetaLine, PlacementPanel, Range, Stepper, StatusBlock } from './components/placement-panel'
 
 const DEFAULT_LOCALES = {
   title: 'DUI surface placement',
@@ -17,13 +10,17 @@ const DEFAULT_LOCALES = {
   status_ready: 'Ready',
   status_too_far: 'Too far',
   status_aiming: 'Aiming…',
+  hint_aiming: 'Aim at a flat surface',
+  hint_ready: 'Press the key to set it here',
+  hint_too_far: 'Move closer to set it',
+  step_one: 'Top-left',
+  step_two: 'Bottom-right',
   phase_top_left: 'Step 1 — Top-left corner',
   phase_bottom_right: 'Step 2 — Bottom-right corner',
   subtitle_target: 'Aim at the surface for the laser target',
   phase_target: 'Laser target',
   position: 'Aim position',
   distance: 'Distance',
-  max_distance: 'Max distance',
   world_size: 'Board size',
   controls: 'Controls',
   place_corner: 'Set corner',
@@ -116,6 +113,8 @@ function DuiCreatorPanel() {
 
     const pendingOpen = takePendingOpen('dui_creator:open')
     if (pendingOpen) openPanel(pendingOpen)
+    const pendingUpdate = takePendingUpdate('dui_creator:update')
+    if (pendingUpdate) handleMessage({ data: pendingUpdate })
 
     return () => window.removeEventListener('message', handleMessage)
   }, [closePanel, openPanel])
@@ -125,12 +124,6 @@ function DuiCreatorPanel() {
     if (status === 'too_far') return locales.status_too_far
     return locales.status_aiming
   })()
-
-  const statusTone = status === 'ready'
-    ? 'success'
-    : status === 'too_far'
-      ? 'warning'
-      : 'info'
 
   const isTarget = phase === 'target'
 
@@ -165,37 +158,33 @@ function DuiCreatorPanel() {
     ? `${formatCoord(worldWidth)} × ${formatCoord(worldHeight)} m`
     : '—'
 
+  const hint = status === 'ready' ? locales.hint_ready : status === 'too_far' ? locales.hint_too_far : locales.hint_aiming
+  const items = controls.map((control, index) => ({ id: `${control.key}-${index}`, keys: control.key, label: control.label }))
+
   return (
-    <OverlayShell visible={visible} name="dui-creator" label={locales.title}>
-      <OverlayHeader
-        title={locales.title}
-        subtitle={label || subtitle}
-        extra={<p className="overlay-section-label mt-1">{phaseLabel}</p>}
-        status={statusLabel}
-        statusTone={statusTone}
-      />
-      <OverlayStats>
-        <OverlayStat
-          wide
-          label={locales.position}
-          value={`${formatCoord(coords.x)}, ${formatCoord(coords.y)}, ${formatCoord(coords.z)}`}
-        />
-        <OverlayStat label={locales.distance} value={`${formatCoord(distance)} m`} />
-        <OverlayStat label={locales.max_distance} value={`${formatCoord(maxDistance)} m`} />
-        {isTarget ? null : (
-          <OverlayStat label={locales.world_size} value={sizeLabel} />
-        )}
-      </OverlayStats>
-      <OverlayControls title={locales.controls}>
-        {controls.map((control, index) => (
-          <OverlayControl
-            key={`${control.key}-${index}`}
-            keys={control.key}
-            label={control.label}
-          />
-        ))}
-      </OverlayControls>
-    </OverlayShell>
+    <PlacementPanel
+      name="dui-creator"
+      visible={visible}
+      label={locales.title}
+      title={locales.title}
+      subtitle={label || subtitle}
+      footer={<ActionKeys items={items} />}
+    >
+      {isTarget ? (
+        <p className="m-0 text-xs font-medium text-muted-foreground">{phaseLabel}</p>
+      ) : (
+        <Stepper steps={[locales.step_one, locales.step_two]} current={phase === 'bottomRight' ? 1 : 0} />
+      )}
+
+      <StatusBlock status={status === 'ready' || status === 'too_far' ? status : 'aiming'} title={statusLabel} text={hint} />
+
+      <Range label={locales.distance} value={distance} max={maxDistance} status={status} />
+
+      <div className="prop-placer__meta flex flex-col gap-1 text-xs">
+        <MetaLine label={locales.position} value={`${formatCoord(coords.x)}, ${formatCoord(coords.y)}, ${formatCoord(coords.z)}`} />
+        {phase === 'bottomRight' ? <MetaLine label={locales.world_size} value={sizeLabel} /> : null}
+      </div>
+    </PlacementPanel>
   )
 }
 

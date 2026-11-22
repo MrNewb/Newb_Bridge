@@ -22,7 +22,6 @@
         "position": "위치",
         "heading": "방향",
         "distance": "거리",
-        "max_distance": "최대 거리",
         "controls": "조작",
         "controls_position": "위치",
         "controls_preview": "미리보기",
@@ -40,7 +39,6 @@
         "animation": "애니메이션",
         "cycle_animation": "애니메이션 전환",
         "clear_animation": "애니메이션 제거",
-        "raise_lower_ped": "페드 올리기 / 내리기",
         "raise_lower": "올리기 / 내리기",
         "cycle_model": "모델 전환",
         "toggle_preview_mode": "조정 항목 전환",
@@ -50,8 +48,6 @@
         "exit": "배치 종료",
         "finish": "완료",
         "undo": "마지막 실행 취소",
-        "placed": "배치됨",
-        "placed_count": "배치됨 ({count}) — 계속 배치하거나 Backspace로 완료",
         "toggle_gizmo": "기즈모로 미세 조정",
         "debug": "표면 재질 복사",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "자유 이동",
         "no_entity": "선택된 엔티티 없음",
         "keys_unbound": "기즈모 키가 할당되지 않았습니다 — 설정 > 키 바인딩 > FiveM에서 W/R/Q를 설정하세요",
-        "mode_line": "현재 모드: {mode} | {space}",
         "space_relative": "상대",
         "space_world": "월드",
         "modes": {
             "translate": "이동",
             "rotate": "회전"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - 커서 사용",
-            "cursor_disable": "[G]     - 자유 이동 (걷기)",
-            "translate": "[W]     - 이동 모드",
-            "rotate": "[R]     - 회전 모드",
-            "toggle_space": "[Q]     - 로컬/월드 공간 전환",
-            "snap_ground": "[LALT]  - 지면에 스냅",
-            "done": "[E / ENTER] - 편집 완료"
         },
         "keybinds": {
             "select_object": "기즈모 축 선택",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "존 생성기",
-        "subtitle_poly": "폴리곤 존",
-        "subtitle_box": "박스 존",
-        "subtitle_sphere": "구체 존",
-        "zone_name": "존",
         "mode_edit": "편집 중",
         "mode_onfoot": "도보",
         "mode_camera": "카메라",
         "step": "단계 크기",
-        "position": "커서 위치",
         "heading": "방향",
         "height": "높이 / 두께",
         "width": "너비",
         "length": "길이",
         "radius": "반지름",
         "points": "포인트",
-        "bounds": "최대 영역",
         "distance": "중심으로부터",
         "controls_heading": "조작",
         "toggle_mode": "편집 / 카메라 모드 전환",
@@ -145,8 +125,6 @@
         "rotate": "방향 회전",
         "add_point": "폴리곤 포인트 추가",
         "undo_point": "마지막 포인트 실행 취소",
-        "center_position": "존 중심",
-        "allow_movement": "자유 이동",
         "movement_free": "자유롭게 이동",
         "movement_locked": "제자리에 고정",
         "toggle_movement": "자유 이동 전환",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "존 생성기: 비행 / 도보 전환",
         "confirm": "존 완료",
         "cancel": "취소",
-        "name_dialog_title": "존 이름 지정",
-        "name_label": "이름",
         "errors": {
             "already_active": "이미 존을 생성 중입니다",
             "invalid_type": "존 유형은 poly, box 또는 sphere여야 합니다",
             "outside_bounds": "해당 위치는 허용 영역 밖입니다",
             "min_points": "완료하기 전에 포인트를 2개 이상 추가하세요",
             "missing_name": "생성기를 열려면 존 이름이 필요합니다",
-            "no_aim": "확인하기 전에 표면을 조준하세요",
-            "no_center": "완료하기 전에 중심 위치를 설정하세요"
+            "no_aim": "확인하기 전에 표면을 조준하세요"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "레이저 타깃",
         "position": "조준 위치",
         "distance": "거리",
-        "max_distance": "최대 거리",
         "world_size": "보드 크기",
         "controls": "조작",
         "place_corner": "모서리 설정",
@@ -188,7 +162,6 @@
         "confirm_size": "크기 확인",
         "reset_corner": "왼쪽 위 초기화",
         "exit": "배치 취소",
-        "target_placement": "[E] 텍스처에 타깃 설정  ·  [Backspace] 취소",
         "errors": {
             "already_active": "이미 DUI 표면을 배치 중입니다",
             "dui_failed": "DUI 미리보기를 만들 수 없습니다. URL을 확인하고 다시 시도하세요."
@@ -302,7 +275,6 @@
         "create_hint": "당신이 리더가 됩니다. 근처 멤버를 초대할 수 있습니다.",
         "group_name": "그룹 이름",
         "group_name_placeholder": "강도 크루, 레이스 로비…",
-        "image_url": "이미지 URL",
         "max_players": "최대 인원",
         "public_group": "둘러보기에 공개 등록",
         "create_group": "그룹 만들기",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] 로케일 '{locale}' 파일을 불러오지 못했습니다. 파일이 존재하고 유효한 JSON인지 확인하세요.",
         "version_check_start": "^2[Newb_Bridge]^7 업데이트를 확인하는 중...",
         "version_invalid_repo": "^1[Newb_Bridge] 잘못된 저장소 형식입니다. 예상 형식: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] \"{resource}\"의 유효한 버전을 찾을 수 없습니다^7",

@@ -1,0 +1,104 @@
+/*
+ * Screen scaling and the dialogue's reading layout. Loaded last so these win over the component rules.
+ *
+ * 1080p and below keep the base size. From 1440p up every surface is scaled with `zoom`, which grows text and spacing together and
+ * stays crisp. Zoom also multiplies vh and vw lengths inside the element, so the sizes that depend on the screen are divided by
+ * the same factor to keep each surface inside the window.
+ */
+:root {
+  --ui-zoom: 1;
+  --ui-edge: clamp(1rem, 2vw, 2.5rem);
+  --ui-bottom: clamp(1.5rem, 7vh, 6rem);
+  --ui-top-gap: 1.5rem;
+}
+
+@media (min-height: 1300px) {
+  :root { --ui-zoom: 1.15; }
+}
+
+/* ultrawide 1440p (3440x1440): the surfaces are otherwise small against the extra width */
+@media (min-height: 1300px) and (min-aspect-ratio: 21/10) {
+  :root { --ui-zoom: 1.25; }
+}
+
+@media (min-height: 1900px) {
+  :root { --ui-zoom: 1.75; }
+}
+
+/* the dialogue hides scrollbars everywhere except the option list, where a thin one shows there is more below */
+.dialogue-container *:not(.dialogue-options--scrollable) {
+  scrollbar-width: none;
+}
+
+.dialogue-container *:not(.dialogue-options--scrollable)::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.dialogue-options--scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: #52525b transparent;
+}
+
+/* the dialogue already reads large at 1440p, so it only scales up from 4K */
+.dialogue-container {
+  --dialogue-zoom: 1;
+  zoom: var(--dialogue-zoom);
+  width: min(var(--dialogue-max-width), calc((100vw - (var(--ui-edge) * 2)) / var(--dialogue-zoom)));
+  bottom: calc(var(--ui-bottom) / var(--dialogue-zoom));
+  max-height: calc((100vh - var(--ui-bottom) - var(--ui-top-gap)) / var(--dialogue-zoom));
+}
+
+.notify-stack {
+  zoom: var(--ui-zoom);
+  max-height: calc((100vh - var(--ui-edge) - 1rem) / var(--ui-zoom));
+}
+
+.task-hud {
+  zoom: var(--ui-zoom);
+  top: calc(18vh / var(--ui-zoom));
+  max-height: calc((100vh - 18vh - var(--ui-top-gap)) / var(--ui-zoom));
+  max-width: calc((100vw - (var(--ui-edge) * 2)) / var(--ui-zoom));
+}
+
+.task-hud.left-6 {
+  left: calc(var(--ui-edge) / var(--ui-zoom));
+}
+
+.task-hud.right-6 {
+  right: calc(var(--ui-edge) / var(--ui-zoom));
+}
+
+.task-group-menu-card {
+  zoom: var(--ui-zoom);
+  max-height: calc((100vh - (var(--ui-top-gap) * 2)) / var(--ui-zoom));
+  width: min(560px, calc((100vw - (var(--ui-edge) * 2)) / var(--ui-zoom)));
+}
+
+/* ---- dialogue reading layout ---------------------------------------------------------------------
+   The speaker name leads, the copy is set a little larger and runs a longer line so the card is used end to end,
+   and option icons share one size so they sit beside their titles instead of drifting away from them. */
+
+@media (min-height: 1900px) {
+  .dialogue-container { --dialogue-zoom: 1.5; }
+}
+
+.dialogue-title {
+  font-size: 1.375rem;
+  letter-spacing: -0.015em;
+}
+
+.dialogue-text {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.dialogue-text-content {
+  max-width: 88ch;
+}
+
+.dialogue-button-icon {
+  width: 1.25rem;
+  min-height: 1.25rem;
+}

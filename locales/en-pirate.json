@@ -22,7 +22,6 @@
         "position": "Position",
         "heading": "Headin'",
         "distance": "Distance",
-        "max_distance": "Max distance",
         "controls": "Controls",
         "controls_position": "Position",
         "controls_preview": "Preview",
@@ -40,7 +39,6 @@
         "animation": "Animation",
         "cycle_animation": "Cycle animation",
         "clear_animation": "Clear animation",
-        "raise_lower_ped": "Hoist / lower ped",
         "raise_lower": "Hoist / lower",
         "cycle_model": "Cycle model",
         "toggle_preview_mode": "Switch adjustment",
@@ -50,8 +48,6 @@
         "exit": "Abandon placer",
         "finish": "Finish",
         "undo": "Undo last",
-        "placed": "Placed",
-        "placed_count": "Placed ({count}) — keep placin' or press Backspace to finish",
         "toggle_gizmo": "Fine-tune with gizmo",
         "debug": "Copy surface material",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Free move",
         "no_entity": "No entity selected, matey",
         "keys_unbound": "Gizmo mode keys be unbound — set W/R/Q under Settings > Key Bindings > FiveM",
-        "mode_line": "Current Mode: {mode} | {space}",
         "space_relative": "Relative",
         "space_world": "World",
         "modes": {
             "translate": "Translate",
             "rotate": "Rotate"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Enable Cursor",
-            "cursor_disable": "[G]     - Free Move (walk)",
-            "translate": "[W]     - Translate Mode",
-            "rotate": "[R]     - Rotate Mode",
-            "toggle_space": "[Q]     - Toggle Local/World Space",
-            "snap_ground": "[LALT]  - Snap to the Deck",
-            "done": "[E / ENTER] - Done Editin'"
         },
         "keybinds": {
             "select_object": "Select gizmo axis",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Zone creator",
-        "subtitle_poly": "Polygon zone",
-        "subtitle_box": "Box zone",
-        "subtitle_sphere": "Sphere zone",
-        "zone_name": "Zone",
         "mode_edit": "Editin'",
         "mode_onfoot": "On deck",
         "mode_camera": "Spyglass",
         "step": "Step size",
-        "position": "Cursor position",
         "heading": "Headin'",
         "height": "Height / thickness",
         "width": "Width",
         "length": "Length",
         "radius": "Radius",
         "points": "Points",
-        "bounds": "Max area",
         "distance": "From center",
         "controls_heading": "Controls",
         "toggle_mode": "Toggle edit / spyglass mode",
@@ -145,8 +125,6 @@
         "rotate": "Spin the headin'",
         "add_point": "Add polygon point",
         "undo_point": "Undo last point",
-        "center_position": "Zone center",
-        "allow_movement": "Free movement",
         "movement_free": "Move freely",
         "movement_locked": "Locked in place",
         "toggle_movement": "Toggle free movement",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Zone creator: toggle fly / on deck",
         "confirm": "Finish zone",
         "cancel": "Belay",
-        "name_dialog_title": "Name yer zone",
-        "name_label": "Name",
         "errors": {
             "already_active": "Ye be already creatin' a zone, ye scallywag!",
             "invalid_type": "Zone type must be poly, box, or sphere",
             "outside_bounds": "That position be outside the allowed waters",
             "min_points": "Add at least 2 points before finishin'",
             "missing_name": "A zone name be required before openin' the creator",
-            "no_aim": "Aim at a surface before confirmin', savvy?",
-            "no_center": "Set a center position before finishin'"
+            "no_aim": "Aim at a surface before confirmin', savvy?"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Laser target",
         "position": "Aim position",
         "distance": "Distance",
-        "max_distance": "Max distance",
         "world_size": "Board size",
         "controls": "Controls",
         "place_corner": "Set corner",
@@ -188,7 +162,6 @@
         "confirm_size": "Aye, that size",
         "reset_corner": "Reset top-left",
         "exit": "Abandon placement",
-        "target_placement": "[E] Set target on texture  ·  [Backspace] Belay",
         "errors": {
             "already_active": "Ye be already placin' a DUI surface",
             "dui_failed": "Could not create the DUI preview. Check the URL and try again, matey."
@@ -302,7 +275,6 @@
         "create_hint": "Ye become the captain. Shipmates nearby can be invited.",
         "group_name": "Crew name",
         "group_name_placeholder": "Heist crew, race lobby…",
-        "image_url": "Image URL",
         "max_players": "Max shipmates",
         "public_group": "List publicly in browse",
         "create_group": "Create crew",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Failed to load locale file for locale '{locale}'. Check if the file exists and is a valid JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Checkin' for updates...",
         "version_invalid_repo": "^1[Newb_Bridge] Invalid repository format. Expected: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] No valid version found for \"{resource}\"^7",

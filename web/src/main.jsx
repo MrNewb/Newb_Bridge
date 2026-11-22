@@ -7,8 +7,13 @@ import TaskHud from './TaskHud.jsx'
 import NotifyToaster from './components/NotifyToaster.jsx'
 import { installPlacementMessageBuffer } from './placement-message-buffer'
 import './index.css'
-import './cef.css'
 import './components/notify.css'
+import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
+import '@fortawesome/fontawesome-free/css/solid.min.css'
+import '@fortawesome/fontawesome-free/css/regular.min.css'
+import '@fortawesome/fontawesome-free/css/brands.min.css'
+import './scale.css'
+import './cef.css'
 
 installPlacementMessageBuffer()
 

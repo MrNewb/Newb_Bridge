@@ -22,7 +22,6 @@
         "position": "Pozice",
         "heading": "Směr",
         "distance": "Vzdálenost",
-        "max_distance": "Max. vzdálenost",
         "controls": "Ovládání",
         "controls_position": "Pozice",
         "controls_preview": "Náhled",
@@ -40,7 +39,6 @@
         "animation": "Animace",
         "cycle_animation": "Přepnout animaci",
         "clear_animation": "Odebrat animaci",
-        "raise_lower_ped": "Zvednout / snížit peda",
         "raise_lower": "Zvednout / snížit",
         "cycle_model": "Přepnout model",
         "toggle_preview_mode": "Přepnout úpravu",
@@ -50,8 +48,6 @@
         "exit": "Ukončit umísťování",
         "finish": "Dokončit",
         "undo": "Vrátit poslední",
-        "placed": "Umístěno",
-        "placed_count": "Umístěno ({count}) — pokračujte v umísťování nebo stiskněte Backspace pro dokončení",
         "toggle_gizmo": "Doladit gizmo",
         "debug": "Kopírovat materiál povrchu",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Volný pohyb",
         "no_entity": "Není vybrána žádná entita",
         "keys_unbound": "Klávesy režimu gizmo nejsou přiřazeny — nastavte W/R/Q v Nastavení > Klávesové zkratky > FiveM",
-        "mode_line": "Aktuální režim: {mode} | {space}",
         "space_relative": "Relativní",
         "space_world": "Svět",
         "modes": {
             "translate": "Posun",
             "rotate": "Otočení"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Zapnout kurzor",
-            "cursor_disable": "[G]     - Volný pohyb (chůze)",
-            "translate": "[W]     - Režim posunu",
-            "rotate": "[R]     - Režim otočení",
-            "toggle_space": "[Q]     - Přepnout místní/světový prostor",
-            "snap_ground": "[LALT]  - Přichytit k zemi",
-            "done": "[E / ENTER] - Dokončit úpravy"
         },
         "keybinds": {
             "select_object": "Vybrat osu gizmo",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Tvůrce zón",
-        "subtitle_poly": "Polygonová zóna",
-        "subtitle_box": "Krabicová zóna",
-        "subtitle_sphere": "Kulová zóna",
-        "zone_name": "Zóna",
         "mode_edit": "Úpravy",
         "mode_onfoot": "Pěšky",
         "mode_camera": "Kamera",
         "step": "Velikost kroku",
-        "position": "Pozice kurzoru",
         "heading": "Směr",
         "height": "Výška / tloušťka",
         "width": "Šířka",
         "length": "Délka",
         "radius": "Poloměr",
         "points": "Body",
-        "bounds": "Max. oblast",
         "distance": "Od středu",
         "controls_heading": "Ovládání",
         "toggle_mode": "Přepnout režim úprav / kamery",
@@ -145,8 +125,6 @@
         "rotate": "Otočit směr",
         "add_point": "Přidat bod polygonu",
         "undo_point": "Vrátit poslední bod",
-        "center_position": "Střed zóny",
-        "allow_movement": "Volný pohyb",
         "movement_free": "Volný pohyb",
         "movement_locked": "Uzamčeno na místě",
         "toggle_movement": "Přepnout volný pohyb",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Tvůrce zón: přepnout let / pěšky",
         "confirm": "Dokončit zónu",
         "cancel": "Zrušit",
-        "name_dialog_title": "Pojmenujte zónu",
-        "name_label": "Název",
         "errors": {
             "already_active": "Už vytváříte zónu",
             "invalid_type": "Typ zóny musí být poly, box nebo sphere",
             "outside_bounds": "Tato pozice je mimo povolenou oblast",
             "min_points": "Před dokončením přidejte alespoň 2 body",
             "missing_name": "Před otevřením tvůrce je vyžadován název zóny",
-            "no_aim": "Před potvrzením zaměřte povrch",
-            "no_center": "Před dokončením nastavte středovou pozici"
+            "no_aim": "Před potvrzením zaměřte povrch"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Laserový cíl",
         "position": "Pozice zaměření",
         "distance": "Vzdálenost",
-        "max_distance": "Max. vzdálenost",
         "world_size": "Velikost tabule",
         "controls": "Ovládání",
         "place_corner": "Nastavit roh",
@@ -188,7 +162,6 @@
         "confirm_size": "Potvrdit velikost",
         "reset_corner": "Resetovat levý horní roh",
         "exit": "Zrušit umísťování",
-        "target_placement": "[E] Nastavit cíl na textuře  ·  [Backspace] Zrušit",
         "errors": {
             "already_active": "Už umísťujete povrch DUI",
             "dui_failed": "Náhled DUI se nepodařilo vytvořit. Zkontrolujte URL a zkuste to znovu."
@@ -302,7 +275,6 @@
         "create_hint": "Stanete se vedoucím. Členy lze pozvat v okolí.",
         "group_name": "Název skupiny",
         "group_name_placeholder": "Loupežnická posádka, závodní lobby…",
-        "image_url": "URL obrázku",
         "max_players": "Max. hráčů",
         "public_group": "Zobrazit veřejně v přehledu",
         "create_group": "Vytvořit skupinu",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Nepodařilo se načíst soubor locale pro '{locale}'. Zkontrolujte, zda soubor existuje a je platný JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Kontrola aktualizací...",
         "version_invalid_repo": "^1[Newb_Bridge] Neplatný formát repozitáře. Očekáváno: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Pro \"{resource}\" nebyla nalezena platná verze^7",

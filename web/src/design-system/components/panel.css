@@ -50,3 +50,8 @@
   background: var(--color-text);
   animation: dialogue-text-caret 900ms step-end infinite;
 }
+
+/* the card is already width-bound, so a ch cap only leaves a dead strip on the right */
+.dialogue-header-copy .dialogue-text-content {
+  max-width: none;
+}

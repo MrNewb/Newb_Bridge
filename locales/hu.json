@@ -22,7 +22,6 @@
         "position": "Pozíció",
         "heading": "Irány",
         "distance": "Távolság",
-        "max_distance": "Max. távolság",
         "controls": "Irányítás",
         "controls_position": "Pozíció",
         "controls_preview": "Előnézet",
@@ -40,7 +39,6 @@
         "animation": "Animáció",
         "cycle_animation": "Animáció váltása",
         "clear_animation": "Animáció törlése",
-        "raise_lower_ped": "Ped emelése / süllyesztése",
         "raise_lower": "Emelés / süllyesztés",
         "cycle_model": "Modell váltása",
         "toggle_preview_mode": "Beállítás váltása",
@@ -50,8 +48,6 @@
         "exit": "Kilépés az elhelyezőből",
         "finish": "Befejezés",
         "undo": "Utolsó visszavonása",
-        "placed": "Elhelyezve",
-        "placed_count": "Elhelyezve ({count}) — folytasd az elhelyezést, vagy nyomj Backspace-t a befejezéshez",
         "toggle_gizmo": "Finomhangolás gizmóval",
         "debug": "Felület anyagának másolása",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Szabad mozgás",
         "no_entity": "Nincs kiválasztott entitás",
         "keys_unbound": "A gizmo mód billentyűi nincsenek hozzárendelve — állítsd be a W/R/Q-t a Beállítások > Billentyűkiosztás > FiveM alatt",
-        "mode_line": "Jelenlegi mód: {mode} | {space}",
         "space_relative": "Relatív",
         "space_world": "Világ",
         "modes": {
             "translate": "Mozgatás",
             "rotate": "Forgatás"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Kurzor bekapcsolása",
-            "cursor_disable": "[G]     - Szabad mozgás (séta)",
-            "translate": "[W]     - Mozgatás mód",
-            "rotate": "[R]     - Forgatás mód",
-            "toggle_space": "[Q]     - Helyi/világtér váltása",
-            "snap_ground": "[LALT]  - Illesztés a talajhoz",
-            "done": "[E / ENTER] - Szerkesztés befejezése"
         },
         "keybinds": {
             "select_object": "Gizmo tengely kiválasztása",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Zónakészítő",
-        "subtitle_poly": "Sokszög zóna",
-        "subtitle_box": "Doboz zóna",
-        "subtitle_sphere": "Gömb zóna",
-        "zone_name": "Zóna",
         "mode_edit": "Szerkesztés",
         "mode_onfoot": "Gyalog",
         "mode_camera": "Kamera",
         "step": "Lépésköz",
-        "position": "Kurzorpozíció",
         "heading": "Irány",
         "height": "Magasság / vastagság",
         "width": "Szélesség",
         "length": "Hossz",
         "radius": "Sugár",
         "points": "Pontok",
-        "bounds": "Max. terület",
         "distance": "A középponttól",
         "controls_heading": "Irányítás",
         "toggle_mode": "Szerkesztés / kamera mód váltása",
@@ -145,8 +125,6 @@
         "rotate": "Irány forgatása",
         "add_point": "Sokszögpont hozzáadása",
         "undo_point": "Utolsó pont visszavonása",
-        "center_position": "Zóna középpontja",
-        "allow_movement": "Szabad mozgás",
         "movement_free": "Szabadon mozoghatsz",
         "movement_locked": "Helyben zárolva",
         "toggle_movement": "Szabad mozgás váltása",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Zónakészítő: repülés / gyalog váltása",
         "confirm": "Zóna befejezése",
         "cancel": "Mégse",
-        "name_dialog_title": "Nevezd el a zónát",
-        "name_label": "Név",
         "errors": {
             "already_active": "Már létrehozol egy zónát",
             "invalid_type": "A zóna típusa poly, box vagy sphere lehet",
             "outside_bounds": "Ez a pozíció a megengedett területen kívül van",
             "min_points": "Befejezés előtt adj hozzá legalább 2 pontot",
             "missing_name": "A készítő megnyitása előtt zónanév szükséges",
-            "no_aim": "Megerősítés előtt célozz egy felületre",
-            "no_center": "Befejezés előtt állíts be középpontot"
+            "no_aim": "Megerősítés előtt célozz egy felületre"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Lézercélpont",
         "position": "Célzási pozíció",
         "distance": "Távolság",
-        "max_distance": "Max. távolság",
         "world_size": "Tábla mérete",
         "controls": "Irányítás",
         "place_corner": "Sarok beállítása",
@@ -188,7 +162,6 @@
         "confirm_size": "Méret megerősítése",
         "reset_corner": "Bal felső sarok visszaállítása",
         "exit": "Elhelyezés megszakítása",
-        "target_placement": "[E] Cél beállítása a textúrán  ·  [Backspace] Mégse",
         "errors": {
             "already_active": "Már elhelyezel egy DUI felületet",
             "dui_failed": "A DUI előnézetet nem sikerült létrehozni. Ellenőrizd az URL-t, és próbáld újra."
@@ -302,7 +275,6 @@
         "create_hint": "Te leszel a vezető. A tagokat a közelben lehet meghívni.",
         "group_name": "Csoportnév",
         "group_name_placeholder": "Rablócsapat, versenylobby…",
-        "image_url": "Kép URL",
         "max_players": "Max. játékos",
         "public_group": "Nyilvános listázás a böngészőben",
         "create_group": "Csoport létrehozása",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Nem sikerült betölteni a locale fájlt a(z) '{locale}' nyelvhez. Ellenőrizd, hogy a fájl létezik és érvényes JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Frissítések keresése...",
         "version_invalid_repo": "^1[Newb_Bridge] Érvénytelen adattárformátum. Várt: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Nincs érvényes verzió ehhez: \"{resource}\"^7",

@@ -1,0 +1,32 @@
+/* Selawik, Microsoft, SIL Open Font License 1.1. See fonts/selawik/LICENSE-Selawik-OFL.txt */
+@font-face {
+  font-family: 'Selawik';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Selawik Light'), url('./fonts/selawik/Selawik-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Selawik';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Selawik Regular'), url('./fonts/selawik/Selawik-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Selawik';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Selawik Semibold'), url('./fonts/selawik/Selawik-Semibold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Selawik';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Selawik Bold'), url('./fonts/selawik/Selawik-Bold.woff2') format('woff2');
+}

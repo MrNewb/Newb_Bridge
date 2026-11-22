@@ -30,9 +30,3 @@ export const MANTINE_COLORS = new Set([
   'yellow',
   'orange',
 ])
-
-export const IMAGE_VARIANTS = {
-  menu: { maxWidth: 72, maxHeight: 72 },
-  option: { maxWidth: 56, maxHeight: 56 },
-  icon: { maxWidth: 20, maxHeight: 20 },
-}

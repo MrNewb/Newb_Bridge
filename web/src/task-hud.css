@@ -5,6 +5,21 @@
   animation-fill-mode: forwards;
 }
 
+.task-hud {
+  font-family: var(--font-family-ui);
+}
+
+.task-hud ul {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.task-hud__row-bar-fill {
+  transform: scaleX(var(--progress-scale, 0));
+  transform-origin: left center;
+  transition: transform 1s linear;
+}
+
 @keyframes task-hud-complete-fill {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
@@ -14,5 +29,9 @@
   .task-hud__complete-bar-fill {
     animation: none;
     transform: scaleX(1);
+  }
+
+  .task-hud__row-bar-fill {
+    transition: none;
   }
 }

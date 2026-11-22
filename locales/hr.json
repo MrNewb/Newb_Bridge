@@ -22,7 +22,6 @@
         "position": "Pozicija",
         "heading": "Smjer",
         "distance": "Udaljenost",
-        "max_distance": "Maks. udaljenost",
         "controls": "Kontrole",
         "controls_position": "Pozicija",
         "controls_preview": "Pregled",
@@ -40,7 +39,6 @@
         "animation": "Animacija",
         "cycle_animation": "Promijeni animaciju",
         "clear_animation": "Ukloni animaciju",
-        "raise_lower_ped": "Podigni / spusti peda",
         "raise_lower": "Podigni / spusti",
         "cycle_model": "Promijeni model",
         "toggle_preview_mode": "Promijeni prilagodbu",
@@ -50,8 +48,6 @@
         "exit": "Izađi iz postavljanja",
         "finish": "Završi",
         "undo": "Poništi zadnje",
-        "placed": "Postavljeno",
-        "placed_count": "Postavljeno ({count}) — nastavi postavljati ili pritisni Backspace za završetak",
         "toggle_gizmo": "Fino podesi gizmom",
         "debug": "Kopiraj materijal površine",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Slobodno kretanje",
         "no_entity": "Nije odabran entitet",
         "keys_unbound": "Tipke načina gizma nisu dodijeljene — postavi W/R/Q u Postavke > Tipkovničke prečace > FiveM",
-        "mode_line": "Trenutačni način: {mode} | {space}",
         "space_relative": "Relativno",
         "space_world": "Svijet",
         "modes": {
             "translate": "Pomicanje",
             "rotate": "Rotacija"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Uključi kursor",
-            "cursor_disable": "[G]     - Slobodno kretanje (hodanje)",
-            "translate": "[W]     - Način pomicanja",
-            "rotate": "[R]     - Način rotacije",
-            "toggle_space": "[Q]     - Prebaci lokalni/svjetski prostor",
-            "snap_ground": "[LALT]  - Prilijepi na tlo",
-            "done": "[E / ENTER] - Završi uređivanje"
         },
         "keybinds": {
             "select_object": "Odaberi os gizma",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Kreator zona",
-        "subtitle_poly": "Poligonalna zona",
-        "subtitle_box": "Kutijasta zona",
-        "subtitle_sphere": "Sferna zona",
-        "zone_name": "Zona",
         "mode_edit": "Uređivanje",
         "mode_onfoot": "Pješice",
         "mode_camera": "Kamera",
         "step": "Veličina koraka",
-        "position": "Pozicija kursora",
         "heading": "Smjer",
         "height": "Visina / debljina",
         "width": "Širina",
         "length": "Duljina",
         "radius": "Radijus",
         "points": "Točke",
-        "bounds": "Maks. područje",
         "distance": "Od središta",
         "controls_heading": "Kontrole",
         "toggle_mode": "Prebaci način uređivanja / kamere",
@@ -145,8 +125,6 @@
         "rotate": "Zakreni smjer",
         "add_point": "Dodaj točku poligona",
         "undo_point": "Poništi zadnju točku",
-        "center_position": "Središte zone",
-        "allow_movement": "Slobodno kretanje",
         "movement_free": "Slobodno se kreći",
         "movement_locked": "Zaključano na mjestu",
         "toggle_movement": "Prebaci slobodno kretanje",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Kreator zona: prebaci let / pješice",
         "confirm": "Završi zonu",
         "cancel": "Odustani",
-        "name_dialog_title": "Imenuj svoju zonu",
-        "name_label": "Naziv",
         "errors": {
             "already_active": "Već stvaraš zonu",
             "invalid_type": "Vrsta zone mora biti poly, box ili sphere",
             "outside_bounds": "Ta je pozicija izvan dopuštenog područja",
             "min_points": "Dodaj najmanje 2 točke prije završetka",
             "missing_name": "Naziv zone potreban je prije otvaranja kreatora",
-            "no_aim": "Usmjeri na površinu prije potvrde",
-            "no_center": "Postavi središnju poziciju prije završetka"
+            "no_aim": "Usmjeri na površinu prije potvrde"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Laserska meta",
         "position": "Pozicija ciljanja",
         "distance": "Udaljenost",
-        "max_distance": "Maks. udaljenost",
         "world_size": "Veličina ploče",
         "controls": "Kontrole",
         "place_corner": "Postavi kut",
@@ -188,7 +162,6 @@
         "confirm_size": "Potvrdi veličinu",
         "reset_corner": "Resetiraj gornji lijevi kut",
         "exit": "Odustani od postavljanja",
-        "target_placement": "[E] Postavi metu na teksturi  ·  [Backspace] Odustani",
         "errors": {
             "already_active": "Već postavljaš DUI površinu",
             "dui_failed": "Nije moguće stvoriti DUI pregled. Provjeri URL i pokušaj ponovno."
@@ -302,7 +275,6 @@
         "create_hint": "Postaješ vođa. Članove se može pozvati u blizini.",
         "group_name": "Naziv grupe",
         "group_name_placeholder": "Pljačkaška ekipa, utrka lobby…",
-        "image_url": "URL slike",
         "max_players": "Maks. igrača",
         "public_group": "Javno navedi u pregledu",
         "create_group": "Stvori grupu",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Nije uspjelo učitavanje locale datoteke za '{locale}'. Provjeri postoji li datoteka i je li važeći JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Provjera ažuriranja...",
         "version_invalid_repo": "^1[Newb_Bridge] Nevažeći format spremišta. Očekivano: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Nije pronađena važeća verzija za \"{resource}\"^7",

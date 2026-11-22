@@ -10,9 +10,9 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground hover:bg-primary-hover',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-zinc-700',
-        outline: 'border border-solid border-input bg-background hover:bg-accent hover:text-accent-foreground',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive-hover',
+        outline: 'border border-solid border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground',
+        ghost: 'text-foreground hover:bg-accent hover:text-accent-foreground',
+        destructive: 'bg-destructive-fill text-destructive-foreground hover:bg-destructive-hover',
         link: 'text-foreground underline-offset-4 hover:underline',
       },
       size: {
@@ -45,4 +45,6 @@ const Button = forwardRef(function Button(
   )
 })
 
+// the variants are exported next to the component on purpose (shadcn pattern)
+// eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants }

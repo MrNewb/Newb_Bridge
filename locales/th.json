@@ -22,7 +22,6 @@
         "position": "ตำแหน่ง",
         "heading": "ทิศทาง",
         "distance": "ระยะ",
-        "max_distance": "ระยะสูงสุด",
         "controls": "การควบคุม",
         "controls_position": "ตำแหน่ง",
         "controls_preview": "ตัวอย่าง",
@@ -40,7 +39,6 @@
         "animation": "แอนิเมชัน",
         "cycle_animation": "สลับแอนิเมชัน",
         "clear_animation": "ล้างแอนิเมชัน",
-        "raise_lower_ped": "ยกขึ้น / ลดลงเพด",
         "raise_lower": "ยกขึ้น / ลดลง",
         "cycle_model": "สลับโมเดล",
         "toggle_preview_mode": "สลับการปรับ",
@@ -50,8 +48,6 @@
         "exit": "ออกจากตัววาง",
         "finish": "เสร็จสิ้น",
         "undo": "เลิกทำล่าสุด",
-        "placed": "วางแล้ว",
-        "placed_count": "วางแล้ว ({count}) — วางต่อหรือกด Backspace เพื่อเสร็จสิ้น",
         "toggle_gizmo": "ปรับละเอียดด้วยกิซโม",
         "debug": "คัดลอกวัสดุพื้นผิว",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "เคลื่อนที่อิสระ",
         "no_entity": "ไม่ได้เลือกเอนทิตี",
         "keys_unbound": "ปุ่มโหมดกิซโมยังไม่ได้ผูก — ตั้ง W/R/Q ที่ การตั้งค่า > การผูกปุ่ม > FiveM",
-        "mode_line": "โหมดปัจจุบัน: {mode} | {space}",
         "space_relative": "สัมพัทธ์",
         "space_world": "โลก",
         "modes": {
             "translate": "ย้าย",
             "rotate": "หมุน"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - เปิดเคอร์เซอร์",
-            "cursor_disable": "[G]     - เคลื่อนที่อิสระ (เดิน)",
-            "translate": "[W]     - โหมดย้าย",
-            "rotate": "[R]     - โหมดหมุน",
-            "toggle_space": "[Q]     - สลับพื้นที่ท้องถิ่น/โลก",
-            "snap_ground": "[LALT]  - ติดพื้น",
-            "done": "[E / ENTER] - เสร็จสิ้นการแก้ไข"
         },
         "keybinds": {
             "select_object": "เลือกแกนกิซโม",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "ตัวสร้างโซน",
-        "subtitle_poly": "โซนรูปหลายเหลี่ยม",
-        "subtitle_box": "โซนกล่อง",
-        "subtitle_sphere": "โซนทรงกลม",
-        "zone_name": "โซน",
         "mode_edit": "กำลังแก้ไข",
         "mode_onfoot": "เดินเท้า",
         "mode_camera": "กล้อง",
         "step": "ขนาดขั้น",
-        "position": "ตำแหน่งเคอร์เซอร์",
         "heading": "ทิศทาง",
         "height": "ความสูง / ความหนา",
         "width": "ความกว้าง",
         "length": "ความยาว",
         "radius": "รัศมี",
         "points": "จุด",
-        "bounds": "พื้นที่สูงสุด",
         "distance": "จากจุดศูนย์กลาง",
         "controls_heading": "การควบคุม",
         "toggle_mode": "สลับโหมดแก้ไข / กล้อง",
@@ -145,8 +125,6 @@
         "rotate": "หมุนทิศทาง",
         "add_point": "เพิ่มจุดรูปหลายเหลี่ยม",
         "undo_point": "เลิกทำจุดล่าสุด",
-        "center_position": "จุดศูนย์กลางโซน",
-        "allow_movement": "เคลื่อนที่อิสระ",
         "movement_free": "เคลื่อนที่ได้อย่างอิสระ",
         "movement_locked": "ล็อกตำแหน่ง",
         "toggle_movement": "สลับการเคลื่อนที่อิสระ",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "ตัวสร้างโซน: สลับบิน / เดินเท้า",
         "confirm": "เสร็จสิ้นโซน",
         "cancel": "ยกเลิก",
-        "name_dialog_title": "ตั้งชื่อโซน",
-        "name_label": "ชื่อ",
         "errors": {
             "already_active": "คุณกำลังสร้างโซนอยู่แล้ว",
             "invalid_type": "ประเภทโซนต้องเป็น poly, box หรือ sphere",
             "outside_bounds": "ตำแหน่งนั้นอยู่นอกพื้นที่ที่อนุญาต",
             "min_points": "เพิ่มอย่างน้อย 2 จุดก่อนเสร็จสิ้น",
             "missing_name": "ต้องมีชื่อโซนก่อนเปิดตัวสร้าง",
-            "no_aim": "เล็งพื้นผิวก่อนยืนยัน",
-            "no_center": "ตั้งจุดศูนย์กลางก่อนเสร็จสิ้น"
+            "no_aim": "เล็งพื้นผิวก่อนยืนยัน"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "เป้าเลเซอร์",
         "position": "ตำแหน่งเล็ง",
         "distance": "ระยะ",
-        "max_distance": "ระยะสูงสุด",
         "world_size": "ขนาดบอร์ด",
         "controls": "การควบคุม",
         "place_corner": "ตั้งมุม",
@@ -188,7 +162,6 @@
         "confirm_size": "ยืนยันขนาด",
         "reset_corner": "รีเซ็ตมุมซ้ายบน",
         "exit": "ยกเลิกการวาง",
-        "target_placement": "[E] ตั้งเป้าบนเท็กซ์เจอร์  ·  [Backspace] ยกเลิก",
         "errors": {
             "already_active": "คุณกำลังวางพื้นผิว DUI อยู่แล้ว",
             "dui_failed": "สร้างตัวอย่าง DUI ไม่ได้ ตรวจสอบ URL แล้วลองอีกครั้ง"
@@ -302,7 +275,6 @@
         "create_hint": "คุณจะเป็นหัวหน้า สามารถเชิญสมาชิกใกล้ ๆ ได้",
         "group_name": "ชื่อกลุ่ม",
         "group_name_placeholder": "ทีมปล้น, ล็อบบี้แข่ง…",
-        "image_url": "URL รูปภาพ",
         "max_players": "ผู้เล่นสูงสุด",
         "public_group": "แสดงในรายการสาธารณะ",
         "create_group": "สร้างกลุ่ม",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] โหลดไฟล์ภาษาสำหรับ '{locale}' ไม่สำเร็จ ตรวจสอบว่าไฟล์มีอยู่และเป็น JSON ที่ถูกต้อง",
         "version_check_start": "^2[Newb_Bridge]^7 กำลังตรวจสอบการอัปเดต...",
         "version_invalid_repo": "^1[Newb_Bridge] รูปแบบที่เก็บไม่ถูกต้อง รูปแบบที่คาดไว้: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] ไม่พบเวอร์ชันที่ถูกต้องสำหรับ \"{resource}\"^7",

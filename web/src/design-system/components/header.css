@@ -1,8 +1,11 @@
 .dialogue-header {
   display: flex;
   align-items: flex-start;
+  flex: 0 1 auto;
   gap: var(--space-sm);
-  min-height: 44px;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .dialogue-header-copy {
@@ -11,13 +14,15 @@
   flex-direction: column;
   gap: var(--space-xs);
   min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
   padding: var(--space-md) var(--space-lg);
   border: 1px solid var(--color-border);
   border-radius: var(--dialogue-radius);
   background: var(--dialogue-surface);
 }
 
-.dialogue-back-button {
+button.dialogue-back-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +42,6 @@
   transition:
     background var(--dialogue-feedback-duration) var(--ease-out-quart),
     border-color var(--dialogue-feedback-duration) var(--ease-out-quart),
-    transform var(--dialogue-feedback-duration) var(--ease-out-quart),
     color var(--dialogue-feedback-duration) var(--ease-out-quart);
 }
 
@@ -45,11 +49,10 @@
   background: var(--dialogue-surface-hover);
   border-color: var(--color-border-hover);
   color: var(--type-info-on-soft);
-  transform: translateX(-2px);
 }
 
 .dialogue-back-button:active {
-  transform: translateX(0) scale(0.96);
+  background: var(--zinc-700);
 }
 
 .dialogue-back-button:focus,
@@ -60,13 +63,9 @@
 }
 
 .dialogue-back-icon {
-  width: 0.85em;
-  height: 0.85em;
-  transition: transform var(--dialogue-feedback-duration) var(--ease-out-quart);
-}
-
-.dialogue-back-button:hover .dialogue-back-icon {
-  transform: translateX(-1px);
+  display: block;
+  width: 1rem;
+  height: 1rem;
 }
 
 .dialogue-title {

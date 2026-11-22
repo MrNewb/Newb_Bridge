@@ -22,7 +22,6 @@
         "position": "位置",
         "heading": "朝向",
         "distance": "距離",
-        "max_distance": "最大距離",
         "controls": "操控",
         "controls_position": "位置",
         "controls_preview": "預覽",
@@ -40,7 +39,6 @@
         "animation": "動畫",
         "cycle_animation": "切換動畫",
         "clear_animation": "清除動畫",
-        "raise_lower_ped": "升高 / 降低行人",
         "raise_lower": "升高 / 降低",
         "cycle_model": "切換模型",
         "toggle_preview_mode": "切換調整項",
@@ -50,8 +48,6 @@
         "exit": "離開放置",
         "finish": "完成",
         "undo": "還原上一步",
-        "placed": "已放置",
-        "placed_count": "已放置（{count}）— 繼續放置或按 Backspace 完成",
         "toggle_gizmo": "用操控器微調",
         "debug": "複製表面材質",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "自由移動",
         "no_entity": "未選擇實體",
         "keys_unbound": "操控器按鍵未綁定 — 請在 設定 > 按鍵綁定 > FiveM 中設定 W/R/Q",
-        "mode_line": "目前模式: {mode} | {space}",
         "space_relative": "相對",
         "space_world": "世界",
         "modes": {
             "translate": "平移",
             "rotate": "旋轉"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - 啟用指標",
-            "cursor_disable": "[G]     - 自由移動（步行）",
-            "translate": "[W]     - 平移模式",
-            "rotate": "[R]     - 旋轉模式",
-            "toggle_space": "[Q]     - 切換本地/世界空間",
-            "snap_ground": "[LALT]  - 貼地",
-            "done": "[E / ENTER] - 完成編輯"
         },
         "keybinds": {
             "select_object": "選擇操控器軸向",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "區域創建器",
-        "subtitle_poly": "多邊形區域",
-        "subtitle_box": "方塊區域",
-        "subtitle_sphere": "球形區域",
-        "zone_name": "區域",
         "mode_edit": "編輯中",
         "mode_onfoot": "步行",
         "mode_camera": "鏡頭",
         "step": "步進大小",
-        "position": "指標位置",
         "heading": "朝向",
         "height": "高度 / 厚度",
         "width": "闊度",
         "length": "長度",
         "radius": "半徑",
         "points": "點",
-        "bounds": "最大範圍",
         "distance": "距中心",
         "controls_heading": "操控",
         "toggle_mode": "切換編輯 / 鏡頭模式",
@@ -145,8 +125,6 @@
         "rotate": "旋轉朝向",
         "add_point": "新增多邊形點",
         "undo_point": "還原上一個點",
-        "center_position": "區域中心",
-        "allow_movement": "自由移動",
         "movement_free": "自由移動",
         "movement_locked": "鎖定位置",
         "toggle_movement": "切換自由移動",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "區域創建器：切換飛行 / 步行",
         "confirm": "完成區域",
         "cancel": "取消",
-        "name_dialog_title": "為區域命名",
-        "name_label": "名稱",
         "errors": {
             "already_active": "你已在創建區域",
             "invalid_type": "區域類型必須是 poly、box 或 sphere",
             "outside_bounds": "該位置超出允許範圍",
             "min_points": "完成前至少新增 2 個點",
             "missing_name": "開啟創建器前需要區域名稱",
-            "no_aim": "確認前請先瞄準表面",
-            "no_center": "完成前請先設定中心位置"
+            "no_aim": "確認前請先瞄準表面"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "激光目標",
         "position": "瞄準位置",
         "distance": "距離",
-        "max_distance": "最大距離",
         "world_size": "面板尺寸",
         "controls": "操控",
         "place_corner": "設定角落",
@@ -188,7 +162,6 @@
         "confirm_size": "確認尺寸",
         "reset_corner": "重設左上角",
         "exit": "取消放置",
-        "target_placement": "[E] 在貼圖上設定目標  ·  [Backspace] 取消",
         "errors": {
             "already_active": "你已在放置 DUI 表面",
             "dui_failed": "無法創建 DUI 預覽。請檢查 URL 後再試一次。"
@@ -302,7 +275,6 @@
         "create_hint": "你會成為隊長。可以邀請附近的成員。",
         "group_name": "群組名稱",
         "group_name_placeholder": "打劫小隊、賽車大廳…",
-        "image_url": "圖片網址",
         "max_players": "人數上限",
         "public_group": "在瀏覽中公開列出",
         "create_group": "創建群組",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] 無法載入語系檔 '{locale}'。請檢查檔案是否存在且為有效 JSON。",
         "version_check_start": "^2[Newb_Bridge]^7 正在檢查更新...",
         "version_invalid_repo": "^1[Newb_Bridge] 儲存庫格式無效。應為: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] 找不到 \"{resource}\" 的有效版本^7",

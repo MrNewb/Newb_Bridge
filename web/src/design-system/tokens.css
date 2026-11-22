@@ -28,6 +28,9 @@
   --accent-foreground: #fafafa;
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
+  /* a darker red for surfaces that carry light text (4.6:1); the base red stays for text and borders on dark */
+  --destructive-fill: #dc2626;
+  --destructive-hover: #b91c1c;
   --border: #3f3f46;
   --input: #3f3f46;
   --ring: #d4d4d8;
@@ -39,6 +42,8 @@
   --warning-foreground: #422006;
   --info: #3b82f6;
   --info-foreground: #eff6ff;
+  /* a darker blue for surfaces that carry light text (4.8:1) */
+  --info-fill: #2563eb;
 
   --zinc-50: #fafafa;
   --zinc-100: #f4f4f5;
@@ -91,7 +96,7 @@
   --focus-ring: none;
   --focus-ring-inset: inset 0 0 0 1px var(--ring);
   --focus-ring-error: inset 0 0 0 1px var(--destructive);
-  --dialogue-input-min-height: 40px;
+  --dialogue-input-min-height: 44px;
   --dialogue-shadow: transparent;
   --shadow-ink: rgba(0, 0, 0, 0.5);
   --shadow-ink-soft: rgba(0, 0, 0, 0.4);
@@ -136,14 +141,12 @@
   --dialogue-option-cols: 1;
   --dialogue-options-max-height: min(42vh, 360px);
 
-  --font-family-ui: ui-sans-serif, system-ui, sans-serif;
+  --font-family-ui: Selawik, sans-serif;
   --text-meta: 0.875rem;
   --text-subtitle: 0.875rem;
   --text-label: 1rem;
   --text-body: 1rem;
   --text-icon: 0.95rem;
-  --text-kbd: 11px;
-  --text-kbd-badge: 0.625rem;
   --text-display: 1.25rem;
   --text-display-sm: 1.125rem;
   --font-weight-regular: 400;

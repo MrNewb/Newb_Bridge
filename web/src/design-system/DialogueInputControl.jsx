@@ -25,6 +25,7 @@ function DialogueInputControl({
   errorId,
   stepHintId,
   inputLocales,
+  labelHidden = false,
 }) {
   if (!input) return null
 
@@ -62,7 +63,7 @@ function DialogueInputControl({
   if (input.type === 'checkbox') {
     return (
       <>
-        <label className="dialogue-input-checkbox" htmlFor={controlId}>
+        <label className={disabled ? 'dialogue-input-checkbox is-disabled' : 'dialogue-input-checkbox'} htmlFor={controlId}>
           <input
             id={controlId}
             type="checkbox"
@@ -77,7 +78,7 @@ function DialogueInputControl({
             aria-describedby={ariaDescribedBy}
             onChange={(event) => onChange(event.target.checked)}
           />
-          <span className="dialogue-input-checkbox-label">{input.label}</span>
+          {labelHidden ? null : <span className="dialogue-input-checkbox-label">{input.label}</span>}
           <span className="dialogue-input-checkbox-state" aria-hidden="true">
             {displayValue}
           </span>

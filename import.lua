@@ -6,19 +6,17 @@
 
 Config = Config or {}
 
-local LoadResourceFile = LoadResourceFile
 local thisResource = GetCurrentResourceName()
-local hostResource = LoadResourceFile(thisResource, "settings/bridge_resources.lua") and thisResource or "Newb_Bridge"
-local isHost = thisResource == hostResource
+local isHost = GetResourceMetadata(thisResource, "newb_bridge_host", 0) == "yes"
+local hostResource = isHost and thisResource or "Newb_Bridge"
 local runtime = IsDuplicityVersion() and "server" or "client"
+local MODULE_ROOT = "resource/modules"
 
-if isHost then
-    exports("BridgeEnvironment", function()
-        return { config = Config, resource = hostResource }
-    end)
-elseif GetResourceState(hostResource) ~= "started" then
+if not isHost and GetResourceState(hostResource) ~= "started" then
     error(("^1%s imports %s, which is not started. Fix the start order in server.cfg.^0"):format(thisResource, hostResource), 0)
-else
+end
+
+if not isHost then
     Config = exports[hostResource]:BridgeEnvironment().config
 end
 
@@ -31,9 +29,6 @@ local noopModule = setmetatable({}, {
     __call = noop,
 })
 
--- Exporting a module table turns its methods into CFX funcrefs in the consumer
--- (type "table"). Wrap them as local functions so `type(bridge.inventory.registerShop)
--- == 'function'` and call sites match community_bridge.
 local function wrapHostApi(hostApi, useNoopFallback)
     if type(hostApi) ~= 'table' then return hostApi end
 
@@ -96,28 +91,13 @@ end
 
 local hostOnlyClientModules = { dispatch = true, bossmenu = true }
 
-local function moduleSources(module, provider)
-    local sources = {}
+local readHostSource ---@type fun(module: string): string?, string?
 
-    local function append(path)
-        local code = LoadResourceFile(hostResource, path)
-        if code then
-            sources[#sources + 1] = code
-        end
-        return code ~= nil
-    end
-
-    append(("modules/%s/shared.lua"):format(module))
-
-    if provider then
-        append(("modules/%s/%s/shared.lua"):format(module, provider))
-        if append(("modules/%s/%s/%s.lua"):format(module, provider, runtime)) then
-            return sources
-        end
-    end
-
-    append(("modules/%s/%s.lua"):format(module, runtime))
-    return sources
+local function fetchSource(module)
+    if readHostSource then return readHostSource(module) end
+    local found = exports[hostResource]:ModuleSource(module)
+    if not found then return end
+    return found.source, found.entry
 end
 
 local mounting = {} ---@type table<string, true>
@@ -132,24 +112,18 @@ local function mountModule(self, module)
     end
 
     local provider = providers[module]
-    local sources = moduleSources(module, provider)
+    local source, entryFile = fetchSource(module)
 
     lib.print.debug("Mounting bridge module", module, provider, runtime)
 
-    if #sources == 0 then
-        if provider then
-            print(("^3[Newb_Bridge] Module '%s' has no %s implementation for provider '%s'. Add modules/%s/%s/%s.lua, or pick a supported provider in settings/bridge_resources.lua (options are listed in settings/auto_detect.lua).^0"):format(module, runtime, provider, module, provider, runtime))
-        end
+    if not source then
         self[module] = noopModule
         mounting[module] = nil
         return noopModule
     end
 
-    local chunkName = provider
-        and ("@@%s/modules/%s/%s/%s.lua"):format(hostResource, module, provider, runtime)
-        or ("@@%s/modules/%s/%s.lua"):format(hostResource, module, runtime)
-
-    local factory, parseError = load(table.concat(sources, "\n"), chunkName, "t", _G)
+    -- errors and stack traces name the file the code really came from, which is the generic file when no provider file exists
+    local factory, parseError = load(source, ("@@%s/%s"):format(hostResource, entryFile), "t", _G)
 
     if not factory then
         mounting[module] = nil
@@ -164,13 +138,27 @@ local function mountModule(self, module)
         end
     end
 
-    -- Each consumer mounts its own notifications table, so wrap here or pause-menu
-    -- history never sees bridge.notifications.notify from other resources.
     if module == "notifications" and runtime == "client" and api ~= noopModule and type(api) == "table" and type(api.notify) == "function" then
         local showNotification = api.notify
         function api.notify(data)
-            TriggerEvent("Newb_Bridge:Client:NotifyShown", data)
+            TriggerEvent("Newb_Bridge:client:notificationShown", data)
+            TriggerEvent("Newb_Bridge:Client:NotifyShown", data) -- deprecated 2026-12-17: use Newb_Bridge:client:notificationShown
             return showNotification(data)
+        end
+    end
+
+    if module == "dispatch" and runtime == "server" and api ~= noopModule and type(api) == "table" and type(api.sendAlert) == "function" then
+        local sendDispatchAlert = api.sendAlert
+        function api.sendAlert(src, jobs, coords, data, blip, alertFlash)
+            -- Providers index data/blip directly; default them so a partial call can't throw inside the provider.
+            local ok, sent = pcall(sendDispatchAlert, src, jobs, coords, type(data) == "table" and data or {}, type(blip) == "table" and blip or {}, alertFlash)
+            if not ok then
+                print(("^1[Newb_Bridge] Dispatch provider '%s' failed: %s^0"):format(tostring(provider), tostring(sent)))
+                sent = false
+            end
+            TriggerEvent("Newb_Bridge:server:dispatchAlertSent", src, jobs, coords, data, blip, alertFlash)
+            TriggerEvent("Newb_Bridge:Server:DispatchAlert", src, jobs, coords, data, blip, alertFlash) -- deprecated 2026-12-17: use Newb_Bridge:server:dispatchAlertSent
+            return sent
         end
     end
 
@@ -202,6 +190,10 @@ local bridge = setmetatable({
                 end
             end
 
+            if index == "framework" and runtime == "client" then
+                require(("@%s/resource/utility/client/framework_cache"):format(hostResource))(api)
+            end
+
             rawset(self, index, api)
             return api
         end
@@ -225,8 +217,6 @@ if runtime == "client" then
     end
 end
 
--- utility/shared/locale.lua only loads inside the bridge resource, so consumers
--- reach bridge.locale through the host instead of parsing their own copy.
 if not isHost then
     local host = exports[hostResource]
 
@@ -242,34 +232,15 @@ end
 _ENV.bridge = bridge
 
 if isHost then
-    local function servedModule(module)
-        local api = bridge[module]
-        local waited = 0
-        while mounting[module] do
-            Wait(25)
-            waited = waited + 25
-            if waited >= 15000 then
-                mounting[module] = nil
-                print(("^1[Newb_Bridge] Timed out waiting for module '%s' to mount.^0"):format(module))
-                return rawget(bridge, module) or noopModule
-            end
-            api = rawget(bridge, module)
-        end
-        return api
-    end
-
-    exports("Framework", function()
-        return servedModule("framework")
-    end)
-    exports("Inventory", function()
-        return servedModule("inventory")
-    end)
-
-    for module in pairs(providers) do
-        Citizen.CreateThreadNow(function()
-            if rawget(bridge, module) == nil then
-                mountModule(bridge, module)
-            end
-        end)
-    end
+    require(("@%s/resource/host/host"):format(thisResource))({
+        bridge = bridge,
+        mountModule = mountModule,
+        mounting = mounting,
+        providers = providers,
+        hostResource = hostResource,
+        runtime = runtime,
+        moduleRoot = MODULE_ROOT,
+        noopModule = noopModule,
+        setSourceReader = function(reader) readHostSource = reader end,
+    })
 end

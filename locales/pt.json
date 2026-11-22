@@ -22,7 +22,6 @@
         "position": "Posição",
         "heading": "Orientação",
         "distance": "Distância",
-        "max_distance": "Distância máx.",
         "controls": "Controles",
         "controls_position": "Posição",
         "controls_preview": "Pré-visualização",
@@ -40,7 +39,6 @@
         "animation": "Animação",
         "cycle_animation": "Trocar animação",
         "clear_animation": "Remover animação",
-        "raise_lower_ped": "Subir / descer ped",
         "raise_lower": "Subir / descer",
         "cycle_model": "Trocar modelo",
         "toggle_preview_mode": "Trocar ajuste",
@@ -50,8 +48,6 @@
         "exit": "Sair do colocador",
         "finish": "Concluir",
         "undo": "Desfazer último",
-        "placed": "Colocado",
-        "placed_count": "Colocados ({count}) — continue colocando ou pressione Backspace para concluir",
         "toggle_gizmo": "Ajustar com o gizmo",
         "debug": "Copiar material da superfície",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Movimento livre",
         "no_entity": "Nenhuma entidade selecionada",
         "keys_unbound": "As teclas do modo gizmo não estão atribuídas — defina W/R/Q em Configurações > Atalhos > FiveM",
-        "mode_line": "Modo atual: {mode} | {space}",
         "space_relative": "Relativo",
         "space_world": "Mundo",
         "modes": {
             "translate": "Mover",
             "rotate": "Girar"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Ativar cursor",
-            "cursor_disable": "[G]     - Movimento livre (andar)",
-            "translate": "[W]     - Modo mover",
-            "rotate": "[R]     - Modo girar",
-            "toggle_space": "[Q]     - Alternar espaço local/mundo",
-            "snap_ground": "[LALT]  - Ajustar ao chão",
-            "done": "[E / ENTER] - Terminar edição"
         },
         "keybinds": {
             "select_object": "Selecionar eixo do gizmo",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Criador de zonas",
-        "subtitle_poly": "Zona polígono",
-        "subtitle_box": "Zona caixa",
-        "subtitle_sphere": "Zona esfera",
-        "zone_name": "Zona",
         "mode_edit": "Editando",
         "mode_onfoot": "A pé",
         "mode_camera": "Câmera",
         "step": "Tamanho do passo",
-        "position": "Posição do cursor",
         "heading": "Orientação",
         "height": "Altura / espessura",
         "width": "Largura",
         "length": "Comprimento",
         "radius": "Raio",
         "points": "Pontos",
-        "bounds": "Área máx.",
         "distance": "Do centro",
         "controls_heading": "Controles",
         "toggle_mode": "Alternar edição / câmera",
@@ -145,8 +125,6 @@
         "rotate": "Girar orientação",
         "add_point": "Adicionar ponto do polígono",
         "undo_point": "Desfazer último ponto",
-        "center_position": "Centro da zona",
-        "allow_movement": "Movimento livre",
         "movement_free": "Mover-se livremente",
         "movement_locked": "Fixo no lugar",
         "toggle_movement": "Alternar movimento livre",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Criador de zonas: alternar voar / a pé",
         "confirm": "Concluir zona",
         "cancel": "Cancelar",
-        "name_dialog_title": "Nomeie sua zona",
-        "name_label": "Nome",
         "errors": {
             "already_active": "Você já está criando uma zona",
             "invalid_type": "O tipo de zona deve ser poly, box ou sphere",
             "outside_bounds": "Essa posição está fora da área permitida",
             "min_points": "Adicione pelo menos 2 pontos antes de concluir",
             "missing_name": "É necessário um nome de zona antes de abrir o criador",
-            "no_aim": "Mire em uma superfície antes de confirmar",
-            "no_center": "Defina uma posição central antes de concluir"
+            "no_aim": "Mire em uma superfície antes de confirmar"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Alvo laser",
         "position": "Posição da mira",
         "distance": "Distância",
-        "max_distance": "Distância máx.",
         "world_size": "Tamanho do painel",
         "controls": "Controles",
         "place_corner": "Definir canto",
@@ -188,7 +162,6 @@
         "confirm_size": "Confirmar tamanho",
         "reset_corner": "Redefinir canto superior esquerdo",
         "exit": "Cancelar colocação",
-        "target_placement": "[E] Definir alvo na textura  ·  [Backspace] Cancelar",
         "errors": {
             "already_active": "Você já está colocando uma superfície DUI",
             "dui_failed": "Não foi possível criar a pré-visualização DUI. Verifique o URL e tente novamente."
@@ -302,7 +275,6 @@
         "create_hint": "Você se torna o líder. Os membros podem ser convidados nas proximidades.",
         "group_name": "Nome do grupo",
         "group_name_placeholder": "Equipe de assalto, lobby de corrida…",
-        "image_url": "URL da imagem",
         "max_players": "Máx. jogadores",
         "public_group": "Listar publicamente em Explorar",
         "create_group": "Criar grupo",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Falha ao carregar o arquivo de locale para '{locale}'. Verifique se o arquivo existe e é um JSON válido.",
         "version_check_start": "^2[Newb_Bridge]^7 Verificando atualizações...",
         "version_invalid_repo": "^1[Newb_Bridge] Formato de repositório inválido. Esperado: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Nenhuma versão válida encontrada para \"{resource}\"^7",

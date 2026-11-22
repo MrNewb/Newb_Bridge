@@ -62,3 +62,11 @@ export function parseIconProp(iconName) {
 
   return { prefix, iconName: iconNameKebab }
 }
+
+const STYLE_CLASS = { fas: 'fa-solid', far: 'fa-regular', fab: 'fa-brands' }
+
+export function iconClassName(iconName) {
+  const iconProp = parseIconProp(iconName)
+  if (!iconProp) return null
+  return `${STYLE_CLASS[iconProp.prefix]} fa-${iconProp.iconName}`
+}

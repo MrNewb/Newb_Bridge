@@ -14,11 +14,18 @@
 .dialogue-options {
   display: grid;
   grid-template-columns: repeat(var(--dialogue-option-cols), minmax(0, 1fr));
+  flex: 0 1 auto;
+  min-height: 0;
   gap: var(--space-md);
   width: 100%;
+  max-height: min(52vh, 27rem);
+  /* every row is as tall as the tallest tile (measured in dialogue.jsx), so a two line title never leaves a ragged grid */
+  grid-auto-rows: minmax(var(--dialogue-row-height, 0px), auto);
   align-items: stretch;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
+  /* the list scrolls on its own; reaching the end does not pass the wheel on to the page behind */
+  overscroll-behavior: contain;
   padding-block: var(--space-xs);
 }
 
@@ -27,39 +34,24 @@
   max-width: 100%;
 }
 
-.dialogue-options:has(.dialogue-input-picker.is-open) {
+.dialogue-options[data-open-picker] {
   overflow: visible;
 }
 
-.dialogue-options--scrollable:has(.dialogue-input-picker.is-open) {
+.dialogue-options--scrollable[data-open-picker] {
   overflow: visible;
   contain: none;
 }
 
 .dialogue-options--scrollable {
+  flex: 0 1 auto;
+  min-height: 0;
   max-height: var(--dialogue-options-max-height);
   overflow-y: auto;
   overscroll-behavior: contain;
-  content-visibility: auto;
-  contain: layout paint;
   scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-border-emphasis) transparent;
   padding-inline: var(--space-xs);
   margin-inline: calc(var(--space-xs) * -1);
-}
-
-.dialogue-options--scrollable::-webkit-scrollbar {
-  width: 6px;
-}
-
-.dialogue-options--scrollable::-webkit-scrollbar-thumb {
-  background: var(--color-border-emphasis);
-  border-radius: var(--radius-full);
-}
-
-.dialogue-options--scrollable::-webkit-scrollbar-track {
-  background: transparent;
 }
 
 /* Chip mode: compact centered labels like classic dialogue choice grids */

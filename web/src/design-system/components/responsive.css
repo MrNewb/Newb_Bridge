@@ -1,65 +1,14 @@
-@media (max-width: 1280px) {
-  .overlay-shell-card {
-    width: min(280px, calc(100vw - 32px));
-    right: var(--space-md);
-    padding: var(--space-md);
-  }
-}
-
-@media (max-height: 720px) {
-  .overlay-shell-card {
-    top: auto;
-    bottom: var(--space-md);
-    transform: none;
-    max-height: calc(100vh - 32px);
-    overflow-y: auto;
+@media (max-height: 1100px) {
+  .dialogue-header-copy {
+    max-height: min(28vh, 16rem);
   }
 
-  .prop-placer--visible .overlay-shell-card,
-  .gizmo-panel--visible .overlay-shell-card,
-  .zone-creator--visible .overlay-shell-card,
-  .dui-creator--visible .overlay-shell-card {
-    translate: 0 0;
-  }
-}
-
-@media (min-width: 2560px) {
-  .overlay-shell-card {
-    width: min(360px, calc(100vw - 64px));
-  }
-}
-
-@media (max-width: 640px) {
-  .dialogue-container {
-    width: min(94vw, var(--dialogue-max-width));
+  .dialogue-body {
+    max-height: min(32vh, 18rem);
   }
 
-  .dialogue-header + .dialogue-body,
-  .dialogue-header + .dialogue-options,
-  .dialogue-body + .dialogue-options,
-  .dialogue-stack > .dialogue-header + .dialogue-body,
-  .dialogue-stack > .dialogue-header + .dialogue-options,
-  .dialogue-stack > .dialogue-body + .dialogue-options {
-    margin-top: var(--space-lg);
-  }
-
-  .dialogue-options {
-    grid-template-columns: 1fr;
-  }
-
+  .dialogue-options,
   .dialogue-options--scrollable {
-    max-height: min(55vh, 480px);
-  }
-
-  .dialogue-body .dialogue-text {
-    padding: var(--space-md) var(--space-lg);
-  }
-
-  .dialogue-header-copy .dialogue-text {
-    padding: var(--space-xs) var(--space-xs) 0;
-  }
-
-  .dialogue-title {
-    font-size: var(--text-display-sm);
+    max-height: min(48vh, 24rem);
   }
 }

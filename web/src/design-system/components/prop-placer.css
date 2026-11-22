@@ -1,0 +1,45 @@
+/* Prop placer: placement, scaling and the slide in. Everything else is shadcn components with Tailwind classes. */
+
+.prop-placer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.prop-placer__panel {
+  position: absolute;
+  top: 50%;
+  right: calc(var(--ui-edge, 1rem) / var(--ui-zoom, 1));
+  zoom: var(--ui-zoom, 1);
+  width: min(344px, calc((100vw - (var(--ui-edge, 1rem) * 2)) / var(--ui-zoom, 1)));
+  max-height: calc((100vh - 3rem) / var(--ui-zoom, 1));
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%) translateX(12px);
+  transition:
+    opacity var(--dialogue-enter-duration) var(--ease-out-quart),
+    visibility var(--dialogue-enter-duration) var(--ease-out-quart),
+    transform var(--dialogue-enter-duration) var(--ease-out-quart);
+}
+
+.prop-placer--visible .prop-placer__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prop-placer__panel {
+    transition: none;
+  }
+}
+
+/* on short screens the numbers go, so the controls and the pinned keys keep the room */
+@media (max-height: 800px) {
+  .prop-placer__meta {
+    display: none;
+  }
+}

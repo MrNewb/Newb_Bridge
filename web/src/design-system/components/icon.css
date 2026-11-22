@@ -17,17 +17,21 @@
   transition: opacity var(--dialogue-feedback-duration) var(--ease-out-quart);
 }
 
-.dialogue-icon-svg--visible {
-  opacity: 1;
+/* base.css sets the UI font on every ::before, which would replace the icon font on the glyph */
+.dialogue-icon-font::before {
+  font-family: inherit;
 }
 
-.dialogue-icon-placeholder {
+.dialogue-icon-font {
   display: block;
   width: 1em;
   height: 1em;
-  border-radius: var(--radius-xs);
-  background: var(--dialogue-surface-top);
-  animation: dialogue-icon-placeholder-pulse 1.2s var(--ease-out-quart) infinite;
+  line-height: 1;
+  text-align: center;
+}
+
+.dialogue-icon-svg--visible {
+  opacity: 1;
 }
 
 .dialogue-icon-svg--fallback {

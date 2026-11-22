@@ -9,7 +9,7 @@ const FOCUSABLE_SELECTOR = [
 
 const OPTION_FOCUS_SELECTOR = '[data-dialogue-focus-option]:not([aria-disabled="true"]):not(:disabled)'
 
-export function getFocusableElements(container) {
+function getFocusableElements(container) {
   if (!container) return []
 
   return Array.from(container.querySelectorAll(FOCUSABLE_SELECTOR)).filter(
@@ -17,7 +17,7 @@ export function getFocusableElements(container) {
   )
 }
 
-export function getOptionFocusTargets(container) {
+function getOptionFocusTargets(container) {
   if (!container) return []
 
   return Array.from(container.querySelectorAll(OPTION_FOCUS_SELECTOR)).filter(

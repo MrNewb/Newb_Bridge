@@ -1,4 +1,4 @@
-export const INPUT_TYPES = new Set([
+const INPUT_TYPES = new Set([
   'input',
   'number',
   'checkbox',
@@ -23,7 +23,7 @@ function roundToPrecision(value, precision) {
   return Math.round(value * factor) / factor
 }
 
-export function normalizeSelectOptions(options) {
+function normalizeSelectOptions(options) {
   if (!options) return []
 
   const entries = Array.isArray(options)
@@ -111,7 +111,7 @@ export function coerceInputValue(value, input) {
   }
 }
 
-export function getInputValidationError(value, input, locales = DEFAULT_INPUT_LOCALES) {
+function getInputValidationError(value, input, locales = DEFAULT_INPUT_LOCALES) {
   if (!input || input.disabled) return null
   const label = input.label
 
@@ -255,7 +255,7 @@ export function getInitialInputValue(input) {
   return coerceInputValue(input.defaultValue, input)
 }
 
-export function clampNumericValue(value, input) {
+function clampNumericValue(value, input) {
   let next = toNumber(value, input.min ?? 0)
   if (typeof input.min === 'number') next = Math.max(input.min, next)
   if (typeof input.max === 'number') next = Math.min(input.max, next)
@@ -305,7 +305,7 @@ export function toggleMultiSelectValue(value, optionValue, input) {
   return selected
 }
 
-export function stepMultiSelectValue(value, input, direction) {
+function stepMultiSelectValue(value, input, direction) {
   const options = input.options
   if (!options.length) return Array.isArray(value) ? value : []
 
@@ -345,7 +345,7 @@ export function formatInputLocale(template, params = {}) {
   return template.replace(/\{(\w+)\}/g, (_, key) => String(params[key] ?? ''))
 }
 
-export const DEFAULT_INPUT_LOCALES = {
+const DEFAULT_INPUT_LOCALES = {
   yes: 'Yes',
   no: 'No',
   none_selected: 'None selected',

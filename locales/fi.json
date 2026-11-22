@@ -22,7 +22,6 @@
         "position": "Sijainti",
         "heading": "Suunta",
         "distance": "Etäisyys",
-        "max_distance": "Enimmäisetäisyys",
         "controls": "Ohjaus",
         "controls_position": "Sijainti",
         "controls_preview": "Esikatselu",
@@ -40,7 +39,6 @@
         "animation": "Animaatio",
         "cycle_animation": "Vaihda animaatiota",
         "clear_animation": "Tyhjennä animaatio",
-        "raise_lower_ped": "Nosta / laske pediä",
         "raise_lower": "Nosta / laske",
         "cycle_model": "Vaihda mallia",
         "toggle_preview_mode": "Vaihda säätöä",
@@ -50,8 +48,6 @@
         "exit": "Poistu sijoituksesta",
         "finish": "Valmis",
         "undo": "Kumoa viimeisin",
-        "placed": "Sijoitettu",
-        "placed_count": "Sijoitettu ({count}) — jatka sijoittamista tai paina Backspace viimeistelläksesi",
         "toggle_gizmo": "Hienosäädä gizmolla",
         "debug": "Kopioi pinnan materiaali",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Vapaa liike",
         "no_entity": "Ei valittua entiteettiä",
         "keys_unbound": "Gizmon tilanäppäimiä ei ole sidottu — aseta W/R/Q kohdassa Asetukset > Näppäinsidokset > FiveM",
-        "mode_line": "Nykyinen tila: {mode} | {space}",
         "space_relative": "Suhteellinen",
         "space_world": "Maailma",
         "modes": {
             "translate": "Siirto",
             "rotate": "Kierto"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Ota kursori käyttöön",
-            "cursor_disable": "[G]     - Vapaa liike (kävely)",
-            "translate": "[W]     - Siirtotila",
-            "rotate": "[R]     - Kiertotila",
-            "toggle_space": "[Q]     - Paikallinen/maailma-avaruus",
-            "snap_ground": "[LALT]  - Kiinnitä maahan",
-            "done": "[E / ENTER] - Lopeta muokkaus"
         },
         "keybinds": {
             "select_object": "Valitse gizmo-akseli",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Alueen luonti",
-        "subtitle_poly": "Monikulmioalue",
-        "subtitle_box": "Laatikkovyöhyke",
-        "subtitle_sphere": "Pallovyöhyke",
-        "zone_name": "Alue",
         "mode_edit": "Muokkaus",
         "mode_onfoot": "Jalan",
         "mode_camera": "Kamera",
         "step": "Askelkoko",
-        "position": "Kursorin sijainti",
         "heading": "Suunta",
         "height": "Korkeus / paksuus",
         "width": "Leveys",
         "length": "Pituus",
         "radius": "Säde",
         "points": "Pisteet",
-        "bounds": "Enimmäisala",
         "distance": "Keskipisteestä",
         "controls_heading": "Ohjaus",
         "toggle_mode": "Vaihda muokkaus- / kameratilaa",
@@ -145,8 +125,6 @@
         "rotate": "Käännä suuntaa",
         "add_point": "Lisää monikulmion piste",
         "undo_point": "Kumoa viimeisin piste",
-        "center_position": "Alueen keskipiste",
-        "allow_movement": "Vapaa liike",
         "movement_free": "Liiku vapaasti",
         "movement_locked": "Lukittu paikalleen",
         "toggle_movement": "Vaihda vapaata liikettä",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Alueen luonti: vaihda lento / jalan",
         "confirm": "Viimeistele alue",
         "cancel": "Peruuta",
-        "name_dialog_title": "Nimeä alueesi",
-        "name_label": "Nimi",
         "errors": {
             "already_active": "Luot jo aluetta",
             "invalid_type": "Alueen tyypin on oltava poly, box tai sphere",
             "outside_bounds": "Tuo sijainti on sallitun alueen ulkopuolella",
             "min_points": "Lisää vähintään 2 pistettä ennen viimeistelyä",
             "missing_name": "Alueen nimi vaaditaan ennen luonnin avaamista",
-            "no_aim": "Tähtää pintaan ennen vahvistusta",
-            "no_center": "Aseta keskipiste ennen viimeistelyä"
+            "no_aim": "Tähtää pintaan ennen vahvistusta"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Laserkohde",
         "position": "Tähtäyssijainti",
         "distance": "Etäisyys",
-        "max_distance": "Enimmäisetäisyys",
         "world_size": "Taulun koko",
         "controls": "Ohjaus",
         "place_corner": "Aseta kulma",
@@ -188,7 +162,6 @@
         "confirm_size": "Vahvista koko",
         "reset_corner": "Nollaa vasen yläkulma",
         "exit": "Peruuta sijoitus",
-        "target_placement": "[E] Aseta kohde tekstuuriin  ·  [Backspace] Peruuta",
         "errors": {
             "already_active": "Sijoitat jo DUI-pintaa",
             "dui_failed": "DUI-esikatselua ei voitu luoda. Tarkista URL ja yritä uudelleen."
@@ -302,7 +275,6 @@
         "create_hint": "Sinusta tulee johtaja. Lähellä olevia jäseniä voi kutsua.",
         "group_name": "Ryhmän nimi",
         "group_name_placeholder": "Ryöstöporukka, kisalobby…",
-        "image_url": "Kuvan URL",
         "max_players": "Enimmäispelaajat",
         "public_group": "Näytä julkisesti selaamisessa",
         "create_group": "Luo ryhmä",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Kielitiedoston lataus epäonnistui kielelle '{locale}'. Tarkista, että tiedosto on olemassa ja kelvollista JSON-muotoa.",
         "version_check_start": "^2[Newb_Bridge]^7 Tarkistetaan päivityksiä...",
         "version_invalid_repo": "^1[Newb_Bridge] Virheellinen repositoriomuoto. Odotettu: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Kelvollista versiota ei löytynyt kohteelle \"{resource}\"^7",

@@ -30,12 +30,14 @@ If you redistribute this resource, you are responsible for complying with the li
 
 | File | Upstream | License |
 |---|---|---|
-| [`utility/client/dataview.lua`](utility/client/dataview.lua) | [DemiAutomatic/object_gizmo](https://github.com/DemiAutomatic/object_gizmo/blob/main/client/dataview.lua) — adapted portions | **GPL-3.0** |
-| [`utility/client/dataview.lua`](utility/client/dataview.lua) | [citizenfx/lua](https://github.com/citizenfx/lua/blob/luaglm-dev/cfx/libs/scripts/examples/dataview.lua) — original FiveM example script | No license notice; credited by URL |
+| [`utility/client/dataview.lua`](utility/client/dataview.lua) | [overextended/ox_lib](https://github.com/overextended/ox_lib/blob/b8f5a04351b1d427e0e112150d36094e9889ec7b/modules/DataView/init.lua) — `modules/DataView/init.lua`, commit b8f5a04 | **MIT** |
 
-The DataView helper is used by the gizmo utility for matrix buffer operations.
+- Copyright © 2026 Linden ([@thelindat](https://github.com/thelindat))
+- Copyright © 2020 gottfriedleibniz ([@gottfriedleibniz](https://github.com/gottfriedleibniz)), whose [citizenfx/lua dataview example](https://github.com/citizenfx/lua/blob/luaglm-548/libs/scripts/examples/dataview.lua) ox_lib's version is adapted from
+- Modified for Newb_Bridge: the `---@meta` annotation was removed so the file loads as an ordinary module. The license notice in the file is unchanged.
+- License text: [LICENSES/MIT-DataView.txt](LICENSES/MIT-DataView.txt)
 
-The upstream citizenfx/lua example script carries no copyright header, permission notice, or license file of its own, so there is no notice to reproduce — it is credited by URL, which is how object_gizmo credits it too. The version incorporated here derives from object_gizmo's copy and is therefore conveyed under **GPL-3.0**.
+The gizmo uses it for matrix buffer operations. It is included here, not required from ox_lib, because ox_lib's v3.40.0 release zip is built without ox_lib's `modules` folder, so the module is missing on servers running that release. The file is the same code ox_lib publishes, with credit to its authors.
 
 ---
 
@@ -92,14 +94,13 @@ Two different relationships to [Renewed-Lib](https://github.com/Renewed-Scripts/
 
 The raycast change lives in [`utility/client/camera_ray.lua`](utility/client/camera_ray.lua), which the placer shares with the gizmo, zone creator and DUI tools; that helper and [`utility/client/placement_controls.lua`](utility/client/placement_controls.lua) are original to this repository.
 
-### Groups, routing buckets & player cache
+### Routing buckets & player cache
 
-Portions of the framework player cache, the group system, and interaction bucket gating follow **patterns popularized by** Renewed-Lib. Implementation code in Newb_Bridge is original (ox_lib `lib.player` routing buckets, `lib.class` snapshots, bridge API wiring).
+Portions of the framework player cache and interaction bucket gating follow **patterns popularized by** Renewed-Lib. Implementation code in Newb_Bridge is original (ox_lib `lib.player` routing buckets, `lib.class` snapshots, bridge API wiring). Newb_Bridge does not track jobs/gangs as a generic group system — job/duty tracking lives in `server_helpers.lua`'s duty cache and `player_registry.lua`'s `BridgePlayer` snapshot (`jobName`/`onDuty`) instead.
 
 | File | Renewed-Lib concept | License |
 |---|---|---|
-| [`modules/framework/player_registry.lua`](modules/framework/player_registry.lua) | Group system — cached `BridgePlayer` snapshot, `hasGroup`, char id lookup | **GPL-3.0** |
-| [`modules/framework/client_helpers.lua`](modules/framework/client_helpers.lua) | Group system — client-side group cache for local `hasGroup` | **GPL-3.0** |
+| [`modules/framework/player_registry.lua`](modules/framework/player_registry.lua) | Cached `BridgePlayer` snapshot, char id lookup | **GPL-3.0** |
 | [`modules/framework/server_helpers.lua`](modules/framework/server_helpers.lua) | Incremental `GlobalState` job counts (`newbsJobCounts`) | **GPL-3.0** |
 | [`utility/client/interaction_points.lua`](utility/client/interaction_points.lua) | Interaction `bucket` field — spawn only when player bucket matches | **GPL-3.0** |
 | [`utility/client/interactions.lua`](utility/client/interactions.lua) | `bucket` on `AddInteraction` / `UpdateInteraction` | **GPL-3.0** |
@@ -122,20 +123,17 @@ Newb_Bridge depends on [ox_lib](https://github.com/overextended/ox_lib) at runti
 
 ## Font Awesome (dialogue NUI icons)
 
-The bridge web UI registers Font Awesome icon libraries the same way [ox_lib](https://github.com/overextended/ox_lib/blob/main/web/src/main.tsx) does (`library.add` per style), then resolves Lua icon strings at runtime. Solid icons ship in `web/build/assets/icons-solid-*.js`; regular and brands are separate chunks loaded only when a name asks for that style.
+The bridge web UI draws icons with the Font Awesome Free webfonts, the same approach [ox_target](https://github.com/overextended/ox_target/blob/main/web/index.html) uses, except the stylesheet and fonts are shipped inside `web/build/assets` instead of being linked from a CDN. The stylesheet defines a class for every icon name, and the browser downloads a font file only when an icon of that style is first drawn: `fa-solid-900` (115 KB), `fa-regular-400` (19 KB) or `fa-brands-400` (110 KB).
 
 | Package | Role | License |
 |---|---|---|
-| [`@fortawesome/fontawesome-svg-core`](https://www.npmjs.com/package/@fortawesome/fontawesome-svg-core) | SVG icon registry and renderer | **MIT** |
-| [`@fortawesome/free-solid-svg-icons`](https://www.npmjs.com/package/@fortawesome/free-solid-svg-icons) | Solid icon definitions (`fas`) | **CC BY 4.0** (icons), **MIT** (code) |
-| [`@fortawesome/free-regular-svg-icons`](https://www.npmjs.com/package/@fortawesome/free-regular-svg-icons) | Regular icon definitions (`far`) | **CC BY 4.0** (icons), **MIT** (code) |
-| [`@fortawesome/free-brands-svg-icons`](https://www.npmjs.com/package/@fortawesome/free-brands-svg-icons) | Brand icon definitions (`fab`) | **CC BY 4.0** (icons), **MIT** (code) |
+| [`@fortawesome/fontawesome-free`](https://www.npmjs.com/package/@fortawesome/fontawesome-free) | Stylesheets and webfonts for solid, regular and brands icons | **CC BY 4.0** (icons), **SIL OFL 1.1** (fonts), **MIT** (code) |
 
 - Icons by [Font Awesome](https://fontawesome.com)
 - Full license: <https://fontawesome.com/license/free>
 - Attribution: include a Font Awesome notice in distributions that ship the built `web/` assets (this file satisfies that for Newb_Bridge).
 
-Implementation files: [`web/src/icons-register.js`](web/src/icons-register.js), [`web/src/icons-register-regular.js`](web/src/icons-register-regular.js), [`web/src/icons-register-brands.js`](web/src/icons-register-brands.js), [`web/src/icons.js`](web/src/icons.js), [`web/src/icon-utils.js`](web/src/icon-utils.js), [`web/src/DialogueIcon.jsx`](web/src/DialogueIcon.jsx).
+Implementation files: [`web/src/icon-utils.js`](web/src/icon-utils.js), [`web/src/DialogueIcon.jsx`](web/src/DialogueIcon.jsx).
 
 ---
 
@@ -155,9 +153,9 @@ The Lua resource is distributed under **GPL-3.0-only**. The components below are
 
 | License | Components |
 |---|---|
-| **GPL-3.0** | `dataview.lua` and `gizmo.lua` portions from [object_gizmo](https://github.com/DemiAutomatic/object_gizmo) — the strongest copyleft here, and the reason the Lua resource is GPL-3.0 |
+| **GPL-3.0** | `gizmo.lua` portions from [object_gizmo](https://github.com/DemiAutomatic/object_gizmo) — the strongest copyleft here, and the reason the Lua resource is GPL-3.0 |
 | **LGPL-3.0-or-later** | `import.lua` (ox_lib `init.lua` pattern), gizmo portions from ox_lib PR #453 — LGPL-3.0-or-later permits conveying under GPL-3.0 |
-| No notice | citizenfx/lua DataView example — no license notice upstream; reached this project via object_gizmo, so conveyed under GPL-3.0 |
+| **MIT** | `dataview.lua` from ox_lib's DataView module (Linden, gottfriedleibniz) — MIT permits conveying under GPL-3.0; its notice is kept in the file |
 
 ### Credited concepts (no license obligation)
 
@@ -177,8 +175,7 @@ The third-party code bundled into it is permissively licensed, and each package'
 | Package | Role | License |
 |---|---|---|
 | [React](https://react.dev) and React-DOM | UI runtime | **MIT** |
-| [`@fortawesome/fontawesome-svg-core`](https://www.npmjs.com/package/@fortawesome/fontawesome-svg-core) | SVG icon registry and renderer | **MIT** |
-| Font Awesome Free icon packs (`fas`, `far`, `fab`) | Icon definitions | **CC BY 4.0** (icons), **MIT** (code) |
+| Font Awesome Free (`@fortawesome/fontawesome-free`) | Icon stylesheets and webfonts | **CC BY 4.0** (icons), **SIL OFL 1.1** (fonts), **MIT** (code) |
 
 ### Runtime dependencies (not bundled)
 

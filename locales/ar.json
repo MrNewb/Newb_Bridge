@@ -22,7 +22,6 @@
         "position": "الموضع",
         "heading": "الاتجاه",
         "distance": "المسافة",
-        "max_distance": "أقصى مسافة",
         "controls": "التحكم",
         "controls_position": "الموضع",
         "controls_preview": "المعاينة",
@@ -40,7 +39,6 @@
         "animation": "الحركة",
         "cycle_animation": "تبديل الحركة",
         "clear_animation": "إزالة الحركة",
-        "raise_lower_ped": "رفع / خفض الشخصية",
         "raise_lower": "رفع / خفض",
         "cycle_model": "تبديل النموذج",
         "toggle_preview_mode": "تبديل الضبط",
@@ -50,8 +48,6 @@
         "exit": "الخروج من أداة الوضع",
         "finish": "إنهاء",
         "undo": "تراجع عن الأخير",
-        "placed": "تم الوضع",
-        "placed_count": "تم وضع ({count}) — تابع الوضع أو اضغط Backspace للإنهاء",
         "toggle_gizmo": "ضبط دقيق بالجيزمو",
         "debug": "نسخ مادة السطح",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "حركة حرة",
         "no_entity": "لم يُحدد أي كيان",
         "keys_unbound": "مفاتيح وضع الجيزمو غير معيّنة — اضبط W/R/Q من الإعدادات > تعيين المفاتيح > FiveM",
-        "mode_line": "الوضع الحالي: {mode} | {space}",
         "space_relative": "نسبي",
         "space_world": "عالمي",
         "modes": {
             "translate": "نقل",
             "rotate": "دوران"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - تفعيل المؤشر",
-            "cursor_disable": "[G]     - حركة حرة (مشي)",
-            "translate": "[W]     - وضع النقل",
-            "rotate": "[R]     - وضع الدوران",
-            "toggle_space": "[Q]     - تبديل المساحة المحلية/العالمية",
-            "snap_ground": "[LALT]  - محاذاة مع الأرض",
-            "done": "[E / ENTER] - إنهاء التعديل"
         },
         "keybinds": {
             "select_object": "تحديد محور الجيزمو",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "منشئ المناطق",
-        "subtitle_poly": "منطقة مضلعة",
-        "subtitle_box": "منطقة صندوقية",
-        "subtitle_sphere": "منطقة كروية",
-        "zone_name": "منطقة",
         "mode_edit": "تحرير",
         "mode_onfoot": "سيراً",
         "mode_camera": "كاميرا",
         "step": "حجم الخطوة",
-        "position": "موضع المؤشر",
         "heading": "الاتجاه",
         "height": "الارتفاع / السُمك",
         "width": "العرض",
         "length": "الطول",
         "radius": "نصف القطر",
         "points": "النقاط",
-        "bounds": "أقصى مساحة",
         "distance": "من المركز",
         "controls_heading": "التحكم",
         "toggle_mode": "تبديل وضع التحرير / الكاميرا",
@@ -145,8 +125,6 @@
         "rotate": "تدوير الاتجاه",
         "add_point": "إضافة نقطة مضلع",
         "undo_point": "تراجع عن آخر نقطة",
-        "center_position": "مركز المنطقة",
-        "allow_movement": "حركة حرة",
         "movement_free": "تحرك بحرية",
         "movement_locked": "مثبّت في المكان",
         "toggle_movement": "تبديل الحركة الحرة",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "منشئ المناطق: تبديل الطيران / السير",
         "confirm": "إنهاء المنطقة",
         "cancel": "إلغاء",
-        "name_dialog_title": "سمِّ منطقتك",
-        "name_label": "الاسم",
         "errors": {
             "already_active": "أنت بالفعل تنشئ منطقة",
             "invalid_type": "يجب أن يكون نوع المنطقة poly أو box أو sphere",
             "outside_bounds": "هذا الموضع خارج المنطقة المسموح بها",
             "min_points": "أضف نقطتين على الأقل قبل الإنهاء",
             "missing_name": "يلزم اسم للمنطقة قبل فتح المنشئ",
-            "no_aim": "وجّه نحو سطح قبل التأكيد",
-            "no_center": "حدد موضع المركز قبل الإنهاء"
+            "no_aim": "وجّه نحو سطح قبل التأكيد"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "هدف الليزر",
         "position": "موضع التصويب",
         "distance": "المسافة",
-        "max_distance": "أقصى مسافة",
         "world_size": "حجم اللوحة",
         "controls": "التحكم",
         "place_corner": "تعيين الزاوية",
@@ -188,7 +162,6 @@
         "confirm_size": "تأكيد الحجم",
         "reset_corner": "إعادة تعيين الزاوية العلوية اليسرى",
         "exit": "إلغاء الوضع",
-        "target_placement": "[E] تعيين الهدف على النسيج  ·  [Backspace] إلغاء",
         "errors": {
             "already_active": "أنت بالفعل تضع سطح DUI",
             "dui_failed": "تعذر إنشاء معاينة DUI. تحقق من الرابط وحاول مرة أخرى."
@@ -302,7 +275,6 @@
         "create_hint": "تصبح القائد. يمكن دعوة الأعضاء القريبين.",
         "group_name": "اسم المجموعة",
         "group_name_placeholder": "طاقم سطو، ردهة سباق…",
-        "image_url": "رابط الصورة",
         "max_players": "أقصى عدد لاعبين",
         "public_group": "إدراجها علناً في التصفح",
         "create_group": "إنشاء المجموعة",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] فشل تحميل ملف اللغة للغة '{locale}'. تحقق من وجود الملف وأنه JSON صالح.",
         "version_check_start": "^2[Newb_Bridge]^7 جارٍ التحقق من التحديثات...",
         "version_invalid_repo": "^1[Newb_Bridge] تنسيق المستودع غير صالح. المتوقع: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] لم يُعثر على إصدار صالح لـ \"{resource}\"^7",

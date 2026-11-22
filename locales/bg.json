@@ -22,7 +22,6 @@
         "position": "Позиция",
         "heading": "Посока",
         "distance": "Разстояние",
-        "max_distance": "Макс. разстояние",
         "controls": "Управление",
         "controls_position": "Позиция",
         "controls_preview": "Преглед",
@@ -40,7 +39,6 @@
         "animation": "Анимация",
         "cycle_animation": "Смени анимацията",
         "clear_animation": "Премахни анимацията",
-        "raise_lower_ped": "Вдигни / спусни ped",
         "raise_lower": "Вдигни / спусни",
         "cycle_model": "Смени модела",
         "toggle_preview_mode": "Смени настройката",
@@ -50,8 +48,6 @@
         "exit": "Изход от поставянето",
         "finish": "Готово",
         "undo": "Отмени последното",
-        "placed": "Поставено",
-        "placed_count": "Поставено ({count}) — продължи да поставяш или натисни Backspace за край",
         "toggle_gizmo": "Фина настройка с gizmo",
         "debug": "Копирай материала на повърхността",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Свободно движение",
         "no_entity": "Няма избрана единица",
         "keys_unbound": "Клавишите за режим gizmo не са зададени — задай W/R/Q в Настройки > Клавишни комбинации > FiveM",
-        "mode_line": "Текущ режим: {mode} | {space}",
         "space_relative": "Относително",
         "space_world": "Свят",
         "modes": {
             "translate": "Преместване",
             "rotate": "Завъртане"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Включи курсора",
-            "cursor_disable": "[G]     - Свободно движение (ходене)",
-            "translate": "[W]     - Режим преместване",
-            "rotate": "[R]     - Режим завъртане",
-            "toggle_space": "[Q]     - Превключи локално/световно пространство",
-            "snap_ground": "[LALT]  - Залепи към земята",
-            "done": "[E / ENTER] - Край на редактирането"
         },
         "keybinds": {
             "select_object": "Избери ос на gizmo",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Създател на зони",
-        "subtitle_poly": "Полигонална зона",
-        "subtitle_box": "Кутиевидна зона",
-        "subtitle_sphere": "Сферична зона",
-        "zone_name": "Зона",
         "mode_edit": "Редактиране",
         "mode_onfoot": "Пеша",
         "mode_camera": "Камера",
         "step": "Размер на стъпката",
-        "position": "Позиция на курсора",
         "heading": "Посока",
         "height": "Височина / дебелина",
         "width": "Ширина",
         "length": "Дължина",
         "radius": "Радиус",
         "points": "Точки",
-        "bounds": "Макс. област",
         "distance": "От центъра",
         "controls_heading": "Управление",
         "toggle_mode": "Превключи режим редактиране / камера",
@@ -145,8 +125,6 @@
         "rotate": "Завърти посоката",
         "add_point": "Добави точка на полигона",
         "undo_point": "Отмени последната точка",
-        "center_position": "Център на зоната",
-        "allow_movement": "Свободно движение",
         "movement_free": "Движи се свободно",
         "movement_locked": "Заключен на място",
         "toggle_movement": "Превключи свободното движение",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Създател на зони: превключи полет / пеша",
         "confirm": "Завърши зоната",
         "cancel": "Отказ",
-        "name_dialog_title": "Именувай зоната",
-        "name_label": "Име",
         "errors": {
             "already_active": "Вече създаваш зона",
             "invalid_type": "Типът на зоната трябва да е poly, box или sphere",
             "outside_bounds": "Тази позиция е извън разрешената област",
             "min_points": "Добави поне 2 точки преди да завършиш",
             "missing_name": "Нужно е име на зона преди отваряне на създателя",
-            "no_aim": "Насочи към повърхност преди потвърждение",
-            "no_center": "Задай централна позиция преди да завършиш"
+            "no_aim": "Насочи към повърхност преди потвърждение"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Лазерна цел",
         "position": "Позиция на прицелване",
         "distance": "Разстояние",
-        "max_distance": "Макс. разстояние",
         "world_size": "Размер на таблото",
         "controls": "Управление",
         "place_corner": "Задай ъгъл",
@@ -188,7 +162,6 @@
         "confirm_size": "Потвърди размера",
         "reset_corner": "Нулирай горния ляв ъгъл",
         "exit": "Откажи поставянето",
-        "target_placement": "[E] Задай цел върху текстурата  ·  [Backspace] Отказ",
         "errors": {
             "already_active": "Вече поставяш DUI повърхност",
             "dui_failed": "Не можа да се създаде прегледът на DUI. Провери URL адреса и опитай отново."
@@ -302,7 +275,6 @@
         "create_hint": "Ставаш лидер. Членове могат да се канят наблизо.",
         "group_name": "Име на групата",
         "group_name_placeholder": "Обирски екип, състезателно лоби…",
-        "image_url": "URL на изображение",
         "max_players": "Макс. играчи",
         "public_group": "Покажи публично в списъка",
         "create_group": "Създай група",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Неуспешно зареждане на locale файла за '{locale}'. Провери дали файлът съществува и е валиден JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Проверка за обновления...",
         "version_invalid_repo": "^1[Newb_Bridge] Невалиден формат на хранилището. Очаквано: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Не е намерена валидна версия за \"{resource}\"^7",

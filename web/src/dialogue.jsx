@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import DialogueOptionButton from './DialogueOptionButton'
 import DialogueImage from './design-system/DialogueImage'
 import DialogueMarkdown from './dialogue-markdown'
@@ -16,15 +16,14 @@ import {
   stepInputValue,
   usesArrowStepping,
 } from './design-system/input-utils.js'
-import { isImageUrl } from './design-system/image-utils.js'
 import {
   getInitialFocusTarget,
   moveOptionFocus,
   trapFocus,
 } from './dialogue-a11y'
 import { useTypewriter } from './design-system/useTypewriter.js'
-import { preloadSolidIcons } from './icons'
 import { fetchNui } from './fetch'
+import { hideRootIfIdle, showRoot } from './nui-visibility'
 import './dialogue.css'
 
 const CLOSE_DURATION_MS = 220
@@ -163,10 +162,6 @@ function buildInitialInputValues(options) {
   return values
 }
 
-function getRootElement() {
-  return document.getElementById('root')
-}
-
 function BackIcon() {
   return (
     <svg className="dialogue-back-icon" viewBox="0 0 320 512" aria-hidden="true">
@@ -205,6 +200,7 @@ function Dialogue() {
   const pendingOptionKeyRef = useRef(null)
   const isOpenRef = useRef(false)
   const containerRef = useRef(null)
+  const optionsRef = useRef(null)
   const previousFocusRef = useRef(null)
 
   const { visibleText, isComplete: isTextComplete, isTyping } = useTypewriter(currentText, {
@@ -242,7 +238,7 @@ function Dialogue() {
       setOptionsRevealed(false)
       activeSessionRef.current = ''
       setCanGoBack(false)
-      getRootElement()?.classList.add('hidden')
+      hideRootIfIdle()
       closeTimerRef.current = null
     }, CLOSE_DURATION_MS)
   }, [clearCloseTimer])
@@ -250,14 +246,7 @@ function Dialogue() {
   const openDialogue = useCallback((payload) => {
     clearCloseTimer()
 
-    const iconNames = payload.options.flatMap((option) => {
-      const names = []
-      if (option.icon && !option.iconIsUrl) names.push(option.icon)
-      if (option.input?.icon && !isImageUrl(option.input.icon)) names.push(option.input.icon)
-      return names
-    })
-
-    getRootElement()?.classList.remove('hidden')
+    showRoot()
     setContentPhase(isOpenRef.current ? 'swap' : 'enter')
     setIsClosing(false)
     setIsOpen(true)
@@ -282,10 +271,6 @@ function Dialogue() {
     activeSessionRef.current = payload.sessionId
     setTextVersion((version) => version + 1)
     setOptionsVersion((version) => version + 1)
-
-    if (iconNames.length > 0) {
-      preloadSolidIcons(iconNames)
-    }
   }, [clearCloseTimer])
 
   const requestClose = useCallback(async () => {
@@ -488,6 +473,38 @@ function Dialogue() {
     previousFocusRef.current = null
   }, [isOpen, isClosing])
 
+  // Every tile in a list is as tall as the tallest one: measure them at their natural height, then hand that to the grid.
+  useLayoutEffect(() => {
+    const list = optionsRef.current
+    if (!list) return undefined
+
+    const measure = () => {
+      list.style.removeProperty('--dialogue-row-height')
+      let tallest = 0
+      list.querySelectorAll(':scope > .dialogue-button').forEach((tile) => {
+        tallest = Math.max(tallest, tile.offsetHeight)
+      })
+      if (tallest > 0) list.style.setProperty('--dialogue-row-height', `${tallest}px`)
+    }
+
+    measure()
+    const frame = window.requestAnimationFrame(measure)
+    const fonts = document.fonts?.ready
+    if (fonts) fonts.then(measure).catch(() => {})
+    // a resize can change the column count, and with it how tall each tile wraps
+    let resizeFrame = 0
+    const onResize = () => {
+      window.cancelAnimationFrame(resizeFrame)
+      resizeFrame = window.requestAnimationFrame(measure)
+    }
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.cancelAnimationFrame(resizeFrame)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [dialogueOptions, optionsVersion, isOpen])
+
   const optionsLayout = useMemo(
     () => getOptionsLayout(dialogueOptions.length),
     [dialogueOptions.length],
@@ -577,7 +594,7 @@ function Dialogue() {
         {inputValidationMessage
           || (pendingOption ? formatLocale(locales.processing, pendingOption.title) : '')}
       </div>
-      <div className="dialogue-frame">
+      <div className={canGoBack ? 'dialogue-frame' : 'dialogue-frame dialogue-frame--no-back'}>
         {canGoBack && (
           <button
             type="button"
@@ -634,6 +651,7 @@ function Dialogue() {
       {dialogueOptions.length > 0 && (
         <div
           key={optionsVersion}
+          ref={optionsRef}
           className={[
             'dialogue-options',
             'dialogue-options--chips',

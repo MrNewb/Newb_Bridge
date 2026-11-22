@@ -22,7 +22,6 @@
         "position": "位置",
         "heading": "朝向",
         "distance": "距离",
-        "max_distance": "最大距离",
         "controls": "操作",
         "controls_position": "位置",
         "controls_preview": "预览",
@@ -40,7 +39,6 @@
         "animation": "动画",
         "cycle_animation": "切换动画",
         "clear_animation": "清除动画",
-        "raise_lower_ped": "升高 / 降低行人",
         "raise_lower": "升高 / 降低",
         "cycle_model": "切换模型",
         "toggle_preview_mode": "切换调整项",
@@ -50,8 +48,6 @@
         "exit": "退出放置",
         "finish": "完成",
         "undo": "撤销上一步",
-        "placed": "已放置",
-        "placed_count": "已放置（{count}）— 继续放置或按 Backspace 完成",
         "toggle_gizmo": "用操控器微调",
         "debug": "复制表面材质",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "自由移动",
         "no_entity": "未选中实体",
         "keys_unbound": "操控器按键未绑定 — 请在 设置 > 按键绑定 > FiveM 中设置 W/R/Q",
-        "mode_line": "当前模式: {mode} | {space}",
         "space_relative": "相对",
         "space_world": "世界",
         "modes": {
             "translate": "平移",
             "rotate": "旋转"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - 启用光标",
-            "cursor_disable": "[G]     - 自由移动（行走）",
-            "translate": "[W]     - 平移模式",
-            "rotate": "[R]     - 旋转模式",
-            "toggle_space": "[Q]     - 切换本地/世界空间",
-            "snap_ground": "[LALT]  - 吸附到地面",
-            "done": "[E / ENTER] - 完成编辑"
         },
         "keybinds": {
             "select_object": "选择操控器轴向",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "区域创建器",
-        "subtitle_poly": "多边形区域",
-        "subtitle_box": "方块区域",
-        "subtitle_sphere": "球形区域",
-        "zone_name": "区域",
         "mode_edit": "编辑中",
         "mode_onfoot": "步行",
         "mode_camera": "镜头",
         "step": "步长",
-        "position": "光标位置",
         "heading": "朝向",
         "height": "高度 / 厚度",
         "width": "宽度",
         "length": "长度",
         "radius": "半径",
         "points": "顶点",
-        "bounds": "最大范围",
         "distance": "距中心",
         "controls_heading": "操作",
         "toggle_mode": "切换编辑 / 镜头模式",
@@ -145,8 +125,6 @@
         "rotate": "旋转朝向",
         "add_point": "添加多边形顶点",
         "undo_point": "撤销上一个顶点",
-        "center_position": "区域中心",
-        "allow_movement": "自由移动",
         "movement_free": "自由移动",
         "movement_locked": "锁定位置",
         "toggle_movement": "切换自由移动",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "区域创建器：切换飞行 / 步行",
         "confirm": "完成区域",
         "cancel": "取消",
-        "name_dialog_title": "为区域命名",
-        "name_label": "名称",
         "errors": {
             "already_active": "你已在创建区域",
             "invalid_type": "区域类型必须是 poly、box 或 sphere",
             "outside_bounds": "该位置超出允许范围",
             "min_points": "完成前至少添加 2 个顶点",
             "missing_name": "打开创建器前需要区域名称",
-            "no_aim": "确认前请先瞄准表面",
-            "no_center": "完成前请先设置中心位置"
+            "no_aim": "确认前请先瞄准表面"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "激光目标",
         "position": "瞄准位置",
         "distance": "距离",
-        "max_distance": "最大距离",
         "world_size": "面板尺寸",
         "controls": "操作",
         "place_corner": "设置角落",
@@ -188,7 +162,6 @@
         "confirm_size": "确认尺寸",
         "reset_corner": "重置左上角",
         "exit": "取消放置",
-        "target_placement": "[E] 在纹理上设置目标  ·  [Backspace] 取消",
         "errors": {
             "already_active": "你已在放置 DUI 表面",
             "dui_failed": "无法创建 DUI 预览。请检查 URL 后重试。"
@@ -302,7 +275,6 @@
         "create_hint": "你将成为队长。可以邀请附近的成员。",
         "group_name": "组名",
         "group_name_placeholder": "抢劫小队、竞速大厅…",
-        "image_url": "图片 URL",
         "max_players": "人数上限",
         "public_group": "在浏览中公开列出",
         "create_group": "创建组",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] 无法加载语言文件 '{locale}'。请检查文件是否存在且为有效 JSON。",
         "version_check_start": "^2[Newb_Bridge]^7 正在检查更新...",
         "version_invalid_repo": "^1[Newb_Bridge] 仓库格式无效。应为: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] 未找到 \"{resource}\" 的有效版本^7",

@@ -22,7 +22,6 @@
         "position": "Poziție",
         "heading": "Orientare",
         "distance": "Distanță",
-        "max_distance": "Distanță max.",
         "controls": "Controale",
         "controls_position": "Poziție",
         "controls_preview": "Previzualizare",
@@ -40,7 +39,6 @@
         "animation": "Animație",
         "cycle_animation": "Schimbă animația",
         "clear_animation": "Șterge animația",
-        "raise_lower_ped": "Ridică / coboară ped-ul",
         "raise_lower": "Ridică / coboară",
         "cycle_model": "Schimbă modelul",
         "toggle_preview_mode": "Schimbă ajustarea",
@@ -50,8 +48,6 @@
         "exit": "Ieși din plasare",
         "finish": "Finalizează",
         "undo": "Anulează ultimul",
-        "placed": "Plasat",
-        "placed_count": "Plasat ({count}) — continuă plasarea sau apasă Backspace pentru a finaliza",
         "toggle_gizmo": "Ajustează precis cu gizmo",
         "debug": "Copiază materialul suprafeței",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Mișcare liberă",
         "no_entity": "Nicio entitate selectată",
         "keys_unbound": "Tastele modului gizmo nu sunt atribuite — setează W/R/Q în Setări > Asocieri taste > FiveM",
-        "mode_line": "Mod curent: {mode} | {space}",
         "space_relative": "Relativ",
         "space_world": "Lume",
         "modes": {
             "translate": "Translație",
             "rotate": "Rotație"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Activează cursorul",
-            "cursor_disable": "[G]     - Mișcare liberă (mers)",
-            "translate": "[W]     - Mod translație",
-            "rotate": "[R]     - Mod rotație",
-            "toggle_space": "[Q]     - Comută spațiul local/lume",
-            "snap_ground": "[LALT]  - Atașează de sol",
-            "done": "[E / ENTER] - Termină editarea"
         },
         "keybinds": {
             "select_object": "Selectează axa gizmo",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Creator de zone",
-        "subtitle_poly": "Zonă poligon",
-        "subtitle_box": "Zonă cutie",
-        "subtitle_sphere": "Zonă sferă",
-        "zone_name": "Zonă",
         "mode_edit": "Editare",
         "mode_onfoot": "Pe jos",
         "mode_camera": "Cameră",
         "step": "Dimensiune pas",
-        "position": "Poziția cursorului",
         "heading": "Orientare",
         "height": "Înălțime / grosime",
         "width": "Lățime",
         "length": "Lungime",
         "radius": "Rază",
         "points": "Puncte",
-        "bounds": "Arie max.",
         "distance": "De la centru",
         "controls_heading": "Controale",
         "toggle_mode": "Comută modul editare / cameră",
@@ -145,8 +125,6 @@
         "rotate": "Rotește orientarea",
         "add_point": "Adaugă punct de poligon",
         "undo_point": "Anulează ultimul punct",
-        "center_position": "Centrul zonei",
-        "allow_movement": "Mișcare liberă",
         "movement_free": "Mișcă-te liber",
         "movement_locked": "Blocat pe loc",
         "toggle_movement": "Comută mișcarea liberă",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Creator de zone: comută zbor / pe jos",
         "confirm": "Finalizează zona",
         "cancel": "Anulează",
-        "name_dialog_title": "Numește zona",
-        "name_label": "Nume",
         "errors": {
             "already_active": "Creezi deja o zonă",
             "invalid_type": "Tipul zonei trebuie să fie poly, box sau sphere",
             "outside_bounds": "Această poziție este în afara ariei permise",
             "min_points": "Adaugă cel puțin 2 puncte înainte de finalizare",
             "missing_name": "Este necesar un nume de zonă înainte de a deschide creatorul",
-            "no_aim": "Țintește o suprafață înainte de confirmare",
-            "no_center": "Setează o poziție centrală înainte de finalizare"
+            "no_aim": "Țintește o suprafață înainte de confirmare"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Țintă laser",
         "position": "Poziție de țintire",
         "distance": "Distanță",
-        "max_distance": "Distanță max.",
         "world_size": "Dimensiunea tablei",
         "controls": "Controale",
         "place_corner": "Setează colțul",
@@ -188,7 +162,6 @@
         "confirm_size": "Confirmă dimensiunea",
         "reset_corner": "Resetează stânga-sus",
         "exit": "Anulează plasarea",
-        "target_placement": "[E] Setează ținta pe textură  ·  [Backspace] Anulează",
         "errors": {
             "already_active": "Plasezi deja o suprafață DUI",
             "dui_failed": "Nu s-a putut crea previzualizarea DUI. Verifică URL-ul și încearcă din nou."
@@ -302,7 +275,6 @@
         "create_hint": "Devii lider. Membrii pot fi invitați în apropiere.",
         "group_name": "Numele grupului",
         "group_name_placeholder": "Echipă jaf, lobby de curse…",
-        "image_url": "URL imagine",
         "max_players": "Jucători max.",
         "public_group": "Listează public în răsfoire",
         "create_group": "Creează grupul",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Nu s-a putut încărca fișierul locale pentru '{locale}'. Verifică dacă fișierul există și este un JSON valid.",
         "version_check_start": "^2[Newb_Bridge]^7 Se caută actualizări...",
         "version_invalid_repo": "^1[Newb_Bridge] Format de depozit invalid. Așteptat: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Nicio versiune validă găsită pentru \"{resource}\"^7",

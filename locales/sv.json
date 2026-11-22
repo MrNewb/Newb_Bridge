@@ -22,7 +22,6 @@
         "position": "Position",
         "heading": "Riktning",
         "distance": "Avstånd",
-        "max_distance": "Maxavstånd",
         "controls": "Kontroller",
         "controls_position": "Position",
         "controls_preview": "Förhandsvisning",
@@ -40,7 +39,6 @@
         "animation": "Animation",
         "cycle_animation": "Byt animation",
         "clear_animation": "Rensa animation",
-        "raise_lower_ped": "Höj / sänk ped",
         "raise_lower": "Höj / sänk",
         "cycle_model": "Byt modell",
         "toggle_preview_mode": "Byt justering",
@@ -50,8 +48,6 @@
         "exit": "Avsluta placering",
         "finish": "Klar",
         "undo": "Ångra senaste",
-        "placed": "Placerad",
-        "placed_count": "Placerade ({count}) — fortsätt placera eller tryck Backspace för att avsluta",
         "toggle_gizmo": "Finjustera med gizmo",
         "debug": "Kopiera ytmaterial",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Fri rörelse",
         "no_entity": "Ingen entitet vald",
         "keys_unbound": "Gizmo-tangenter är inte bundna — ställ in W/R/Q under Inställningar > Tangentbindningar > FiveM",
-        "mode_line": "Aktuellt läge: {mode} | {space}",
         "space_relative": "Relativ",
         "space_world": "Värld",
         "modes": {
             "translate": "Förflytta",
             "rotate": "Rotera"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Aktivera markör",
-            "cursor_disable": "[G]     - Fri rörelse (gå)",
-            "translate": "[W]     - Förflyttningsläge",
-            "rotate": "[R]     - Rotationsläge",
-            "toggle_space": "[Q]     - Växla lokalt/världsrum",
-            "snap_ground": "[LALT]  - Fäst mot marken",
-            "done": "[E / ENTER] - Avsluta redigering"
         },
         "keybinds": {
             "select_object": "Välj gizmo-axel",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Zonskapare",
-        "subtitle_poly": "Polygonzon",
-        "subtitle_box": "Boxzon",
-        "subtitle_sphere": "Sfärzon",
-        "zone_name": "Zon",
         "mode_edit": "Redigerar",
         "mode_onfoot": "Till fots",
         "mode_camera": "Kamera",
         "step": "Stegstorlek",
-        "position": "Markörposition",
         "heading": "Riktning",
         "height": "Höjd / tjocklek",
         "width": "Bredd",
         "length": "Längd",
         "radius": "Radie",
         "points": "Punkter",
-        "bounds": "Maxyta",
         "distance": "Från centrum",
         "controls_heading": "Kontroller",
         "toggle_mode": "Växla redigering / kamera",
@@ -145,8 +125,6 @@
         "rotate": "Rotera riktning",
         "add_point": "Lägg till polygonpunkt",
         "undo_point": "Ångra senaste punkt",
-        "center_position": "Zoncentrum",
-        "allow_movement": "Fri rörelse",
         "movement_free": "Rör dig fritt",
         "movement_locked": "Låst på plats",
         "toggle_movement": "Växla fri rörelse",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Zonskapare: växla flyg / till fots",
         "confirm": "Avsluta zon",
         "cancel": "Avbryt",
-        "name_dialog_title": "Namnge din zon",
-        "name_label": "Namn",
         "errors": {
             "already_active": "Du skapar redan en zon",
             "invalid_type": "Zontyp måste vara poly, box eller sphere",
             "outside_bounds": "Den positionen ligger utanför det tillåtna området",
             "min_points": "Lägg till minst 2 punkter innan du avslutar",
             "missing_name": "Ett zonnamn krävs innan skaparen öppnas",
-            "no_aim": "Sikta på en yta innan du bekräftar",
-            "no_center": "Ange en mittposition innan du avslutar"
+            "no_aim": "Sikta på en yta innan du bekräftar"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Lasermål",
         "position": "Sikteposition",
         "distance": "Avstånd",
-        "max_distance": "Maxavstånd",
         "world_size": "Tavlans storlek",
         "controls": "Kontroller",
         "place_corner": "Sätt hörn",
@@ -188,7 +162,6 @@
         "confirm_size": "Bekräfta storlek",
         "reset_corner": "Återställ övre vänster",
         "exit": "Avbryt placering",
-        "target_placement": "[E] Sätt mål på textur  ·  [Backspace] Avbryt",
         "errors": {
             "already_active": "Du placerar redan en DUI-yta",
             "dui_failed": "Kunde inte skapa DUI-förhandsvisningen. Kontrollera URL:en och försök igen."
@@ -302,7 +275,6 @@
         "create_hint": "Du blir ledaren. Medlemmar kan bjudas in i närheten.",
         "group_name": "Gruppnamn",
         "group_name_placeholder": "Råncrew, racelobby…",
-        "image_url": "Bild-URL",
         "max_players": "Max spelare",
         "public_group": "Lista offentligt under Bläddra",
         "create_group": "Skapa grupp",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Kunde inte läsa in locale-filen för '{locale}'. Kontrollera att filen finns och är giltig JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Söker efter uppdateringar...",
         "version_invalid_repo": "^1[Newb_Bridge] Ogiltigt repository-format. Förväntat: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Ingen giltig version hittades för \"{resource}\"^7",

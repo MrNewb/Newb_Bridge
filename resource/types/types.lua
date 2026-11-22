@@ -1,0 +1,1062 @@
+---@meta
+---Newbs Bridge type definitions and module API documentation.
+---Provider modules under `modules/<category>/<resource>/` implement the `Bridge*` interfaces below.
+
+---@class Config
+---@field Framework "auto" | "whip_core" | "kora_core" | "qbx_core" | "qb-core" | "es_extended"
+---@field Inventory "auto" | "whip_core" | "kora_inventory" | "ox_inventory" | "wasabi_inventory" | "m-Inventory" | "one_inventory" | "jaksam_inventory" | "origen_inventory" | "tgiann-inventory" | "codem-inventory" | "core_inventory" | "qs-inventory" | "qb-inventory" | "qb-framework" | "esx-framework"
+---@field Target "auto" | "whip_core" | "kora_target" | "ox_target" | "tgiann-target" | "core_focus" | "qb-target" | "sleepless_interact"
+---@field VehicleKeys "auto" | "whip_core" | "MrNewbVehicleKeys" | "qbx_vehiclekeys" | "cd_garage" | "mVehicle" | "okokGarage" | "qb-vehiclekeys" | "vehicles_keys" | "wasabi_carlock" | "Renewed-Vehiclekeys" | "mk_vehiclekeys" | "ak47_vehiclekeys" | "0r-vehiclekeys"
+---@field VehicleFuel "auto" | "whip_fuel" | "ox_fuel" | "rcore_fuel" | "okokGasStation" | "LegacyFuel" | "cdn-fuel" | "lc_fuel" | "qb-fuel" | "Renewed-Fuel" | "ps-fuel" | "qs-fuelstations" | "ti_fuel" | "internal"
+---@field Menu "auto" | "ox_lib" | "lation_ui" | "qb-menu"
+---@field Notifications "auto" | "internal" | "whip_core" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "zsx_uiv2"
+---@field Inputs "auto" | "whip_core" | "ox_lib" | "lation_ui"
+---@field TextUI "auto" | "whip_core" | "ox_lib" | "lation_ui" | "okokTextUI" | "cd_drawtextui" | "jg-textui" | "lab-TextUI" | "zsx_uiv2"
+---@field ProgressBar "auto" | "whip_core" | "ox_lib" | "lation_ui" | "wasabi_uikit" | "progressbar" | "zsx_uiv2"
+---@field BossMenu "auto" | "qbx_management" | "qb-management" | "esx_society" | "vms_bossmenu" | "tk_bosstablet" | "okokBossMenu" | "codem-bossmenu" | "zat-bossmenu" | "m-BossMenu"
+---@field Dispatch "auto" | "ps-dispatch" | "cd_dispatch" | "tk_dispatch" | "rcore_dispatch" | "lb-tablet" | "origen_police" | "core_dispatch" | "kartik-mdt" | "codem-dispatch" | "wasabi_mdt" | "redutzu-mdt" | "internal"
+---@field Debug boolean
+---@field VersionCheck boolean
+---@field Providers table<string, string|nil> Module name -> resolved provider after auto-detect.
+---@field TaskGroups ConfigTaskGroups
+
+---@class ConfigTaskGroups
+---@field DefaultMaxPlayers number
+---@field MaxMaxPlayers number
+---@field MinMaxPlayers number
+---@field InviteRadius number
+---@field JoinCodeLength number
+---@field MaxNameLength number
+
+---@class OxProgressAnim
+---@field dict? string
+---@field clip? string
+---@field flag? number
+---@field blendIn? number
+---@field blendOut? number
+---@field duration? number
+---@field playbackRate? number
+---@field lockX? boolean
+---@field lockY? boolean
+---@field lockZ? boolean
+---@field scenario? string
+---@field playEnter? boolean
+
+---@class OxProgressVector
+---@field x number
+---@field y number
+---@field z number
+
+---@class OxProgressProp
+---@field model string|number
+---@field bone? number
+---@field pos vector3|OxProgressVector
+---@field rot vector3|OxProgressVector
+---@field rotOrder? number
+
+---@class OxProgressDisable
+---@field move? boolean
+---@field sprint? boolean
+---@field car? boolean
+---@field combat? boolean
+---@field mouse? boolean
+
+---@class OxProgressStep
+---@field description string
+
+---@class OxProgressBar
+---@field duration number Duration in milliseconds
+---@field label string Text to display
+---@field useWhileDead? boolean Allow progress while dead
+---@field allowRagdoll? boolean Allow progress while in ragdoll
+---@field allowSwimming? boolean Allow progress while swimming
+---@field allowCuffed? boolean Allow progress while cuffed
+---@field allowFalling? boolean Allow progress while falling
+---@field canCancel? boolean Allow cancelling the progress
+---@field anim? OxProgressAnim
+---@field disable? OxProgressDisable
+---@field prop? OxProgressProp|OxProgressProp[]
+---@field description? string Progress description (lation_ui)
+---@field icon? string Font Awesome icon (lation_ui)
+---@field iconColor? string Icon color (lation_ui)
+---@field iconAnimation? 'spin'|'spinPulse'|'spinReverse'|'pulse'|'beat'|'fade'|'beatFade'|'bounce'|'shake'
+---@field color? string Progress bar color (lation_ui)
+---@field steps? OxProgressStep[] Multi-step progress descriptions (lation_ui)
+---@field position? 'middle'|'bottom' progressCircle position (ox_lib only)
+
+---@class ContextMenuMetadataEntry
+---@field label string
+---@field value any
+---@field progress? number
+---@field colorScheme? string
+---@field progressColor? string
+
+---@class ContextMenuOption
+---@field title? string
+---@field description? string
+---@field disabled? boolean
+---@field readOnly? boolean
+---@field menu? string
+---@field onSelect? fun(args?: any)
+---@field icon? string
+---@field iconColor? string
+---@field iconAnimation? 'spin'|'spinPulse'|'spinReverse'|'pulse'|'beat'|'fade'|'beatFade'|'bounce'|'shake'
+---@field progress? number
+---@field colorScheme? string
+---@field arrow? boolean
+---@field image? string
+---@field metadata? ContextMenuMetadataEntry[]|table<string, any>|string[]
+---@field event? string
+---@field serverEvent? string
+---@field args? any
+---@field shouldClose? boolean lation_ui only
+
+---@class ContextMenuProps
+---@field id string
+---@field title? string
+---@field subtitle? string lation_ui only
+---@field position? 'top-left'|'top-right'|'bottom-left'|'bottom-right'|'offcenter-left'|'offcenter-right'
+---@field menu? string
+---@field canClose? boolean
+---@field onExit? fun()
+---@field onBack? fun()
+---@field onClose? fun() lation_ui alias for onExit
+---@field icon? string ox_lib header icon / lation headerIcon fallback
+---@field headerIcon? string lation_ui only
+---@field headerIconColor? string lation_ui only
+---@field headerIconAnimation? 'spin'|'spinPulse'|'spinReverse'|'pulse'|'beat'|'fade'|'beatFade'|'bounce'|'shake' lation_ui only
+---@field options ContextMenuOption[]|table<string, ContextMenuOption>
+
+---@class AlertSound
+---@field name? string sound file
+---@field ref? string sound set
+---@field alert? string|{ sound: string } ogg sound file
+
+---@class AlertData
+---@field code? string
+---@field icon? string
+---@field title? string
+---@field description string
+---@field length? number Alert duration in minutes
+---@field sound? AlertSound
+
+---@class AlertBlip
+---@field sprite number
+---@field scale number
+---@field colour number
+---@field text? string
+---@field length? number How long the blip stays on the map in minutes
+---@field flash? boolean
+---@field radius? number
+
+---@class OxNotification
+---@field id? string Unique notification identifier. Same id stays a single toast when spammed.
+---@field title? string Notification title. Required if there is no description.
+---@field description? string Notification description (supports markdown). Required if there is no title.
+---@field duration? number Duration in milliseconds (default: 3000)
+---@field showDuration? boolean Show duration indicator (default: true)
+---@field position? 'top'|'top-right'|'top-left'|'bottom'|'bottom-right'|'bottom-left'|'center-right'|'center-left' Position on screen
+---@field type? 'inform'|'error'|'success'|'warning' Notification type (default: 'inform')
+---@field style? table React CSS styling format. Nested keys such as `.description` style child nodes.
+---@field icon? string|table Font Awesome 6 icon name, or `{ prefix, name }` (e.g. `{ 'fas', 'ban' }`). Ignored when `image` is set.
+---@field image? string Inventory NUI path (`nui://ox_inventory/web/images/item.png` or `ox_inventory/web/images/item.png`) or http(s) URL. Replaces the icon.
+---@field iconColor? string CSS color value for icon. Removes the type-colored circular background.
+---@field iconAnimation? 'spin'|'spinPulse'|'spinReverse'|'pulse'|'beat'|'fade'|'beatFade'|'bounce'|'shake' Icon animation
+---@field alignIcon? 'top'|'center' Icon alignment (default: 'center')
+---@field sound? { bank?: string, set: string, name: string } Frontend sound; `bank` is requested when set
+
+---@class OxTextUI
+---@field text string Text content (supports markdown)
+---@field position? 'right-center'|'left-center'|'top-center'|'bottom-center'|'top-left'|'top-right'|'bottom-left'|'bottom-right'|'center' Position on screen
+---@field icon? string|table Font Awesome icon name or array of icons
+---@field iconColor? string CSS color value for icon
+---@field iconAnimation? 'spin'|'spinPulse'|'spinReverse'|'pulse'|'beat'|'fade'|'beatFade'|'bounce'|'shake' Icon animation
+---@field alignIcon? 'top'|'center' Icon alignment (default: 'center')
+---@field style? table React CSS styling format
+---@field title? string Text UI title
+---@field keybind? string Keybind text to display
+---@field options? table Array of option items for multi-option display
+---@field bgColor? string Background color (hex or CSS color name)
+---@field txtColor? string Text color (hex or CSS color name)
+
+---@class OxTextUIOptions
+---@field position? 'right-center'|'left-center'|'top-center'|'bottom-center'|'top-left'|'top-right'|'bottom-left'|'bottom-right'|'center' Position on screen
+---@field icon? string|table Font Awesome icon name or array of icons
+---@field iconColor? string CSS color value for icon
+---@field iconAnimation? 'spin'|'spinPulse'|'spinReverse'|'pulse'|'beat'|'fade'|'beatFade'|'bounce'|'shake' Icon animation
+---@field alignIcon? 'top'|'center' Icon alignment (default: 'center')
+---@field style? table React CSS styling format
+---@field title? string Text UI title
+---@field keybind? string Keybind text to display
+---@field options? table Array of option items for multi-option display
+---@field bgColor? string Background color (hex or CSS color name)
+---@field txtColor? string Text color (hex or CSS color name)
+
+---@alias DialogueType 'info' | 'error' | 'success' | 'warning'
+
+---@class DialogueMetadataEntry
+---@field label string
+---@field value? any
+---@field progress? number
+---@field colorScheme? string
+
+---@class DialogueSpeechOptions
+---@field speech string Ambient speech name (e.g. `GENERIC_HI`).
+---@field param? string Speech params. Default `SPEECH_PARAMS_FORCE`.
+
+---@class DialogueAnimOptions
+---@field dict string Animation dictionary.
+---@field clip string Animation clip.
+---@field flag? number TaskPlayAnim flag. Default `48`.
+---@field duration? number Default `-1` (full clip).
+---@field blendIn? number Default `8.0`.
+---@field blendOut? number Default `-8.0`.
+---@field playbackRate? number Default `0.0`.
+
+---@class DialogueInputSelectOption
+---@field value string
+---@field label? string
+---@field description? string
+
+---@class DialogueInputField
+---@field type 'input'|'number'|'checkbox'|'select'|'multi-select'|'slider'|'textarea'
+---@field label string
+---@field description? string
+---@field placeholder? string
+---@field icon? string
+---@field required? boolean
+---@field disabled? boolean
+---@field default? any
+---@field password? boolean
+---@field min? number
+---@field max? number
+---@field precision? number
+---@field step? number
+---@field checked? boolean
+---@field options? DialogueInputSelectOption[]|table
+---@field searchable? boolean
+---@field maxSelectedValues? number
+---@field autosize? boolean
+---@field minLength? number
+---@field maxLength? number
+
+---@class DialoguePedActionContext
+---@field entity? number Target entity for the active dialogue session.
+---@field ped? number Target ped when the dialogue target is a ped.
+---@field sessionId string Active dialogue session id.
+---@field menuId string Menu currently being shown.
+---@field optionKey? string Option key when the action was triggered by a selection.
+---@field args? any Option args when the action was triggered by a selection.
+---@field inputValues? table<string, any> Current menu input values keyed by option key.
+---@field inputValue? any Value for the selected option when it has an `input` field.
+---@field source 'menu'|'option' Whether the action came from menu enter or option select.
+---@field playSpeech fun(speech: string|DialogueSpeechOptions, param?: string): boolean
+---@field playAnim fun(anim: DialogueAnimOptions): boolean
+
+---@class DialogueOptionItem
+---@field item string
+---@field count? number
+---@field metadata? table
+
+---@class DialogueOption
+---@field title? string
+---@field input? DialogueInputField
+---@field description? string
+---@field disabled? boolean
+---@field readOnly? boolean
+---@field item? string|DialogueOptionItem
+---@field menu? string
+---@field onSelect? fun(args: any)
+---@field icon? string
+---@field iconColor? string
+---@field iconAnimation? 'spin'|'spinPulse'|'spinReverse'|'pulse'|'beat'|'fade'|'beatFade'|'bounce'|'shake'
+---@field progress? number
+---@field colorScheme? string
+---@field arrow? boolean
+---@field image? string
+---@field metadata? DialogueMetadataEntry[]|table<string, any>|string[]
+---@field event? string
+---@field serverEvent? string
+---@field args? any
+---@field type? DialogueType
+---@field speech? string|DialogueSpeechOptions
+---@field param? string
+---@field anim? DialogueAnimOptions
+---@field custom? fun(entity: number|nil, context: DialoguePedActionContext)
+
+--- ox_lib-style CSS override table for the dialogue container.
+---@class DialogueStyle
+
+---@class DialogueMenu
+---@field id? string
+---@field title string
+---@field description? string
+---@field image? string
+---@field text? string
+---@field typewriter? boolean
+---@field menu? string
+---@field onEnter? fun()
+---@field onExit? fun()
+---@field onBack? fun()
+---@field options DialogueOption[]|table<string, DialogueOption>
+---@field speech? string|DialogueSpeechOptions
+---@field param? string
+---@field anim? DialogueAnimOptions
+---@field custom? fun(entity: number|nil, context: DialoguePedActionContext)
+---@field style? DialogueStyle
+
+---@class DialogueRotationOptions
+---@field x? number
+---@field y? number
+---@field z? number
+
+---@class DialogueTargetOptions : DialogueRotationOptions
+---@field ped? number
+---@field entity? number
+---@field object? number
+---@field coords? vector3|vector4
+---@field x? number
+---@field y? number
+---@field z? number
+---@field heading? number
+---@field rotation? vector3|DialogueRotationOptions
+---@field camForward? number
+---@field camHeight? number
+---@field camRotZOffset? number
+---@field camFov? number
+---@field maxDistance? number
+
+---@class Dialogue
+---@field RegisterMenu fun(menu: DialogueMenu): string
+---@field UnregisterMenu fun(id: string): boolean
+---@field UpdateMenu fun(id: string, updates: DialogueMenu|table): boolean
+---@field SetMenuOption fun(id: string, optionKey: string|number, updates: DialogueOption): boolean
+---@field RemoveMenuOption fun(id: string, optionKey: string|number): boolean
+---@field RefreshMenu fun(id: string): boolean
+---@field GetMenu fun(id: string): DialogueMenu|nil
+---@field OpenMenu fun(id: string, target?: number|vector3|vector4|DialogueTargetOptions)
+---@field GetNavigationArgs fun(): table|nil
+---@field Close fun(sessionId: string)
+---@field PlayPedSpeech fun(ped: number, speech: string|DialogueSpeechOptions, param?: string): boolean
+---@field PlayPedAnim fun(ped: number, anim: DialogueAnimOptions, animId?: string): boolean
+
+---@class TargetOption
+---@field name string Unique option name.
+---@field label string Display label.
+---@field icon? string Font Awesome icon or image url.
+---@field distance? number Max interaction distance.
+---@field groups? table Job/gang restrictions.
+---@field items? string|string[] Required item(s).
+---@field anyItem? boolean Require any item from `items`.
+---@field canInteract? fun(entity: number, distance: number, coords: vector3, name: string, bone?: number): boolean
+---@field onSelect? fun(data: table)
+---@field event? string Client event to trigger.
+---@field serverEvent? string Server event to trigger.
+---@field args? any Event arguments.
+
+---@alias TargetOptions TargetOption|TargetOption[]
+
+---@class TargetBoxZone
+---@field name? string Zone name used for removal.
+---@field coords vector3|vector3[] Zone center.
+---@field size? vector3 Box size.
+---@field rotation? number Heading rotation.
+---@field debug? boolean Draw debug poly.
+---@field drawSprite? boolean Draw zone sprite.
+---@field options TargetOptions Target options for the zone.
+
+---@class TargetSphereZone
+---@field name? string Zone name used for removal.
+---@field coords vector3 Zone center.
+---@field radius? number Sphere radius.
+---@field debug? boolean Draw debug sphere.
+---@field drawSprite? boolean Draw zone sprite.
+---@field options TargetOptions Target options for the zone.
+
+---@class BridgeClientJobSnapshot
+---@field jobName string
+---@field jobLabel string
+---@field grade number
+---@field gradeName string
+---@field onDuty boolean
+---@field isBoss boolean
+
+---@class BridgeJobCountSnapshot
+---@field count number Players currently online with this job.
+---@field onDuty number Players currently on duty for this job.
+
+---@class BridgePlayer
+---@field source number
+---@field charId string
+---@field name string
+---@field jobName string|nil
+---@field onDuty boolean
+---@field getCharId fun(self: BridgePlayer): string
+---@field getName fun(self: BridgePlayer): string
+
+---Client framework module API exposed as `bridge.framework`.
+---@class BridgeFrameworkClient
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field getStress fun(): number Returns the local player's stress level.
+---@field getHunger fun(): number Returns the local player's hunger level.
+---@field getThirst fun(): number Returns the local player's thirst level.
+---@field setStatus fun(statusType: string, value: number) Sets a local status value such as stress, hunger, or thirst.
+---@field isOnDuty fun(): boolean Returns whether the local player is on duty (cached after load).
+---@field hasJob fun(job: string, grade?: number, duty?: boolean): boolean Returns whether the local player has a job (cached after load).
+---@field getPlayerBucket fun(): number Returns the local player's routing bucket via ox_lib Player (reads state `bucket` on client).
+---@field getPlayerJobData fun(): BridgeClientJobSnapshot|nil Returns normalized job data for the local player (cached after load).
+---@field getPlayerData fun(): table|nil Returns the local player's live player data.
+---@field getPlayerMetadata fun(key: string): any Returns a player metadata value by key.
+---@field getFrameworkJobs fun(): table Returns all jobs registered in the framework.
+---@field getIdentifier fun(): string|nil Returns the local player's character identifier.
+---@field getCharacterName fun(): string|nil, string|nil, string|nil Returns full name, first name, and last name.
+---@field getIsPlayerLoaded fun(): boolean Returns whether player data has loaded on the client.
+---@field getAccountBalance fun(moneyType: 'cash'|'bank'|'crypto'): number Returns a local account balance. Not authoritative for security-sensitive logic.
+---@field isPlayerDead fun(): boolean Returns whether the local player is dead or in last stand.
+---@field getPlayerDob fun(): string|nil Returns the local player's date of birth.
+
+---Client task HUD (`bridge.task`). Left/right ox_lib-themed objective overlay for jobs and activities.
+---@class BridgeTaskItem
+---@field id? string Optional stable id for targeted updates.
+---@field label string Progress row label (e.g. `Locations done`).
+---@field current? number Current progress count.
+---@field max? number Maximum progress count.
+---@field value? string Optional preformatted value (e.g. `5/10`). Wins over current/max when set.
+---@field progress? number Optional 0-100 bar fill. Does not trigger auto-complete.
+
+---@class BridgeTaskPayload
+---@field title string Job / activity title.
+---@field description? string Objective summary under the title.
+---@field icon? string Optional Font Awesome name shown beside the title.
+---@field tasks? BridgeTaskItem[] Progress rows.
+---@field position? 'left'|'right' Screen side. Default `left`.
+---@field type? 'dense'|'weight'|'gather' NUI style. Default `dense`.
+---@field expanded? boolean Gather only: show detail rows (default true).
+
+---@class BridgeTask
+---@field show fun(data: BridgeTaskPayload) Starts/replaces the task and shows the HUD.
+---@field update fun(data: BridgeTaskPayload|table) Patches the active task; creates one if none exists.
+---@field hide fun() Ends the task and removes the HUD.
+---@field complete fun() Marks the task finished and closes immediately (skips the complete bar).
+---@field toggle fun() Collapses or restores the HUD when a task is active; dismisses while completing.
+---@field isOpen fun(): boolean Whether the HUD is currently painted.
+---@field hasTask fun(): boolean Whether a task is active (even if the HUD is collapsed).
+---@field isCompleting fun(): boolean Whether the 30s complete bar is running.
+---@field get fun(): BridgeTaskPayload|nil Active task payload, if any.
+
+---Client task group utility (`bridge.taskGroups`). Temporary player sets for events/heists - not job/gang groups.
+---@class BridgeTaskGroupsClient
+---@field has fun(groupId: string|number): boolean Returns whether the local player is in the task group.
+---@field isLeader fun(groupId: string|number): boolean Returns whether the local player leads the task group.
+---@field getGroups fun(): string[] Returns task group ids for the local player.
+---@field getMembers fun(groupId: string|number): number[] Returns server ids in the group (callback).
+---@field getLeader fun(groupId: string|number): number|false Returns the group leader's server id (callback).
+
+---Server framework module API exposed as `bridge.framework`.
+---@class BridgeFrameworkServer
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field getIdentifier fun(src: number|string): string|nil Returns a player's character identifier.
+---@field getSrcFromIdentifier fun(identifier: string): number|nil Returns a player's server id from their identifier.
+---@field getCharacterName fun(identifier: string): string|nil, string|nil, string|nil Returns full name, first name, and last name from an identifier.
+---@field getFrameworkJobs fun(): table Returns all jobs registered in the framework.
+---@field setPlayerDuty fun(src: number|string, onDuty: boolean): boolean Sets a player's duty status.
+---@field setPlayerJob fun(src: number|string, name: string, grade: number|string): boolean Sets a player's job.
+---@field getPlayersByJob fun(jobName: string): number[] Returns server ids of players with the given job.
+---@field addHunger fun(src: number|string, value: number): number|nil Adds hunger to a player.
+---@field addThirst fun(src: number|string, value: number): number|nil Adds thirst to a player.
+---@field getOwnedVehicles fun(src: number|string): { vehicle: string, plate: string }[] Returns vehicles owned by a player.
+---@field registerCommand fun(commandName: string, helpText: string, params?: { name: string, type: string, help: string }[], restrictedGroup?: string, callback: fun(src: number, args: table, rawCommand: string)) Registers a server command.
+---@field isAdmin fun(src: number|string): boolean Returns whether a player has admin permission.
+---@field setMetadata fun(src: number|string, payload: table<string, { type: 'set'|'add'|'remove', value: any }>) Sets, adds, or removes player metadata values.
+---@field getPlayerMetadata fun(src: number|string, key: string): any Returns a player metadata value by key.
+---@field setPlayerMetadata fun(src: number|string, key: string, value: any) Sets a player metadata value by key.
+---@field addMoney fun(src: number|string, moneyType: 'cash'|'bank'|'crypto', moneyAmount: number, reason?: string): boolean Adds money to a player account.
+---@field removeMoney fun(src: number|string, moneyType: 'cash'|'bank'|'crypto', moneyAmount: number, reason?: string): boolean Removes money from a player account.
+---@field getMoney fun(src: number|string, moneyType: 'cash'|'bank'|'crypto'): number Returns a player's account balance.
+---@field hasJob fun(src: number|string, job: string, grade?: number, duty?: boolean): boolean Returns whether a player has a job (and optionally grade/duty).
+---@field getPlayer fun(src: number|string): BridgePlayer|nil Returns the cached bridge player snapshot.
+---@field getSourceByCharId fun(charId: string): number|nil Returns a player's server id from their character id.
+---@field getPlayerBucket fun(src: number|string): number Returns a player's routing bucket via ox_lib Player.
+---@field setPlayerBucket fun(src: number|string, bucketId: number): boolean Sets routing bucket via ox_lib Player:setRoutingBucket (server only). Replicates `bucket` to clients.
+---@field getPlayerJobData fun(src: number|string): BridgeClientJobSnapshot|nil Returns normalized job data for a player.
+---@field getDutyCountJob fun(jobName: string): number Returns how many players are on duty for a job.
+---@field getOnlineCountJob fun(jobName: string): number Returns how many players are online with a job.
+---@field getJobCounts fun(jobName: string): BridgeJobCountSnapshot Returns `{ count, onDuty }` for a job.
+---@field getPlayersOnDuty fun(jobName: string): table<number, true> Returns server ids of players on duty for a job.
+---@field getPlayersWithJob fun(jobName: string): table<number, true> Returns server ids of players online with the job (on or off duty).
+--- Job counts are mirrored to `GlobalState.newbsJobCounts` as `{ [jobName] = { count = number, onDuty = number } }`.
+---@field registerItemUse fun(itemName: string, cb: fun(src: number, item: { name: string, label: string, metadata?: table, info?: table, slot?: number, id?: number, count: number })) Registers a useable item callback.
+---@field getPlayers fun(): number[] Returns all connected player server ids.
+---@field getPlayerDob fun(src: number|string): string|nil Returns a player's date of birth.
+
+---Server task group utility (`bridge.taskGroups`). Temporary player sets for events/heists - not job/gang groups.
+---@class BridgeTaskGroupsServer
+---@field create fun(groupId: string|number, leaderSrc?: number|string): boolean Creates a group. Optional leader is added as first member.
+---@field add fun(groupId: string|number, src: number|string): boolean Adds a player. First member becomes leader if none set.
+---@field remove fun(groupId: string|number, src: number|string): boolean Removes a player. Promotes next join-order member if leader leaves; deletes group if empty.
+---@field clear fun(groupId: string|number): boolean Removes all members and clears leadership without deleting the group id.
+---@field delete fun(groupId: string|number): boolean Removes the group entirely.
+---@field has fun(groupId: string|number, src: number|string): boolean Returns whether a player is in the group.
+---@field isLeader fun(groupId: string|number, src: number|string): boolean Returns whether a player leads the group.
+---@field getLeader fun(groupId: string|number): number|false Returns the leader's server id.
+---@field setLeader fun(groupId: string|number, src: number|string): boolean Transfers leadership to a member.
+---@field getMembers fun(groupId: string|number): number[] Returns server ids in the group.
+---@field getPlayerGroups fun(src: number|string): string[] Returns task group ids for a player.
+---@field getMemberCount fun(groupId: string|number): number Returns how many players are in the group.
+---@field createWithOptions fun(src: number|string, options: TaskGroupCreateOptions): string|nil Creates a group with menu metadata and join code.
+---@field leaveAllGroups fun(src: number|string) Removes a player from every task group they belong to.
+---@field joinByCode fun(src: number|string, code: string): boolean Adds a player to a group by join code.
+---@field kickMember fun(groupId: string|number, actor: number|string, target: number|string): boolean Leader-only member removal.
+---@field disband fun(groupId: string|number, actor: number|string): boolean Leader-only group deletion.
+---@field getPrimaryGroupId fun(src: number|string): string|nil Returns the first task group id for a player.
+---@field buildClientGroup fun(groupId: string|number): TaskGroupClientView|nil Builds menu-ready group data.
+---@field getBrowsableGroups fun(): TaskGroupClientView[] Returns public groups visible in the task group menu.
+
+---@class TaskGroupCreateOptions
+---@field id? string Custom group id. Auto-generated when omitted.
+---@field name? string Display name shown in the task group menu.
+---@field maxPlayers? number Maximum members allowed in the group.
+---@field public? boolean When true, the group appears in the public browse list.
+
+---@class TaskGroupClientMember
+---@field serverId number
+---@field name string
+---@field leader boolean
+
+---@class TaskGroupClientView
+---@field id string
+---@field name string
+---@field maxPlayers number
+---@field leader number|nil
+---@field joinCode string|nil
+---@field public boolean
+---@field players TaskGroupClientMember[]
+
+---Occupied inventory slot in ox_inventory shape (bridge read API output).
+---@class BridgeInventorySlotItem
+---@field name string
+---@field count number
+---@field slot number
+---@field metadata table
+---@field label? string
+---@field weight? number
+---@field durability? number
+
+---Shared item definition in ox_inventory item-list shape (bridge read API output).
+---@class BridgeItemDefinition
+---@field name string
+---@field label string
+---@field weight number
+---@field stack boolean
+---@field close boolean
+---@field description? string
+---@field client? table
+---@field consume? number
+---@field degrade? number
+---@field durability? number
+---@field weapon? boolean
+---@field ammoName? string
+
+---Item info in ox-style shape with a resolved image path.
+---@class BridgeItemInfo
+---@field name string
+---@field label string
+---@field stack boolean
+---@field weight number
+---@field description? string
+---@field image string
+
+---Client inventory module API exposed as `bridge.inventory`.
+---@class BridgeInventoryClient
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field Items fun(itemName?: string): BridgeItemDefinition|table<string, BridgeItemDefinition>|nil Returns item definition(s) in ox format. Pass a name for one item, or omit for the full list keyed by name.
+---@field hasItem fun(item: string, count?: number, metadata?: table): boolean Returns whether the local player has at least the requested count.
+---@field getImagePath fun(itemName: string): string Returns the NUI image path for an item icon.
+---@field getItemInfo fun(itemName: string): BridgeItemInfo Returns item info in ox format with a resolved image path.
+---@field getItemCount fun(item: string, metadata?: table): number Returns how many of an item the local player has.
+---@field getInventoryItems fun(): BridgeInventorySlotItem[] Returns the local player's occupied slots in ox format, sorted by slot.
+
+---@class BridgeShopItem
+---@field name string Item name.
+---@field price number Item price.
+---@field currency? string Item used as currency instead of money (ox).
+---@field count? number Stock count. `0` = infinite (ox/one_inventory). Mapped to `amount` for qb/tgiann.
+---@field license? string License required to purchase the item (ox).
+---@field metadata? table Item metadata applied on purchase.
+---@field grade? number|number[] Minimum job grade required to purchase (ox).
+
+---@class BridgeShopBlip
+---@field id number Blip sprite id.
+---@field colour number Blip colour.
+---@field scale number Blip scale.
+
+---@class BridgeShopData
+---@field name? string Display label when the shop is open (ox).
+---@field blip? BridgeShopBlip Client-only when defined in data/shops.lua (ox).
+---@field groups? table<string, number> Job name to minimum grade (ox). Mapped to one_inventory `jobs`.
+---@field inventory BridgeShopItem[] Items sold by the shop (ox format).
+---@field locations? vector3[] Shop coordinates. Used by one_inventory only; ignored by ox/qb/tgiann script-opened registration.
+---@field targets? table[] Client-only target/ped zones when defined in data/shops.lua (ox).
+---@field model? number[] Client-only vending models when defined in data/shops.lua (ox).
+---@field label? string Display label override (one_inventory).
+---@field currency? string Shop currency for one_inventory (`cash`, `bank`, `black_money`, or item name).
+---@field jobs? table<string, number>|string|string[] one_inventory job restrictions (alternative to `groups`).
+---@field gangs? table<string, number>|string|string[] one_inventory gang restrictions.
+---@field licenses? string|string[] one_inventory license restrictions.
+---@field license? string Single license restriction (maps to `licenses`).
+---@field coords? vector3 Single coordinate for one_inventory security/proximity checks.
+
+---@class BridgeInventoryHookOptions
+---@field print? boolean Log when the hook fires.
+---@field itemFilter? table<string, boolean> Only run for these item names.
+---@field inventoryFilter? string[] Only run when inventory ids match these patterns.
+---@field typeFilter? table<string, boolean> Only run for these inventory types.
+
+---Server inventory module API exposed as `bridge.inventory`.
+---@class BridgeInventoryServer
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field Items fun(itemName?: string): BridgeItemDefinition|table<string, BridgeItemDefinition>|nil Returns item definition(s) in ox format. Pass a name for one item, or omit for the full list keyed by name.
+---@field getImagePath fun(itemName: string): string Returns the NUI image path for an item icon.
+---@field getItemInfo fun(itemName: string): BridgeItemInfo Returns item info in ox format with a resolved image path.
+---@field addItem fun(inv: number|string, item: string, count?: number, metadata?: table, slot?: number): any Adds an item to a player (number) or stash (string).
+---@field removeItem fun(inv: number|string, item: string, count?: number, metadata?: table, slot?: number): any Removes an item from a player or stash.
+---@field hasItem fun(inv: number|string, item: string, count?: number, metadata?: table): boolean Returns whether the inventory has at least the requested count.
+---@field getItemCount fun(inv: number|string, item: string, metadata?: table): number Returns the total count of an item in an inventory.
+---@field getInventoryItems fun(inv: number|string): BridgeInventorySlotItem[] Returns occupied slots in ox format, sorted by slot.
+---@field setMetadata fun(inv: number|string, slot: number, metadata: table): boolean|nil Updates metadata on an item in the given slot.
+---@field getSlot fun(inv: number|string, slot: number): BridgeInventorySlotItem|nil Returns one occupied slot in ox format.
+---@field registerHook fun(eventName: string, callback?: fun(payload: table): boolean|table|nil, options?: BridgeInventoryHookOptions): string|number|nil Registers an ox_inventory-style hook. Unsupported providers return `nil`. tgiann, origen, and wasabi normalize slot payloads to ox shape.
+---@field removeHooks fun(hookId?: string|number) Removes hook(s) registered by the invoking resource.
+---@field clearInventory fun(inv: number|string, keep?: string|string[]): any Clears an inventory, optionally keeping specific items.
+---@field canCarryItem fun(inv: number|string, item: string, count?: number, metadata?: table): boolean Returns whether the inventory can carry more of an item.
+---@field registerStash fun(id: string, label: string, slots: number, maxWeight: number, owner?: string|boolean, groups?: table, coords?: vector3|vector3[]): boolean|nil Registers a stash with the active inventory resource.
+---@field openStash fun(src: number, id: string): boolean|nil Opens a registered stash for a player. Gate distance/restrictions before calling. Returns `false` on adapters with no server-side force-open export (codem-inventory).
+---@field registerShop fun(shopType: string, shopData: BridgeShopData): boolean|nil Registers a shop using ox-format `shopData`. Adapters map `inventory`/`groups`/`locations` as needed; script-opened shops omit coords on ox/qb.
+---@field openShop fun(src: number, shopType: string): boolean|nil Opens a registered shop for a player. Gate distance/restrictions before calling.
+
+---Context menu module API exposed as `bridge.menu`.
+---@class BridgeMenu
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field openMenu fun(data: ContextMenuProps|ContextMenuProps[]): string|nil Registers and opens a context menu. Returns the shown menu id.
+---@field closeMenu fun() Closes the currently open context menu.
+
+---Progress bar module API exposed as `bridge.progressbar`.
+---@class BridgeProgressBar
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field openprogressbar fun(data: OxProgressBar): boolean|nil Shows a progress bar. Returns true when completed, false when cancelled.
+---@field progressActive? fun(): boolean Returns whether a progress bar is currently active.
+---@field cancelProgress? fun() Cancels the active progress bar when cancellation is allowed.
+
+---Notifications module API exposed as `bridge.notifications`.
+---@class BridgeNotifications
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field notify fun(data: OxNotification) Displays a notification using ox_lib-style data.
+
+---@class InputDialogSelectOption
+---@field value string|number
+---@field label? string
+---@field disable? boolean
+
+---@class InputDialogRowProps
+---@field type? 'input'|'number'|'checkbox'|'select'|'multi-select'|'slider'|'color'|'date'|'date-range'|'time'|'textarea'|'toggle'
+---@field label string
+---@field description? string
+---@field placeholder? string
+---@field icon? string
+---@field iconColor? string
+---@field required? boolean
+---@field disabled? boolean
+---@field default? any
+---@field password? boolean
+---@field checked? boolean
+---@field min? number
+---@field max? number
+---@field step? number
+---@field precision? number
+---@field options? InputDialogSelectOption[]|string[]
+---@field searchable? boolean
+---@field clearable? boolean
+---@field unit? string
+---@field format? string
+
+---@class InputDialogOptionsProps
+---@field allowCancel? boolean When false, the dialog cannot be cancelled. Defaults to true.
+
+---Input dialog module API exposed as `bridge.inputs`.
+---@class BridgeInputs
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field inputdialog fun(heading: string, rows: string[]|InputDialogRowProps[], options?: InputDialogOptionsProps): string[]|number[]|boolean[]|nil Opens an input dialog. Returns submitted values, or nil when cancelled.
+---@field closeinput? fun() Closes the active input dialog when supported by the provider.
+
+---TextUI module API exposed as `bridge.textui`.
+---@class BridgeTextUI
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field showTextUI fun(text: string, options?: OxTextUIOptions) Shows on-screen helper text.
+---@field hideTextUI fun() Hides the active TextUI.
+---@field isTextUIOpen? fun(): boolean Returns whether TextUI is currently visible.
+
+---Boss menu module API exposed as `bridge.bossmenu`.
+---@class BridgeBossMenu
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field openBossMenu fun(src: number, jobName: string, jobType?: string) Opens the boss menu for a player on the client.
+
+---Dispatch module API exposed as `bridge.dispatch` (server only).
+---@class BridgeDispatch
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field sendAlert fun(src: number|string, jobs: string|string[], coords: vector3, data: AlertData, blip: AlertBlip, alertFlash?: boolean): boolean|nil Sends a dispatch alert through the configured provider.
+
+---Client vehicle keys module API exposed as `bridge.vehiclekeys`.
+---@class BridgeVehicleKeysClient
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field give fun(vehicle: number, plate?: string) Grants keys for a vehicle to the local player.
+---@field remove fun(vehicle: number, plate?: string) Removes keys for a vehicle from the local player.
+
+---Server vehicle keys module API exposed as `bridge.vehiclekeys`.
+---@class BridgeVehicleKeysServer
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field give fun(src: number, vehicle: number, plate?: string) Grants keys for a vehicle to a player.
+---@field remove fun(src: number, vehicle: number, plate?: string) Removes keys for a vehicle from a player.
+
+---Vehicle fuel module API exposed as `bridge.vehiclefuel`.
+---@class BridgeVehicleFuelClient
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field set fun(vehicle: number, amount: number) Sets fuel on a local vehicle entity.
+
+---@class BridgeVehicleFuelServer
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field set fun(source: number, vehicle: number, amount: number) Asks the player's client to set fuel (via `Newb_Bridge:client:fuelSet`).
+
+---@alias BridgeVehicleFuel BridgeVehicleFuelClient|BridgeVehicleFuelServer
+
+---Target module API exposed as `bridge.target`.
+---@class BridgeTarget
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field removeZone fun(zoneId: string|number) Removes a registered zone by id or name.
+---@field addBoxZone fun(payload: TargetBoxZone): number|string Creates a box-shaped target zone. Returns the zone id.
+---@field addSphereZone fun(payload: TargetSphereZone): number|string Creates a sphere-shaped target zone. Returns the zone id.
+---@field addLocalEntity fun(entities: number|number[], options: TargetOptions) Adds target options to local (non-networked) entities.
+---@field removeLocalEntity fun(entities: number|number[], optionNames?: string|string[]) Removes target options from local entities.
+---@field addEntity fun(netIds: number|number[], options: TargetOptions) Adds target options to networked entities.
+---@field removeEntity fun(netIds: number|number[], optionNames?: string|string[]) Removes target options from networked entities.
+---@field addGlobalPed fun(options: TargetOptions) Adds target options to all peds.
+---@field removeGlobalPed fun(optionNames?: string|string[]) Removes global ped target options.
+---@field addGlobalPlayer fun(options: TargetOptions) Adds target options to all players.
+---@field removeGlobalPlayer fun(optionNames?: string|string[]) Removes global player target options.
+---@field addGlobalVehicle fun(options: TargetOptions) Adds target options to all vehicles.
+---@field removeGlobalVehicle fun(optionNames?: string|string[]) Removes global vehicle target options.
+---@field addModel fun(models: string|number|string[]|number[], options: TargetOptions) Adds target options to specific models.
+---@field removeModel fun(models: string|number|string[]|number[], optionNames?: string|string[]) Removes model target options.
+---@field disableTargeting fun(disable: boolean) Enables or disables all targeting interactions.
+
+---@class InteractionPayload
+---@field model number|string Ped or prop model hash or name.
+---@field coords vector3
+---@field heading number
+---@field radius number
+---@field options? TargetOption[]
+---@field component? table Ped only.
+---@field anim? table Ped only.
+---@field scenario? string Ped only.
+---@field weapon? number Ped only.
+---@field invincible? boolean Ped only. Defaults to true.
+---@field snapToGround? boolean Props only.
+---@field rotation? table Props only - pitch/roll/yaw from gizmo placement.
+---@field matrix? table Props only - full entity matrix from gizmo placement.
+---@field onSpawn? fun(interaction: Interaction) Called after the entity spawns (client only).
+---@field onDespawn? fun(interaction: Interaction) Called before the entity is deleted (client only).
+---@field onEnter? fun(interaction: Interaction): boolean|nil Called when the player enters the radius. Return false to skip spawning (client only).
+---@field canSpawn? fun(interaction: Interaction): boolean|nil Lightweight spawn gate checked while in range (client only).
+---@field bucket? number|string Routing bucket id. Entity only spawns when the local player is in this bucket.
+
+---@class Interaction: InteractionPayload
+---@field interactionId string
+---@field resource string
+---@field entity? number Spawned entity handle (client only).
+
+---@class InteractionBatchEntry
+---@field id string
+---@field payload InteractionPayload
+
+---@class InteractionBatchOptions
+---@field batchSize? number Points per frame when spreading (default 25).
+---@field batchDelayMs? number Delay between batches (default 0).
+---@field batchThreshold? number Spread only when entry count >= this (default 1).
+---@field sortByDistance? boolean Nearest-first before registering (default true).
+---@field onProgress? fun(index: number, total: number, id: string, ok: boolean)
+---@field onComplete? fun(added: number, failed: number)
+
+---@class GizmoTransformResult
+---@field handle number
+---@field position vector3
+---@field rotation vector3
+---@field heading number
+---@field x number
+---@field y number
+---@field z number
+---@field pitch number
+---@field roll number
+---@field yaw number
+---@field matrix table|nil
+
+---@class PlacerPreviewBehavior
+---@field scenario? string
+---@field anim? { animDict: string, anim: string, blendIn?: number, blendOut?: number, duration?: number, flag?: number }
+
+---@class PlacerPreviewBehaviorOption
+---@field label string
+---@field behavior? PlacerPreviewBehavior
+
+---@class PlacerPreviewBehaviorCycle
+---@field options PlacerPreviewBehaviorOption[]
+---@field index? number
+
+---@class PlacerResult
+---@field x number
+---@field y number
+---@field z number
+---@field w number
+---@field modelIndex? number Selected index when `PropPlacer` was called with a model array.
+---@field model? string|number Selected model when `PropPlacer` was called with a model array.
+---@field previewIndex? number Selected ped preview behavior index.
+
+---@class PlacerMultiResult
+---@field multi true
+---@field results PlacerResult[]
+
+---Head marker drawn over the placement preview. Pass `{ preset = 'bouncing_arrow' }`
+---for the stock arrow; any explicit field overrides the preset's value.
+---@class PlacerMarker
+---@field preset? string Preset name (`'bouncing_arrow'`).
+---@field type? number DrawMarker type. Defaults to 2.
+---@field scale? vector3|{ x: number, y: number, z: number } Defaults to 0.4 per axis.
+---@field color? number[] `{ r, g, b, a }`. Overridden by the red/amber/gray status colors while invalid, too far, or idle.
+---@field offset? number|{ x?: number, y?: number, z?: number } Offset from the ped head / model top; a bare number is the z offset. Defaults to z 0.35.
+---@field rotation? { x?: number, y?: number, z?: number } Marker rotation in degrees.
+---@field bob? boolean Bob up and down.
+---@field faceCamera? boolean Defaults to true.
+
+---@class PlacerPlacedMarker
+---@field radius? number Defaults to 0.2.
+---@field color? number[] `{ r, g, b, a }`.
+
+---@class PlacerPlacedPreviewSpot
+---@field x number
+---@field y number
+---@field z number
+---@field w? number heading
+---@field behavior? PlacerPreviewBehavior scenario/anim to play on the preview ped
+
+---@class PlacerPlacedPreview
+---@field model? string|number Ped/vehicle model for the preview entities (defaults to the placement model).
+---@field existing? PlacerPlacedPreviewSpot[] Pre-existing spots to show before the session starts.
+
+---@class PlacerOptions
+---@field multi? boolean When true, keep placing until Backspace; returns `{ multi = true, results = {...} }`.
+---@field maxPlacements? number Optional cap for multi place; auto-finishes when reached and shown as `placed / max` in the panel.
+---@field collisionToggle? boolean When true, G opens the transform gizmo on the preview (seat fine-tune).
+---@field heightAdjust? boolean Defaults to true. When false, remove the raise/lower ('position') mode so the preview stays pinned to ground height and the UI drops the raise/lower control.
+---@field startMode? 'position'|'model'|'animation' Adjustment mode the placer opens in when several are available.
+---@field startHeading? number Initial preview heading. Defaults to the player heading.
+---@field groundOffset? boolean|number|'measure' Visual lift of the prop preview. Omit for the default -min.z lift (model's render-box bottom sits on the surface); `false` pins the model pivot to the surface; a number is an explicit lift in meters; `'measure'` grounds the preview with PlaceObjectOnGroundProperly like the placed prop (for models whose render box doesn't match the collision mesh, e.g. the moonshine still or beehive). Returned coords always stay at the aimed surface point - CreateObject-style spawners re-apply the model-bottom offset at spawn.
+---@field rotateStep? number|{ fine?: number, normal?: number, coarse?: number } Degrees per scroll notch; a number overrides the plain step (default 5), a table any of fine (Alt, 1) / coarse (Shift, 22.5) too.
+---@field returnCancel? boolean When true, H also cancels the session (return-to-menu flows).
+---@field isPositionValid? fun(coords: vector3): boolean Extra position check polled while placing; returning false blocks placement.
+---@field localeOverrides? table<string, string> Per-session overrides for any placer UI string (status_invalid_material, title, place, ...).
+---@field marker? PlacerMarker Head marker over the preview. Ignored when the positional/call-table marker is set.
+---@field placedMarker? PlacerPlacedMarker Draw a marker on each confirmed multi placement until the session ends.
+---@field placedPreview? PlacerPlacedPreview Leave a preview ped/vehicle at each placed spot (and every pre-existing spot) instead of markers.
+
+---Single-table call form for `PropPlacer`. The `model` key is what selects this
+---form; every other positional argument has a field here, and PlacerOptions
+---fields can sit flat on this table or nested under `options`.
+---@class PlacerCallOptions: PlacerOptions
+---@field model string|number|string[]|number[]
+---@field forceGround? boolean Snap the preview to the ground under the aim point.
+---@field snapToGround? boolean Alias for `forceGround`.
+---@field allowedMaterials? table<number, boolean> Raycast material whitelist.
+---@field maxDistance? number Defaults to 10.0.
+---@field placementType? 'auto'|'ped'|'prop'|'vehicle'
+---@field type? 'auto'|'ped'|'prop'|'vehicle' Alias for `placementType`.
+---@field marker? PlacerMarker Head marker: `{ preset = 'bouncing_arrow' }` or a custom marker table.
+---@field previewBehavior? PlacerPreviewBehavior|PlacerPreviewBehaviorCycle
+---@field options? PlacerOptions Nested options; flat fields on this table work too.
+
+---@class GizmoOptions
+---@field deleteOnConfirm? boolean Defaults to true; removes the edited entity after confirm.
+---@field label? string Shown in the gizmo panel header instead of the entity archetype name.
+---@field outline? boolean Draw a green entity outline like PropPlacer. Defaults to true for non-peds, false for peds.
+
+---Spawn-and-edit call form for `useGizmo`: pass this table as the first argument
+---and the gizmo spawns a translucent frozen preview, edits it, and cleans up on
+---cancel. On confirm the preview is deleted (default) or kept when
+---`deleteOnConfirm = false` (its alpha/collision are restored).
+---@class GizmoCallOptions: GizmoOptions
+---@field model string|number Ped/vehicle models spawn the matching entity type automatically.
+---@field coords? vector3|vector4|{ x: number, y: number, z: number, w?: number } Spawn position. Defaults to 2.5m in front of the player.
+---@field heading? number Overrides `coords.w`.
+---@field rotation? vector3|{ x: number, y?: number, z?: number } Full rotation to seed the preview with.
+---@field ped? boolean Force a ped entity for ambiguous models.
+
+---@class ZoneCreatorOptions
+---@field type? 'poly'|'box'|'sphere'
+---@field zoneType? 'poly'|'box'|'sphere' Alias for `type`.
+---@field name? string Required (or one of its aliases); the zone creator refuses to open without a name.
+---@field zoneid? string Alias for `name`.
+---@field zoneId? string Alias for `name`.
+---@field mode? 'freecam'|'onfoot' Starting mode. Only polygon zones can start in the freecam (the default); box and sphere zones always start on foot. F (swap between the freecam and on foot) and X (fly the camera) work for polygon zones only.
+---@field startMode? 'freecam'|'onfoot' Alias for `mode`.
+---@field anchor? vector3
+---@field planeZ? number Z plane the zone builds on. Defaults to the anchor/player Z.
+---@field maxDistance? number Build radius around the anchor. Defaults to 50.0.
+---@field step? number Starting step-size index into the 0.05-100 step table (1-11). Defaults to 5 (1m), or 1 for spheres.
+---@field height? number Starting poly wall height, box height, or sphere radius.
+---@field thickness? number Alias for `height` (poly).
+---@field radius? number Alias for `height` (sphere).
+---@field width? number Starting box width. Defaults to 2.0.
+---@field length? number Starting box length. Defaults to 2.0.
+---@field rotation? number Starting box heading. Defaults to the player heading.
+---@field allowMovement? boolean On-foot mode only. Defaults to true.
+---@field movementToggle? boolean On-foot mode only. Defaults to true.
+---@field camEaseMs? number Freecam enter/exit camera blend in ms. Defaults to 1200. Pass 0 for a hard cut.
+---@field cameraHeight? number Freecam start height above the anchor in meters. Defaults to eye height (1.65).
+---@field cameraPitch? number Freecam start pitch in degrees. Defaults to 0.
+---@field elevatedStart? boolean Start the freecam raised above the anchor looking down.
+---@field elevatedHeight? number Elevated start height in meters. Defaults to 18.
+---@field elevatedPitch? number Elevated start pitch in degrees. Defaults to -35.
+---@field multi? boolean When true, keep creating until Backspace; returns `{ multi = true, results = {...} }`.
+
+---@class ZoneCreatorPolyResult
+---@field name string
+---@field points vector3[]
+---@field thickness number
+
+---@class ZoneCreatorBoxResult
+---@field name string
+---@field coords vector3
+---@field size vector3
+---@field rotation number
+
+---@class ZoneCreatorSphereResult
+---@field name string
+---@field coords vector3
+---@field radius number
+
+---@alias ZoneCreatorResult ZoneCreatorPolyResult|ZoneCreatorBoxResult|ZoneCreatorSphereResult
+
+---@class ZoneCreatorMultiResult
+---@field multi true
+---@field results ZoneCreatorResult[]
+
+---@class DuiPlacementResult
+---@field ok boolean
+---@field cancelled? boolean
+---@field reason? string
+---@field coords? vector4
+---@field normal? vector3
+
+---@class DuiSurfaceRegistration
+---@field url string
+---@field width? number
+---@field height? number
+---@field coords? vector3|vector4
+---@field rotation? vector3|number
+---@field scale? number|vector2
+---@field renderTarget? string
+---@field boardKey? string
+
+---@class InteractionNearbySummary
+---@field id string
+---@field distance number
+---@field coords vector3
+---@field heading number
+---@field radius number
+---@field model number|string
+---@field scenario? string
+
+---Bridge utility exports exposed from `Newb_Bridge` (prefer `exports[bridge.name]:...`).
+---@class NewbsBridgeExports
+---@field BridgeEnvironment fun(): { config: Config, resource: string } Returns the shared bridge config and host resource name.
+---@field Framework fun(): BridgeFrameworkClient|BridgeFrameworkServer Host-mounted framework table.
+---@field Inventory fun(): BridgeInventoryClient|BridgeInventoryServer Host-mounted inventory when the provider is qb-inventory / qb-framework / esx-framework.
+---@field Locale fun(key: string, params?: table): string Same as `bridge.locale`.
+---@field Locales fun(): table Same as `bridge.locales`.
+---@field Dialogue fun(): Dialogue Returns the dialogue API object (client only).
+---@field PropPlacer fun(model: string|number|string[]|number[]|PlacerCallOptions, forceGround?: boolean, allowedMaterials?: table<number, boolean>, maxDistance?: number, placementType?: 'auto'|'ped'|'prop'|'vehicle', marker?: PlacerMarker, previewBehavior?: PlacerPreviewBehavior|PlacerPreviewBehaviorCycle, options?: PlacerOptions): vector4|PlacerResult|PlacerMultiResult|false Places a ped, prop, or vehicle and returns coords/heading (client only). Accepts either positional arguments or a single PlacerCallOptions table; pass `multi = true` to place several before finishing with Backspace. Returns `false` on cancel / already placing / invalid model.
+---@field useGizmo fun(entity: number|GizmoCallOptions, options?: GizmoOptions): GizmoTransformResult|nil Opens the transform gizmo (client only). Pass an entity handle, or a GizmoCallOptions table (`{ model = ..., coords = ... }`) to spawn-and-edit a preview.
+---@field RegisterCommand fun(commandName: string, callback: fun(source: number, args: string[], rawCommand: string), restricted?: boolean)
+---@field RegisterKeybind fun(commandName: string, description: string, defaultKey: string|nil, callback: fun(source: number, args: string[], rawCommand: string))
+---@field GetBoundKey fun(commandName: string): string|nil
+---@field AddInteraction fun(id: string, payload: InteractionPayload): boolean, string? Returns `false, 'missing'` or `false, 'coords'` on failure. An existing id is replaced.
+---@field AddInteractionsBatch fun(entries: InteractionBatchEntry[]|table<string, InteractionPayload>, options?: InteractionBatchOptions): number
+---@field CancelInteractionBatch fun()
+---@field BeginInteractionBulk fun()
+---@field CommitInteractionBulk fun()
+---@field RemoveInteraction fun(id: string, target?: number): boolean `target` is server-side only: a server id to remove it for, omitted to remove for every client.
+---@field UpdateInteraction fun(id: string, updates: InteractionPayload|table): boolean
+---@field RemoveAllInteractions fun()
+---@field GetClosestInteraction fun(): InteractionNearbySummary|nil
+---@field GetNearbyInteractions fun(): InteractionNearbySummary[]
+---@field GetInteractionByEntity fun(entity: number): string|nil, Interaction|nil
+---@field VersionCheck fun(repoPath: string, resourceName: string)
+---@field CreateZone fun(options?: ZoneCreatorOptions): ZoneCreatorResult|ZoneCreatorMultiResult|nil
+---@field CreateDuiPlacement fun(options?: table): DuiPlacementResult
+---@field CreateLaserTargetPlacement fun(options?: table): DuiPlacementResult
+---@field RegisterDuiSurface fun(key: string, data: DuiSurfaceRegistration)
+---@field UpdateDuiSurface fun(key: string, data: DuiSurfaceRegistration): boolean
+---@field UnregisterDuiSurface fun(key: string)
+---@field ClearDuiSurfaces fun()
+---@field HasDuiPlacement fun(content: table): boolean
+---@field GetDuiBoardCenter fun(content: table, coords?: vector3): vector3|nil
+---@field GetDuiTargetRadius fun(content: table): number
+---@field ApplyPropDuiTexture fun(key: string, entity: number, textureDef: table, content: table): boolean
+---@field UpdatePropDuiTexture fun(key: string, textureDef: table, content: table): boolean
+---@field ClearPropDuiTexture fun(key: string)
+---@field HasPropDuiTexture fun(key: string): boolean
+---@field CreateTaskGroup fun(groupId: string|number, leaderSrc?: number|string): boolean
+---@field AddToTaskGroup fun(groupId: string|number, src: number|string): boolean
+---@field RemoveFromTaskGroup fun(groupId: string|number, src: number|string): boolean
+---@field ClearTaskGroup fun(groupId: string|number): boolean
+---@field DeleteTaskGroup fun(groupId: string|number): boolean
+---@field IsInTaskGroup fun(groupId: string|number, src?: number|string): boolean
+---@field IsTaskGroupLeader fun(groupId: string|number, src?: number|string): boolean
+---@field GetTaskGroupLeader fun(groupId: string|number): number|false
+---@field SetTaskGroupLeader fun(groupId: string|number, src: number|string): boolean
+---@field GetTaskGroupMembers fun(groupId: string|number): number[]
+---@field GetPlayerTaskGroups fun(src: number|string): string[]
+---@field GetTaskGroupMemberCount fun(groupId: string|number): number
+---@field GetLocalTaskGroups fun(): string[]
+---@field TaskGroups fun(): BridgeTaskGroupsClient|BridgeTaskGroupsServer
+---@field OpenTaskGroupMenu fun(target?: number)
+---@field CloseTaskGroupMenu fun()
+---@field IsTaskGroupMenuOpen fun(): boolean
+---@field Task fun(): BridgeTask
+---@field CompleteTask fun()
+
+---Global bridge instance. Access modules via `bridge.inventory`, `bridge.menu`, etc.
+---@class Bridge
+---@field framework BridgeFrameworkClient|BridgeFrameworkServer Active framework module.
+---@field inventory BridgeInventoryClient|BridgeInventoryServer Active inventory module.
+---@field target BridgeTarget Active target module (client only).
+---@field vehiclekeys BridgeVehicleKeysClient|BridgeVehicleKeysServer Active vehicle keys module.
+---@field vehiclefuel BridgeVehicleFuel Active vehicle fuel module.
+---@field menu BridgeMenu Active menu module (client only).
+---@field notifications BridgeNotifications Active notifications module (client `notify(data)`, server `notify(src, data)`).
+---@field inputs BridgeInputs Active inputs module (client only).
+---@field textui BridgeTextUI Active TextUI module (client only).
+---@field progressbar BridgeProgressBar Active progress bar module (client only).
+---@field bossmenu BridgeBossMenu Active boss menu module (server only).
+---@field dispatch BridgeDispatch Active dispatch module (server only).
+---@field dialogue Dialogue Built-in dialogue system (client only).
+---@field task BridgeTask Built-in job/objective task HUD (client only).
+---@field taskGroups BridgeTaskGroupsClient|BridgeTaskGroupsServer Temporary task player groups (not job/gang).
+---@field locale fun(key: string, params?: table): string Returns a localized string.
+---@field locales fun(): table Returns the full locale table.
+---@field context 'client'|'server' Current script context.
+---@field name string Bridge resource name.
+---@field resource string Resource that loaded the bridge.
+---@field isHost boolean True when running inside the bridge host resource.
+---@field registerCommand fun(commandName: string, callback: fun(source: number, args: string[], rawCommand: string), restricted?: boolean) Registers a client command (client only).
+---@field registerKeybind fun(commandName: string, description: string, defaultKey: string|nil, callback: fun(source: number, args: string[], rawCommand: string)) Registers a client command with an optional key mapping (client only).
+
+---@type Bridge
+bridge = {}

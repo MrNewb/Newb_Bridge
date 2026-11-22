@@ -22,7 +22,6 @@
         "position": "位置",
         "heading": "向き",
         "distance": "距離",
-        "max_distance": "最大距離",
         "controls": "操作",
         "controls_position": "位置",
         "controls_preview": "プレビュー",
@@ -40,7 +39,6 @@
         "animation": "アニメーション",
         "cycle_animation": "アニメーション切替",
         "clear_animation": "アニメーション解除",
-        "raise_lower_ped": "ペッドを上げる / 下げる",
         "raise_lower": "上げる / 下げる",
         "cycle_model": "モデル切替",
         "toggle_preview_mode": "調整項目を切替",
@@ -50,8 +48,6 @@
         "exit": "配置を終了",
         "finish": "完了",
         "undo": "直前を取り消す",
-        "placed": "配置済み",
-        "placed_count": "配置済み（{count}）— 続けて配置するか、Backspaceで完了",
         "toggle_gizmo": "ギズモで微調整",
         "debug": "表面マテリアルをコピー",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "自由移動",
         "no_entity": "エンティティが選択されていません",
         "keys_unbound": "ギズモのキーが未割り当てです — 設定 > キー割り当て > FiveM で W/R/Q を設定してください",
-        "mode_line": "現在のモード: {mode} | {space}",
         "space_relative": "相対",
         "space_world": "ワールド",
         "modes": {
             "translate": "移動",
             "rotate": "回転"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - カーソルを有効化",
-            "cursor_disable": "[G]     - 自由移動（歩行）",
-            "translate": "[W]     - 移動モード",
-            "rotate": "[R]     - 回転モード",
-            "toggle_space": "[Q]     - ローカル/ワールド空間を切替",
-            "snap_ground": "[LALT]  - 地面にスナップ",
-            "done": "[E / ENTER] - 編集を完了"
         },
         "keybinds": {
             "select_object": "ギズモ軸を選択",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "ゾーン作成",
-        "subtitle_poly": "ポリゴンゾーン",
-        "subtitle_box": "ボックスゾーン",
-        "subtitle_sphere": "スフィアゾーン",
-        "zone_name": "ゾーン",
         "mode_edit": "編集中",
         "mode_onfoot": "徒歩",
         "mode_camera": "カメラ",
         "step": "ステップサイズ",
-        "position": "カーソル位置",
         "heading": "向き",
         "height": "高さ / 厚み",
         "width": "幅",
         "length": "奥行き",
         "radius": "半径",
         "points": "ポイント",
-        "bounds": "最大範囲",
         "distance": "中心からの距離",
         "controls_heading": "操作",
         "toggle_mode": "編集 / カメラモードを切替",
@@ -145,8 +125,6 @@
         "rotate": "向きを回転",
         "add_point": "ポリゴンポイントを追加",
         "undo_point": "直前のポイントを取り消す",
-        "center_position": "ゾーン中心",
-        "allow_movement": "自由移動",
         "movement_free": "自由に移動",
         "movement_locked": "その場に固定",
         "toggle_movement": "自由移動を切替",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "ゾーン作成: 飛行 / 徒歩を切替",
         "confirm": "ゾーンを完了",
         "cancel": "キャンセル",
-        "name_dialog_title": "ゾーンに名前を付ける",
-        "name_label": "名前",
         "errors": {
             "already_active": "すでにゾーンを作成中です",
             "invalid_type": "ゾーンタイプは poly、box、sphere のいずれかである必要があります",
             "outside_bounds": "その位置は許可範囲外です",
             "min_points": "完了する前に少なくとも2つのポイントを追加してください",
             "missing_name": "作成を開く前にゾーン名が必要です",
-            "no_aim": "確定する前に表面を照準してください",
-            "no_center": "完了する前に中心位置を設定してください"
+            "no_aim": "確定する前に表面を照準してください"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "レーザーターゲット",
         "position": "照準位置",
         "distance": "距離",
-        "max_distance": "最大距離",
         "world_size": "ボードサイズ",
         "controls": "操作",
         "place_corner": "隅を設定",
@@ -188,7 +162,6 @@
         "confirm_size": "サイズを確定",
         "reset_corner": "左上をリセット",
         "exit": "配置をキャンセル",
-        "target_placement": "[E] テクスチャにターゲットを設定  ·  [Backspace] キャンセル",
         "errors": {
             "already_active": "すでにDUIサーフェスを配置中です",
             "dui_failed": "DUIプレビューを作成できませんでした。URLを確認してもう一度お試しください。"
@@ -302,7 +275,6 @@
         "create_hint": "あなたがリーダーになります。近くのメンバーを招待できます。",
         "group_name": "グループ名",
         "group_name_placeholder": "強盗クルー、レースロビー…",
-        "image_url": "画像URL",
         "max_players": "最大人数",
         "public_group": "閲覧一覧に公開する",
         "create_group": "グループを作成",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] ロケール '{locale}' のファイルを読み込めませんでした。ファイルが存在し、有効なJSONか確認してください。",
         "version_check_start": "^2[Newb_Bridge]^7 アップデートを確認しています...",
         "version_invalid_repo": "^1[Newb_Bridge] リポジトリ形式が無効です。期待値: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] \"{resource}\" の有効なバージョンが見つかりません^7",

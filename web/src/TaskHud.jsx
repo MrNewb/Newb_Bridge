@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { hideRootIfIdle, showRoot } from './nui-visibility'
 import { Card } from '@/components/ui/card'
 import { Kbd } from '@/components/ui/kbd'
+import DialogueIcon from './DialogueIcon'
 import { cn } from '@/lib/utils'
 import './task-hud.css'
 
@@ -19,12 +20,20 @@ function parseHudType(value) {
   return 'dense'
 }
 
+function parseProgress(value) {
+  if (typeof value !== 'number' || Number.isNaN(value)) return undefined
+  if (value < 0) return 0
+  if (value > 100) return 100
+  return value
+}
+
 function parsePayload(data) {
   if (!data || typeof data !== 'object') return null
 
   const title = typeof data.title === 'string' ? data.title.trim() : ''
   if (!title) return null
 
+  const icon = typeof data.icon === 'string' ? data.icon.trim() : ''
   const tasks = []
   if (Array.isArray(data.tasks)) {
     for (let i = 0; i < data.tasks.length; i++) {
@@ -36,13 +45,13 @@ function parsePayload(data) {
         current: typeof entry.current === 'number' ? entry.current : undefined,
         max: typeof entry.max === 'number' ? entry.max : undefined,
         value: typeof entry.value === 'string' ? entry.value : undefined,
+        progress: parseProgress(entry.progress),
       })
     }
   }
 
-  const hideKey = typeof data.hideKey === 'string' && data.hideKey.trim()
-    ? data.hideKey.trim()
-    : 'H'
+  const hideKeyRaw = typeof data.hideKey === 'string' ? data.hideKey.trim() : ''
+  const hideKey = hideKeyRaw && hideKeyRaw !== 'NULL' ? hideKeyRaw : 'H'
   const hideLabel = typeof data.hideLabel === 'string' && data.hideLabel.trim()
     ? data.hideLabel.trim()
     : 'Hide'
@@ -50,6 +59,7 @@ function parsePayload(data) {
   return {
     title,
     description: typeof data.description === 'string' ? data.description : '',
+    icon: icon || undefined,
     position: data.position === 'right' ? 'right' : 'left',
     type: parseHudType(data.type),
     expanded: data.expanded !== false,
@@ -116,7 +126,7 @@ export default function TaskHud() {
   return (
     <aside
       className={cn(
-        'task-hud task-hud--visible pointer-events-none fixed top-[18vh] z-20 font-sans text-card-foreground',
+        'task-hud task-hud--visible pointer-events-none fixed top-[18vh] z-20 flex max-h-[calc(100vh-20vh)] min-h-0 overflow-hidden font-sans text-card-foreground',
         payload.position === 'right' ? 'right-6' : 'left-6',
         payload.type === 'dense' && 'w-[min(24rem,calc(100vw-2rem))]',
         payload.type === 'weight' && 'w-[min(20rem,calc(100vw-2rem))]',
@@ -124,14 +134,21 @@ export default function TaskHud() {
       )}
       aria-label={payload.title}
     >
-      <Card className={cn('flex flex-col gap-2 p-3', payload.type === 'weight' && 'gap-1.5 p-2.5')}>
-        <header className="flex flex-col gap-1.5">
-          <h2 className={cn(
-            'm-0 text-lg font-semibold leading-snug tracking-tight text-foreground',
-            payload.type === 'weight' && 'text-base',
-          )}>
-            {payload.title}
-          </h2>
+      <Card className={cn('flex max-h-full min-h-0 w-full flex-col gap-2 p-3', payload.type === 'weight' && 'gap-1.5 p-2.5')}>
+        <header className="flex shrink-0 flex-col gap-1.5">
+          <div className="flex items-center gap-2">
+            {payload.icon ? (
+              <span className="flex size-7 shrink-0 items-center justify-center text-lg text-foreground" aria-hidden="true">
+                <DialogueIcon name={payload.icon} />
+              </span>
+            ) : null}
+            <h2 className={cn(
+              'm-0 min-w-0 flex-1 text-lg font-semibold leading-snug tracking-tight text-foreground',
+              payload.type === 'weight' && 'text-base',
+            )}>
+              {payload.title}
+            </h2>
+          </div>
           <div
             className={cn(
               'h-px rounded-[1px] bg-border',
@@ -144,7 +161,7 @@ export default function TaskHud() {
           />
         </header>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
           {payload.complete ? (
             <>
               {payload.description ? (
@@ -173,20 +190,42 @@ export default function TaskHud() {
 
               {showGatheredRows && payload.tasks.length > 0 ? (
                 <ul className={cn(
-                  'm-0 flex list-none flex-col gap-1 p-0',
-                  payload.type === 'dense' && 'max-h-[min(42vh,18rem)] overflow-y-auto pr-0.5',
+                  'm-0 flex min-h-0 list-none flex-col gap-1 overflow-y-auto p-0',
+                  payload.type === 'dense' && 'max-h-[min(36vh,22rem)] pr-0.5',
+                  payload.type === 'dense' && payload.tasks.some((task) => typeof task.progress === 'number') && 'gap-2',
                   payload.type === 'gather' && 'gap-0.5 border-t border-border pt-1.5',
                 )}>
                   {payload.tasks.map((task) => {
                     const value = progressText(task)
+                    const hasBar = typeof task.progress === 'number'
                     return (
                       <li
                         key={task.id}
-                        className="flex items-baseline justify-between gap-3 text-sm leading-relaxed text-muted-foreground [font-variant-numeric:tabular-nums]"
+                        className={cn(
+                          'text-sm leading-relaxed text-muted-foreground [font-variant-numeric:tabular-nums]',
+                          hasBar && 'flex flex-col gap-1',
+                        )}
                       >
-                        <span className="min-w-0 flex-1">{task.label}</span>
-                        {value ? (
-                          <span className="flex-none font-medium text-foreground">{value}</span>
+                        <div className="flex items-baseline justify-between gap-3">
+                          <span className="min-w-0 flex-1">{task.label}</span>
+                          {value ? (
+                            <span className="flex-none font-medium text-foreground">{value}</span>
+                          ) : null}
+                        </div>
+                        {hasBar ? (
+                          <div
+                            className="h-1.5 w-full overflow-hidden rounded-md bg-muted"
+                            role="progressbar"
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                            aria-valuenow={Math.round(task.progress)}
+                            aria-label={task.label}
+                          >
+                            <div
+                              className="task-hud__row-bar-fill h-full w-full origin-left bg-primary"
+                              style={{ '--progress-scale': task.progress / 100 }}
+                            />
+                          </div>
                         ) : null}
                       </li>
                     )
@@ -195,9 +234,10 @@ export default function TaskHud() {
               ) : null}
             </>
           )}
-
-          <p className="mt-0.5 mb-0 flex items-center gap-1.5 text-xs leading-snug text-muted-foreground">
-            <Kbd className="min-h-6 min-w-6 px-1.5 py-0.5">{payload.hideKey}</Kbd>
+          <p className="mb-0 mt-0.5 flex shrink-0 items-center gap-1.5 text-xs font-bold uppercase leading-none tracking-[0.08em] text-foreground">
+            <Kbd className="min-h-[1.35rem] min-w-[1.45rem] flex-row rounded border-border bg-muted px-1.5 py-0.5 text-xs font-bold uppercase tracking-[0.04em] text-foreground">
+              {payload.hideKey}
+            </Kbd>
             <span>{payload.hideLabel}</span>
           </p>
         </div>

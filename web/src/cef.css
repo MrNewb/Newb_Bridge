@@ -1,12 +1,20 @@
-/* FiveM CEF — transparent page; dialogue panel provides its own surface. */
+/* FiveM CEF — transparent page; each panel paints its own surface. */
 :root,
 html {
   color-scheme: normal !important;
 }
 
-html[data-preview-mode='cef'],
-html[data-preview-mode='cef'] body,
-html[data-preview-mode='cef'] #root {
+html,
+body,
+#root,
+#notify-root {
   background: transparent !important;
   background-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* the page behind a panel never scrolls: a list that reaches its end must not drag the whole panel along */
+html,
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
 }

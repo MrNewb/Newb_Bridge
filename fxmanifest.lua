@@ -4,63 +4,70 @@ lua54 "yes"
 
 name "Newb_Bridge"
 
+newb_bridge_host "yes"
+
 author "MrNewb"
 description "Newb_Bridge is a framework agnostic resource that provides a simple way to create bridges between your resources and other resources. It is designed to be easy to use and understand, while also being powerful enough to handle complex use cases."
-version "0.0.3"
+version "0.0.4"
 
 dependencies {
     "ox_lib",
+    "oxmysql",
 }
 
 shared_scripts {
     "@ox_lib/init.lua",
     "settings/bridge_resources.lua",
+    "settings/theme.lua",
     "settings/auto_detect.lua",
     "import.lua",
-    "utility/shared/locale.lua",
+    "resource/utility/shared/task_groups_config.lua",
+    "resource/utility/shared/locale.lua",
 }
 
 ui_page "web/build/index.html"
 
 client_scripts {
-    "utility/client/interaction_points.lua",
-    "utility/client/interactions.lua",
-    "utility/client/dataview.lua",
-    "utility/client/gizmo.lua",
-    "utility/client/keybinds.lua",
-    "utility/client/placer.lua",
-    "utility/client/dialogue.lua",
-    "utility/client/zone_creator.lua",
-    "utility/client/dui_surface.lua",
-    "utility/client/task_groups.lua",
-    "utility/client/task_hud.lua",
+    "resource/utility/client/interaction_points.lua",
+    "resource/utility/client/interactions.lua",
+    "resource/utility/client/gizmo.lua",
+    "resource/utility/client/keybinds.lua",
+    "resource/utility/client/lazy_tools.lua",
+    "resource/utility/client/task_groups.lua",
+    "resource/utility/client/task_hud.lua",
 }
 
 server_scripts {
     "@oxmysql/lib/MySQL.lua",
-    "utility/server/interactions.lua",
-    "utility/server/task_groups.lua",
-    "utility/server/version.lua",
+    "resource/utility/server/interactions.lua",
+    "resource/utility/server/task_groups.lua",
+    "resource/utility/server/version.lua",
 }
 
 files {
     "import.lua",
-    "modules/**/client.lua",
-    "modules/**/server.lua",
-    "modules/**/shared.lua",
-    "modules/framework/*.lua",
+    "resource/modules/**/client.lua",
+    "resource/modules/**/server.lua",
+    "resource/modules/**/shared.lua",
+    "resource/modules/framework/*.lua",
     "locales/*.json",
-    "types/**/*.lua",
-    "utility/client/*.lua",
+    "resource/types/**/*.lua",
+    "resource/host/*.lua",
+    "resource/utility/client/*.lua",
+    "utility/client/camera_ray.lua", -- deprecated 2026-12-17: old require path, see the shim
     "web/build/**",
 }
 
 exports {
     "BridgeEnvironment",
+    "ModuleSource",
+    "LazyToolsLoaded",
     "Framework",
     "Inventory",
     "Locale",
     "Locales",
+    "GetTheme",
+    "GetThemeCss",
     "Dialogue",
     "PropPlacer",
     "useGizmo",

@@ -30,6 +30,10 @@ const DEFAULT_LOCALES = {
   copyJoinCode: 'Copy join code',
   kick: 'Kick',
   disbandGroup: 'Disband group',
+  confirmDisband: 'Click again to disband',
+  confirmKick: 'Click again to kick',
+  nobodyNearby: 'Nobody nearby to invite.',
+  joinCodeIncomplete: 'Enter the full group code to join.',
   leaveGroup: 'Leave group',
   inviteNearby: 'Invite nearby player',
   leader: 'Leader',
@@ -81,6 +85,7 @@ function applyActionResult(result, setGroups, setMyGroup, notify) {
 export default function TaskGroupMenu() {
   const [open, setOpen] = useState(false)
   const [tab, setTab] = useState('browse')
+  const [confirmingDisband, setConfirmingDisband] = useState(false)
   const [locales, setLocales] = useState(DEFAULT_LOCALES)
   const [config, setConfig] = useState({})
   const [groups, setGroups] = useState([])
@@ -93,6 +98,10 @@ export default function TaskGroupMenu() {
     public: false,
   })
   const [inviteCandidates, setInviteCandidates] = useState([])
+  const [invitesLoaded, setInvitesLoaded] = useState(false)
+  const [confirmingKick, setConfirmingKick] = useState(null)
+  const [busy, setBusy] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const shellRef = useRef(null)
   const closeButtonRef = useRef(null)
   const previousFocusRef = useRef(null)
@@ -202,18 +211,54 @@ export default function TaskGroupMenu() {
   }, [myGroup, myServerId])
 
   const runAction = useCallback(async (event, data) => {
-    const result = await fetchNui(event, data)
-    applyActionResult(result, setGroups, setMyGroup, notify)
-    if (result?.success && result?.myGroup) setTab('manage')
-    return result
+    setBusy(true)
+    setErrorMessage('')
+    try {
+      const result = await fetchNui(event, data)
+      applyActionResult(result, setGroups, setMyGroup, notify)
+      if (result?.success === false && result?.message) setErrorMessage(String(result.message))
+      if (result?.success && result?.myGroup) setTab('manage')
+      return result
+    } finally {
+      setBusy(false)
+    }
   }, [notify])
 
   const loadInviteCandidates = useCallback(async () => {
     const result = await fetchNui('taskGroupMenu:getNearbyCandidates')
     setInviteCandidates(Array.isArray(result?.candidates) ? result.candidates : [])
+    setInvitesLoaded(true)
   }, [])
 
   const resolvedTab = tab === 'manage' && !myGroup ? 'browse' : tab
+
+  useEffect(() => {
+    if (confirmingKick == null) return undefined
+    const timer = window.setTimeout(() => setConfirmingKick(null), 4000)
+    return () => window.clearTimeout(timer)
+  }, [confirmingKick])
+
+  useEffect(() => {
+    setErrorMessage('')
+  }, [tab, open])
+
+  useEffect(() => {
+    if (!confirmingDisband) return undefined
+    const timer = window.setTimeout(() => setConfirmingDisband(false), 4000)
+    return () => window.clearTimeout(timer)
+  }, [confirmingDisband])
+
+  const joinCodeLength = config.joinCodeLength || 6
+  const joinCodeReady = joinCode.length === joinCodeLength
+  const minPlayers = config.minMaxPlayers || 2
+  const maxPlayers = config.maxMaxPlayers || 8
+
+  const submitCreate = () => {
+    const requested = Number(createForm.maxplayers) || config.defaultMaxPlayers || minPlayers
+    const clamped = Math.min(maxPlayers, Math.max(minPlayers, requested))
+    setCreateForm((current) => ({ ...current, maxplayers: clamped }))
+    runAction('taskGroupMenu:createGroup', { ...createForm, maxplayers: clamped })
+  }
 
   if (!open) return null
 
@@ -221,12 +266,12 @@ export default function TaskGroupMenu() {
     <div className="task-group-menu task-group-menu--visible pointer-events-auto fixed inset-0 z-40 flex items-center justify-center select-none">
       <div
         ref={shellRef}
-        className="flex max-h-[min(720px,calc(100vh-48px))] w-[min(560px,calc(100vw-32px))] flex-col overflow-hidden rounded-lg border border-solid border-border bg-background shadow-toast"
+        className="task-group-menu-card flex max-h-[calc(100vh-4.5rem)] w-[min(560px,calc(100vw-32px))] min-h-0 flex-col overflow-hidden rounded-lg border border-solid border-border bg-background shadow-toast"
         role="dialog"
         aria-modal="true"
         aria-labelledby="task-group-menu-title"
       >
-        <div className="flex items-start justify-between gap-3 border-b border-border p-4">
+        <div className="flex shrink-0 items-start justify-between gap-3 border-b border-border p-4">
           <div>
             <p className="m-0 text-sm text-muted-foreground">{locales.menuBrand}</p>
             <h2 id="task-group-menu-title" className="mt-1 text-lg font-semibold leading-none tracking-tight text-foreground">
@@ -238,8 +283,14 @@ export default function TaskGroupMenu() {
           </Button>
         </div>
 
+        {errorMessage ? (
+          <p role="alert" className="m-0 shrink-0 border-b border-border px-4 py-2 text-sm text-destructive">
+            {errorMessage}
+          </p>
+        ) : null}
+
         <Tabs value={resolvedTab} onValueChange={setTab} className="min-h-0 flex-1">
-          <TabsList className="mx-4 mt-2 w-[calc(100%-2rem)]" aria-label={locales.menuTitle}>
+          <TabsList className="mx-4 mt-2 w-[calc(100%-2rem)] shrink-0" aria-label={locales.menuTitle}>
             <TabsTrigger value="browse">{locales.tabBrowse}</TabsTrigger>
             <TabsTrigger value="create">{locales.tabCreate}</TabsTrigger>
             {myGroup ? <TabsTrigger value="manage">{locales.tabManage}</TabsTrigger> : null}
@@ -251,13 +302,17 @@ export default function TaskGroupMenu() {
               <Input
                 id="join-code"
                 value={joinCode}
-                onChange={(event) => setJoinCode(event.target.value.replace(/\D/g, '').slice(0, config.joinCodeLength || 6))}
+                onChange={(event) => setJoinCode(event.target.value.replace(/\D/g, '').slice(0, joinCodeLength))}
                 placeholder={locales.joinCodeHint}
+                inputMode="numeric"
+                autoComplete="off"
               />
               <Button
                 variant="default"
                 size="block"
                 className="mt-3"
+                disabled={!joinCodeReady || busy}
+                title={joinCodeReady ? undefined : locales.joinCodeIncomplete}
                 onClick={() => runAction('taskGroupMenu:joinByCode', { joinCode })}
               >
                 {locales.join}
@@ -279,6 +334,7 @@ export default function TaskGroupMenu() {
                 <Button
                   variant="default"
                   size="sm"
+                  disabled={busy}
                   onClick={() => runAction('taskGroupMenu:joinGroup', { groupId: group.id })}
                 >
                   {locales.join}
@@ -304,10 +360,10 @@ export default function TaskGroupMenu() {
             <Input
               id="group-max"
               type="number"
-              min={config.minMaxPlayers || 2}
-              max={config.maxMaxPlayers || 8}
+              min={minPlayers}
+              max={maxPlayers}
               value={createForm.maxplayers}
-              onChange={(event) => setCreateForm({ ...createForm, maxplayers: Number(event.target.value) || 4 })}
+              onChange={(event) => setCreateForm({ ...createForm, maxplayers: event.target.value === '' ? '' : Number(event.target.value) })}
             />
             <label className="flex cursor-pointer items-center gap-2">
               <Checkbox
@@ -317,7 +373,7 @@ export default function TaskGroupMenu() {
               />
               <span className="text-sm text-foreground">{locales.publicGroup}</span>
             </label>
-            <Button variant="default" size="block" onClick={() => runAction('taskGroupMenu:createGroup', createForm)}>
+            <Button variant="default" size="block" disabled={busy} onClick={submitCreate}>
               {locales.createGroup}
             </Button>
           </TabsContent>
@@ -357,9 +413,17 @@ export default function TaskGroupMenu() {
                       <Button
                         variant="destructive"
                         size="sm"
-                        onClick={() => runAction('taskGroupMenu:kickMember', { targetId: player.serverId })}
+                        disabled={busy}
+                        onClick={() => {
+                          if (confirmingKick !== player.serverId) {
+                            setConfirmingKick(player.serverId)
+                            return
+                          }
+                          setConfirmingKick(null)
+                          runAction('taskGroupMenu:kickMember', { targetId: player.serverId })
+                        }}
                       >
-                        {locales.kick}
+                        {confirmingKick === player.serverId ? locales.confirmKick : locales.kick}
                       </Button>
                     ) : null}
                   </div>
@@ -368,9 +432,14 @@ export default function TaskGroupMenu() {
 
               {isLeader ? (
                 <>
-                  <Button variant="secondary" size="block" onClick={loadInviteCandidates}>
+                  <Button variant="secondary" size="block" disabled={busy} onClick={loadInviteCandidates}>
                     {locales.inviteNearby}
                   </Button>
+                  {invitesLoaded && inviteCandidates.length === 0 ? (
+                    <div className="rounded-md bg-muted px-4 py-4 text-center text-sm text-muted-foreground">
+                      {locales.nobodyNearby}
+                    </div>
+                  ) : null}
                   {inviteCandidates.map((candidate) => (
                     <div key={candidate.serverId} className="flex items-center justify-between gap-3 rounded-md bg-muted px-3 py-2.5">
                       <div>
@@ -380,15 +449,29 @@ export default function TaskGroupMenu() {
                       <Button
                         variant="default"
                         size="sm"
+                        disabled={busy}
                         onClick={() => runAction('taskGroupMenu:inviteMember', { targetId: candidate.serverId })}
                       >
                         {locales.join}
                       </Button>
                     </div>
                   ))}
-                  <Button variant="destructive" size="block" onClick={() => runAction('taskGroupMenu:disbandGroup')}>
-                    {locales.disbandGroup}
-                  </Button>
+                  <div className="mt-2 border-t border-solid border-border pt-3">
+                    <Button
+                      variant={confirmingDisband ? 'destructive' : 'outline'}
+                      size="block"
+                      onClick={() => {
+                        if (!confirmingDisband) {
+                          setConfirmingDisband(true)
+                          return
+                        }
+                        setConfirmingDisband(false)
+                        runAction('taskGroupMenu:disbandGroup')
+                      }}
+                    >
+                      {confirmingDisband ? locales.confirmDisband : locales.disbandGroup}
+                    </Button>
+                  </div>
                 </>
               ) : (
                 <Button variant="ghost" size="block" onClick={() => runAction('taskGroupMenu:leaveGroup')}>

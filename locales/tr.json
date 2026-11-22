@@ -22,7 +22,6 @@
         "position": "Konum",
         "heading": "Yön",
         "distance": "Mesafe",
-        "max_distance": "Maks. mesafe",
         "controls": "Kontroller",
         "controls_position": "Konum",
         "controls_preview": "Önizleme",
@@ -40,7 +39,6 @@
         "animation": "Animasyon",
         "cycle_animation": "Animasyonu değiştir",
         "clear_animation": "Animasyonu temizle",
-        "raise_lower_ped": "Pedi kaldır / indir",
         "raise_lower": "Kaldır / indir",
         "cycle_model": "Modeli değiştir",
         "toggle_preview_mode": "Ayarlamayı değiştir",
@@ -50,8 +48,6 @@
         "exit": "Yerleştirmeden çık",
         "finish": "Bitir",
         "undo": "Sonuncuyu geri al",
-        "placed": "Yerleştirildi",
-        "placed_count": "Yerleştirildi ({count}) — yerleştirmeye devam et veya bitirmek için Backspace'e bas",
         "toggle_gizmo": "Gizmo ile ince ayar",
         "debug": "Yüzey malzemesini kopyala",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Serbest hareket",
         "no_entity": "Seçili varlık yok",
         "keys_unbound": "Gizmo tuşları atanmamış — W/R/Q tuşlarını Ayarlar > Tuş Atamaları > FiveM altında ayarla",
-        "mode_line": "Geçerli mod: {mode} | {space}",
         "space_relative": "Göreli",
         "space_world": "Dünya",
         "modes": {
             "translate": "Taşıma",
             "rotate": "Döndürme"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - İmleci aç",
-            "cursor_disable": "[G]     - Serbest hareket (yürüme)",
-            "translate": "[W]     - Taşıma modu",
-            "rotate": "[R]     - Döndürme modu",
-            "toggle_space": "[Q]     - Yerel/Dünya uzayı",
-            "snap_ground": "[LALT]  - Yere yasla",
-            "done": "[E / ENTER] - Düzenlemeyi bitir"
         },
         "keybinds": {
             "select_object": "Gizmo eksenini seç",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Bölge oluşturucu",
-        "subtitle_poly": "Çokgen bölge",
-        "subtitle_box": "Kutu bölge",
-        "subtitle_sphere": "Küre bölge",
-        "zone_name": "Bölge",
         "mode_edit": "Düzenleme",
         "mode_onfoot": "Yaya",
         "mode_camera": "Kamera",
         "step": "Adım boyutu",
-        "position": "İmleç konumu",
         "heading": "Yön",
         "height": "Yükseklik / kalınlık",
         "width": "Genişlik",
         "length": "Uzunluk",
         "radius": "Yarıçap",
         "points": "Noktalar",
-        "bounds": "Maks. alan",
         "distance": "Merkezden",
         "controls_heading": "Kontroller",
         "toggle_mode": "Düzenleme / kamera modunu değiştir",
@@ -145,8 +125,6 @@
         "rotate": "Yönü döndür",
         "add_point": "Çokgen noktası ekle",
         "undo_point": "Son noktayı geri al",
-        "center_position": "Bölge merkezi",
-        "allow_movement": "Serbest hareket",
         "movement_free": "Serbestçe hareket et",
         "movement_locked": "Yerinde kilitli",
         "toggle_movement": "Serbest hareketi aç/kapat",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Bölge oluşturucu: uçuş / yaya değiştir",
         "confirm": "Bölgeyi bitir",
         "cancel": "İptal",
-        "name_dialog_title": "Bölgene ad ver",
-        "name_label": "Ad",
         "errors": {
             "already_active": "Zaten bir bölge oluşturuyorsun",
             "invalid_type": "Bölge türü poly, box veya sphere olmalı",
             "outside_bounds": "Bu konum izin verilen alanın dışında",
             "min_points": "Bitirmeden önce en az 2 nokta ekle",
             "missing_name": "Oluşturucuyu açmadan önce bir bölge adı gerekli",
-            "no_aim": "Onaylamadan önce bir yüzeye nişan al",
-            "no_center": "Bitirmeden önce bir merkez konumu ayarla"
+            "no_aim": "Onaylamadan önce bir yüzeye nişan al"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Lazer hedefi",
         "position": "Nişan konumu",
         "distance": "Mesafe",
-        "max_distance": "Maks. mesafe",
         "world_size": "Pano boyutu",
         "controls": "Kontroller",
         "place_corner": "Köşeyi ayarla",
@@ -188,7 +162,6 @@
         "confirm_size": "Boyutu onayla",
         "reset_corner": "Sol üstü sıfırla",
         "exit": "Yerleştirmeyi iptal et",
-        "target_placement": "[E] Dokuda hedefi ayarla  ·  [Backspace] İptal",
         "errors": {
             "already_active": "Zaten bir DUI yüzeyi yerleştiriyorsun",
             "dui_failed": "DUI önizlemesi oluşturulamadı. URL'yi kontrol edip tekrar dene."
@@ -302,7 +275,6 @@
         "create_hint": "Lider olursun. Yakındaki üyeler davet edilebilir.",
         "group_name": "Grup adı",
         "group_name_placeholder": "Soygun ekibi, yarış lobisi…",
-        "image_url": "Görsel URL",
         "max_players": "Maks. oyuncu",
         "public_group": "Göz atmada herkese açık listele",
         "create_group": "Grup oluştur",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] '{locale}' için dil dosyası yüklenemedi. Dosyanın var olduğunu ve geçerli JSON olduğunu kontrol et.",
         "version_check_start": "^2[Newb_Bridge]^7 Güncellemeler kontrol ediliyor...",
         "version_invalid_repo": "^1[Newb_Bridge] Geçersiz depo biçimi. Beklenen: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] \"{resource}\" için geçerli sürüm bulunamadı^7",

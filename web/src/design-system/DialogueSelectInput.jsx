@@ -133,7 +133,6 @@ function DialogueSelectInput({
           aria-haspopup="listbox"
           aria-controls={listId}
           aria-label={input.label}
-          aria-valuetext={displayValue || undefined}
           aria-invalid={error ? true : undefined}
           aria-describedby={ariaDescribedBy}
           onKeyDown={handleComboboxKeyDown}

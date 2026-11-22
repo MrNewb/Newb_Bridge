@@ -22,7 +22,6 @@
         "position": "Posizione",
         "heading": "Orientamento",
         "distance": "Distanza",
-        "max_distance": "Distanza max",
         "controls": "Controlli",
         "controls_position": "Posizione",
         "controls_preview": "Anteprima",
@@ -40,7 +39,6 @@
         "animation": "Animazione",
         "cycle_animation": "Cambia animazione",
         "clear_animation": "Rimuovi animazione",
-        "raise_lower_ped": "Alza / abbassa ped",
         "raise_lower": "Alza / abbassa",
         "cycle_model": "Cambia modello",
         "toggle_preview_mode": "Cambia regolazione",
@@ -50,8 +48,6 @@
         "exit": "Esci dal posizionamento",
         "finish": "Fine",
         "undo": "Annulla ultimo",
-        "placed": "Posizionato",
-        "placed_count": "Posizionati ({count}) — continua a posizionare o premi Backspace per terminare",
         "toggle_gizmo": "Regola con il gizmo",
         "debug": "Copia materiale della superficie",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Movimento libero",
         "no_entity": "Nessuna entità selezionata",
         "keys_unbound": "I tasti della modalità gizmo non sono assegnati — imposta W/R/Q in Impostazioni > Assegnazione tasti > FiveM",
-        "mode_line": "Modalità attuale: {mode} | {space}",
         "space_relative": "Relativo",
         "space_world": "Mondo",
         "modes": {
             "translate": "Sposta",
             "rotate": "Ruota"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Attiva cursore",
-            "cursor_disable": "[G]     - Movimento libero (cammina)",
-            "translate": "[W]     - Modalità spostamento",
-            "rotate": "[R]     - Modalità rotazione",
-            "toggle_space": "[Q]     - Alterna spazio locale/mondo",
-            "snap_ground": "[LALT]  - Aggancia al suolo",
-            "done": "[E / ENTER] - Termina modifica"
         },
         "keybinds": {
             "select_object": "Seleziona asse gizmo",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Creatore zone",
-        "subtitle_poly": "Zona poligono",
-        "subtitle_box": "Zona box",
-        "subtitle_sphere": "Zona sfera",
-        "zone_name": "Zona",
         "mode_edit": "Modifica",
         "mode_onfoot": "A piedi",
         "mode_camera": "Telecamera",
         "step": "Dimensione passo",
-        "position": "Posizione cursore",
         "heading": "Orientamento",
         "height": "Altezza / spessore",
         "width": "Larghezza",
         "length": "Lunghezza",
         "radius": "Raggio",
         "points": "Punti",
-        "bounds": "Area max",
         "distance": "Dal centro",
         "controls_heading": "Controlli",
         "toggle_mode": "Alterna modifica / telecamera",
@@ -145,8 +125,6 @@
         "rotate": "Ruota orientamento",
         "add_point": "Aggiungi punto poligono",
         "undo_point": "Annulla ultimo punto",
-        "center_position": "Centro zona",
-        "allow_movement": "Movimento libero",
         "movement_free": "Muoviti liberamente",
         "movement_locked": "Bloccato sul posto",
         "toggle_movement": "Attiva/disattiva movimento libero",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Creatore zone: alterna volo / a piedi",
         "confirm": "Termina zona",
         "cancel": "Annulla",
-        "name_dialog_title": "Dai un nome alla zona",
-        "name_label": "Nome",
         "errors": {
             "already_active": "Stai già creando una zona",
             "invalid_type": "Il tipo di zona deve essere poly, box o sphere",
             "outside_bounds": "Quella posizione è fuori dall'area consentita",
             "min_points": "Aggiungi almeno 2 punti prima di terminare",
             "missing_name": "È richiesto un nome zona prima di aprire il creatore",
-            "no_aim": "Mira una superficie prima di confermare",
-            "no_center": "Imposta una posizione centrale prima di terminare"
+            "no_aim": "Mira una superficie prima di confermare"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Bersaglio laser",
         "position": "Posizione mira",
         "distance": "Distanza",
-        "max_distance": "Distanza max",
         "world_size": "Dimensione tavola",
         "controls": "Controlli",
         "place_corner": "Imposta angolo",
@@ -188,7 +162,6 @@
         "confirm_size": "Conferma dimensione",
         "reset_corner": "Reimposta angolo in alto a sinistra",
         "exit": "Annulla posizionamento",
-        "target_placement": "[E] Imposta bersaglio sulla texture  ·  [Backspace] Annulla",
         "errors": {
             "already_active": "Stai già posizionando una superficie DUI",
             "dui_failed": "Impossibile creare l'anteprima DUI. Controlla l'URL e riprova."
@@ -302,7 +275,6 @@
         "create_hint": "Diventi il leader. I membri possono essere invitati nelle vicinanze.",
         "group_name": "Nome gruppo",
         "group_name_placeholder": "Squadra rapina, lobby gara…",
-        "image_url": "URL immagine",
         "max_players": "Giocatori max",
         "public_group": "Elenca pubblicamente in Sfoglia",
         "create_group": "Crea gruppo",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Impossibile caricare il file locale per '{locale}'. Controlla che il file esista e sia un JSON valido.",
         "version_check_start": "^2[Newb_Bridge]^7 Controllo aggiornamenti...",
         "version_invalid_repo": "^1[Newb_Bridge] Formato repository non valido. Atteso: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Nessuna versione valida trovata per \"{resource}\"^7",

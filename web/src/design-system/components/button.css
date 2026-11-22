@@ -60,10 +60,10 @@
 .dialogue-button-arrow,
 .dialogue-button-chevron {
   flex-shrink: 0;
-  width: 0.75em;
-  height: 0.75em;
-  margin-top: 0.2em;
-  color: var(--color-text-muted);
+  width: 1em;
+  height: 1em;
+  margin-top: 0.1em;
+  color: var(--color-text);
   transition:
     color var(--dialogue-feedback-duration) var(--ease-out-quart),
     transform var(--dialogue-feedback-duration) var(--ease-out-quart);
@@ -85,7 +85,7 @@
   z-index: 0;
 }
 
-.dialogue-button--input:has(.dialogue-input-picker.is-open) {
+.dialogue-button--input[data-open-picker] {
   z-index: 40;
 }
 
@@ -192,7 +192,11 @@
 .dialogue-button--info .dialogue-button-icon,
 .dialogue-button--success .dialogue-button-icon,
 .dialogue-button--warning .dialogue-button-icon,
-.dialogue-button--error .dialogue-button-icon {
+.dialogue-button--error .dialogue-button-icon,
+.dialogue-button--info .dialogue-button-arrow,
+.dialogue-button--success .dialogue-button-arrow,
+.dialogue-button--warning .dialogue-button-arrow,
+.dialogue-button--error .dialogue-button-arrow {
   color: var(--ds-type);
 }
 
@@ -201,4 +205,29 @@
 .dialogue-button--warning.dialogue-button--pending,
 .dialogue-button--error.dialogue-button--pending {
   border-color: var(--ds-type);
+}
+
+/* an option that holds inputs: the whole card still submits, through a button behind the content */
+.dialogue-button-submit {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  cursor: inherit;
+}
+
+.dialogue-button--action .dialogue-button-main {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dialogue-button--action .dialogue-button-input-host {
+  pointer-events: auto;
 }

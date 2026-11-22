@@ -22,7 +22,6 @@
         "position": "Positie",
         "heading": "Richting",
         "distance": "Afstand",
-        "max_distance": "Max. afstand",
         "controls": "Besturing",
         "controls_position": "Positie",
         "controls_preview": "Voorbeeld",
@@ -40,7 +39,6 @@
         "animation": "Animatie",
         "cycle_animation": "Animatie wisselen",
         "clear_animation": "Animatie wissen",
-        "raise_lower_ped": "Ped omhoog / omlaag",
         "raise_lower": "Omhoog / omlaag",
         "cycle_model": "Model wisselen",
         "toggle_preview_mode": "Aanpassing wisselen",
@@ -50,8 +48,6 @@
         "exit": "Plaatser sluiten",
         "finish": "Voltooien",
         "undo": "Laatste ongedaan maken",
-        "placed": "Geplaatst",
-        "placed_count": "Geplaatst ({count}) — blijf plaatsen of druk op Backspace om te voltooien",
         "toggle_gizmo": "Fijn afstellen met gizmo",
         "debug": "Oppervlaktemateriaal kopiëren",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Vrije beweging",
         "no_entity": "Geen entiteit geselecteerd",
         "keys_unbound": "Gizmo-toetsen zijn niet toegewezen — stel W/R/Q in onder Instellingen > Toetsbindingen > FiveM",
-        "mode_line": "Huidige modus: {mode} | {space}",
         "space_relative": "Relatief",
         "space_world": "Wereld",
         "modes": {
             "translate": "Verplaatsen",
             "rotate": "Draaien"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Cursor inschakelen",
-            "cursor_disable": "[G]     - Vrije beweging (lopen)",
-            "translate": "[W]     - Verplaatsmodus",
-            "rotate": "[R]     - Draaimodus",
-            "toggle_space": "[Q]     - Lokaal/wereld wisselen",
-            "snap_ground": "[LALT]  - Aan grond vastklikken",
-            "done": "[E / ENTER] - Bewerken afronden"
         },
         "keybinds": {
             "select_object": "Gizmo-as selecteren",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Zone-maker",
-        "subtitle_poly": "Polygoonzone",
-        "subtitle_box": "Boxzone",
-        "subtitle_sphere": "Bolzone",
-        "zone_name": "Zone",
         "mode_edit": "Bewerken",
         "mode_onfoot": "Te voet",
         "mode_camera": "Camera",
         "step": "Stapgrootte",
-        "position": "Cursorpositie",
         "heading": "Richting",
         "height": "Hoogte / dikte",
         "width": "Breedte",
         "length": "Lengte",
         "radius": "Straal",
         "points": "Punten",
-        "bounds": "Max. oppervlak",
         "distance": "Vanaf midden",
         "controls_heading": "Besturing",
         "toggle_mode": "Bewerken / camera wisselen",
@@ -145,8 +125,6 @@
         "rotate": "Richting draaien",
         "add_point": "Polygoonpunt toevoegen",
         "undo_point": "Laatste punt ongedaan maken",
-        "center_position": "Zonemidden",
-        "allow_movement": "Vrije beweging",
         "movement_free": "Vrij bewegen",
         "movement_locked": "Vastgezet",
         "toggle_movement": "Vrije beweging wisselen",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Zone-maker: vliegen / te voet wisselen",
         "confirm": "Zone afronden",
         "cancel": "Annuleren",
-        "name_dialog_title": "Geef je zone een naam",
-        "name_label": "Naam",
         "errors": {
             "already_active": "Je maakt al een zone",
             "invalid_type": "Zonetype moet poly, box of sphere zijn",
             "outside_bounds": "Die positie ligt buiten het toegestane gebied",
             "min_points": "Voeg minstens 2 punten toe voordat je afrondt",
             "missing_name": "Een zonenaam is vereist voordat de maker wordt geopend",
-            "no_aim": "Richt op een oppervlak voordat je bevestigt",
-            "no_center": "Stel een middenpositie in voordat je afrondt"
+            "no_aim": "Richt op een oppervlak voordat je bevestigt"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Laserdoel",
         "position": "Richtpositie",
         "distance": "Afstand",
-        "max_distance": "Max. afstand",
         "world_size": "Bordgrootte",
         "controls": "Besturing",
         "place_corner": "Hoek instellen",
@@ -188,7 +162,6 @@
         "confirm_size": "Grootte bevestigen",
         "reset_corner": "Linkerbovenhoek resetten",
         "exit": "Plaatsing annuleren",
-        "target_placement": "[E] Doel op textuur zetten  ·  [Backspace] Annuleren",
         "errors": {
             "already_active": "Je plaatst al een DUI-oppervlak",
             "dui_failed": "Kon het DUI-voorbeeld niet maken. Controleer de URL en probeer het opnieuw."
@@ -302,7 +275,6 @@
         "create_hint": "Jij wordt de leider. Leden kunnen in de buurt worden uitgenodigd.",
         "group_name": "Groepsnaam",
         "group_name_placeholder": "Overvalcrew, race-lobby…",
-        "image_url": "Afbeeldings-URL",
         "max_players": "Max. spelers",
         "public_group": "Openbaar tonen bij Bladeren",
         "create_group": "Groep aanmaken",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Localebestand voor '{locale}' kon niet worden geladen. Controleer of het bestand bestaat en geldige JSON is.",
         "version_check_start": "^2[Newb_Bridge]^7 Controleren op updates...",
         "version_invalid_repo": "^1[Newb_Bridge] Ongeldig repositoryformaat. Verwacht: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Geen geldige versie gevonden voor \"{resource}\"^7",

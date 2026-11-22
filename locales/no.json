@@ -22,7 +22,6 @@
         "position": "Posisjon",
         "heading": "Retning",
         "distance": "Avstand",
-        "max_distance": "Maks avstand",
         "controls": "Styring",
         "controls_position": "Posisjon",
         "controls_preview": "Forhåndsvisning",
@@ -40,7 +39,6 @@
         "animation": "Animasjon",
         "cycle_animation": "Bytt animasjon",
         "clear_animation": "Fjern animasjon",
-        "raise_lower_ped": "Hev / senk ped",
         "raise_lower": "Hev / senk",
         "cycle_model": "Bytt modell",
         "toggle_preview_mode": "Bytt justering",
@@ -50,8 +48,6 @@
         "exit": "Avslutt plassering",
         "finish": "Fullfør",
         "undo": "Angre siste",
-        "placed": "Plassert",
-        "placed_count": "Plassert ({count}) — fortsett å plassere eller trykk Backspace for å fullføre",
         "toggle_gizmo": "Finjuster med gizmo",
         "debug": "Kopier flatemateriale",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Fri bevegelse",
         "no_entity": "Ingen enhet valgt",
         "keys_unbound": "Gizmo-taster er ikke bundet — sett W/R/Q under Innstillinger > Tastebindinger > FiveM",
-        "mode_line": "Gjeldende modus: {mode} | {space}",
         "space_relative": "Relativ",
         "space_world": "Verden",
         "modes": {
             "translate": "Flytt",
             "rotate": "Roter"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Aktiver markør",
-            "cursor_disable": "[G]     - Fri bevegelse (gå)",
-            "translate": "[W]     - Flyttemodus",
-            "rotate": "[R]     - Rotasjonsmodus",
-            "toggle_space": "[Q]     - Veksle lokalt/verdensrom",
-            "snap_ground": "[LALT]  - Fest til bakken",
-            "done": "[E / ENTER] - Avslutt redigering"
         },
         "keybinds": {
             "select_object": "Velg gizmo-akse",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Soneskaper",
-        "subtitle_poly": "Polygonsone",
-        "subtitle_box": "Bokssone",
-        "subtitle_sphere": "Kulesone",
-        "zone_name": "Sone",
         "mode_edit": "Redigerer",
         "mode_onfoot": "Til fots",
         "mode_camera": "Kamera",
         "step": "Trinnstørrelse",
-        "position": "Markørposisjon",
         "heading": "Retning",
         "height": "Høyde / tykkelse",
         "width": "Bredde",
         "length": "Lengde",
         "radius": "Radius",
         "points": "Punkter",
-        "bounds": "Maks område",
         "distance": "Fra sentrum",
         "controls_heading": "Styring",
         "toggle_mode": "Veksle redigering / kamera",
@@ -145,8 +125,6 @@
         "rotate": "Roter retning",
         "add_point": "Legg til polygonpunkt",
         "undo_point": "Angre siste punkt",
-        "center_position": "Sonesentrum",
-        "allow_movement": "Fri bevegelse",
         "movement_free": "Beveg deg fritt",
         "movement_locked": "Låst på plass",
         "toggle_movement": "Veksle fri bevegelse",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Soneskaper: veksle fly / til fots",
         "confirm": "Fullfør sone",
         "cancel": "Avbryt",
-        "name_dialog_title": "Gi sonen et navn",
-        "name_label": "Navn",
         "errors": {
             "already_active": "Du oppretter allerede en sone",
             "invalid_type": "Sonetype må være poly, box eller sphere",
             "outside_bounds": "Den posisjonen er utenfor det tillatte området",
             "min_points": "Legg til minst 2 punkter før du fullfører",
             "missing_name": "Et sonenavn kreves før skaperen åpnes",
-            "no_aim": "Sikt på en flate før du bekrefter",
-            "no_center": "Sett en midtposisjon før du fullfører"
+            "no_aim": "Sikt på en flate før du bekrefter"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Lasermål",
         "position": "Sikteposisjon",
         "distance": "Avstand",
-        "max_distance": "Maks avstand",
         "world_size": "Tavlestørrelse",
         "controls": "Styring",
         "place_corner": "Sett hjørne",
@@ -188,7 +162,6 @@
         "confirm_size": "Bekreft størrelse",
         "reset_corner": "Tilbakestill øvre venstre",
         "exit": "Avbryt plassering",
-        "target_placement": "[E] Sett mål på tekstur  ·  [Backspace] Avbryt",
         "errors": {
             "already_active": "Du plasserer allerede en DUI-flate",
             "dui_failed": "Kunne ikke opprette DUI-forhåndsvisningen. Sjekk URL-en og prøv igjen."
@@ -302,7 +275,6 @@
         "create_hint": "Du blir lederen. Medlemmer kan inviteres i nærheten.",
         "group_name": "Gruppenavn",
         "group_name_placeholder": "Rancrew, racelobby…",
-        "image_url": "Bilde-URL",
         "max_players": "Maks spillere",
         "public_group": "Vis offentlig under Bla gjennom",
         "create_group": "Opprett gruppe",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Klarte ikke å laste locale-filen for '{locale}'. Sjekk at filen finnes og er gyldig JSON.",
         "version_check_start": "^2[Newb_Bridge]^7 Ser etter oppdateringer...",
         "version_invalid_repo": "^1[Newb_Bridge] Ugyldig repository-format. Forventet: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Ingen gyldig versjon funnet for \"{resource}\"^7",

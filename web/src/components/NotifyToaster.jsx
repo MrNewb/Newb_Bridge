@@ -3,7 +3,6 @@ import DialogueMarkdown from '@/dialogue-markdown'
 import DialogueIcon from '@/DialogueIcon'
 import { cn } from '@/lib/utils'
 import { normalizeNotify, subscribeNotify } from '@/notify-utils'
-import { preloadSolidIcons } from '@/icons'
 import { fetchNui } from '@/fetch'
 
 const positionClass = {
@@ -25,7 +24,7 @@ const typeIconClass = {
 }
 
 const typeBarClass = {
-  inform: 'bg-zinc-400',
+  inform: 'bg-zinc-300',
   success: 'bg-success',
   error: 'bg-destructive',
   warning: 'bg-warning',
@@ -53,10 +52,6 @@ function NotifyMedia({ toast }) {
   useEffect(() => {
     setImageFailed(false)
   }, [toast.image])
-
-  useEffect(() => {
-    if (!showImage && toast.icon) preloadSolidIcons([toast.icon])
-  }, [showImage, toast.icon])
 
   if (showImage) {
     return (
@@ -87,7 +82,7 @@ function NotifyMedia({ toast }) {
 function NotifyCard({ toast }) {
   return (
     <article
-      className="notify-toast pointer-events-none relative overflow-hidden"
+      className={cn('notify-toast pointer-events-none relative overflow-hidden', toast.leaving && 'notify-toast--leaving')}
       style={toast.style || undefined}
       role="status"
       aria-live="polite"
@@ -127,7 +122,10 @@ export default function NotifyToaster() {
   const timersRef = useRef(new Map())
 
   const dismiss = useCallback((id) => {
-    setToasts((current) => current.filter((toast) => toast.id !== id))
+    setToasts((current) => current.map((toast) => (toast.id === id ? { ...toast, leaving: true } : toast)))
+    window.setTimeout(() => {
+      setToasts((current) => current.filter((toast) => !(toast.id === id && toast.leaving)))
+    }, 160)
   }, [])
 
   const push = useCallback((toast) => {
@@ -165,10 +163,6 @@ export default function NotifyToaster() {
   useEffect(() => () => {
     for (const timer of timersRef.current.values()) window.clearTimeout(timer)
     timersRef.current.clear()
-  }, [])
-
-  useEffect(() => {
-    preloadSolidIcons(['circle-info', 'circle-check', 'circle-xmark', 'circle-exclamation'])
   }, [])
 
   useEffect(() => {

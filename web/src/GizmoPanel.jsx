@@ -1,14 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { takePendingOpen } from './placement-message-buffer'
+import { takePendingOpen, takePendingUpdate } from './placement-message-buffer'
 import { hideRootIfIdle, showRoot } from './nui-visibility'
-import {
-  OverlayControls,
-  OverlayControl,
-  OverlayHeader,
-  OverlayShell,
-  OverlayStat,
-  OverlayStats,
-} from './components/overlay-panel'
+import { ActionKeys, ControlGroup, MetaLine, PlacementPanel, StatusBlock } from './components/placement-panel'
+import { Separator } from '@/components/ui/separator'
 
 const DEFAULT_LOCALES = {
   title: 'Object gizmo',
@@ -18,6 +12,7 @@ const DEFAULT_LOCALES = {
   position: 'Position',
   rotation: 'Rotation',
   controls_heading: 'Controls',
+  controls_adjust: 'Adjust',
   cursor_toggle: 'Toggle cursor / free move',
   translate: 'Switch to translate',
   rotate_mode: 'Switch to rotate',
@@ -32,11 +27,6 @@ const DEFAULT_LOCALES = {
   space_relative: 'Relative',
   mode_translate: 'Translate',
   mode_rotate: 'Rotate',
-}
-
-const MODE_NAME_KEYS = {
-  Translate: 'mode_translate',
-  Rotate: 'mode_rotate',
 }
 
 const SPACE_LABEL_KEYS = {
@@ -127,94 +117,61 @@ function GizmoPanel() {
 
     const pendingOpen = takePendingOpen('gizmo:open')
     if (pendingOpen) openPanel(pendingOpen)
+    const pendingUpdate = takePendingUpdate('gizmo:update')
+    if (pendingUpdate) handleMessage({ data: pendingUpdate })
 
     return () => window.removeEventListener('message', handleMessage)
   }, [closePanel, openPanel])
 
-  const modeName = locales[MODE_NAME_KEYS[mode] || MODE_NAME_KEYS.Translate] || mode
   const spaceLabel = locales[SPACE_LABEL_KEYS[space] || SPACE_LABEL_KEYS.world] || space
 
-  const controls = useMemo(() => {
-    const items = [
-      { id: 'drag', key: 'LMB', label: locales.drag_axis },
-      {
-        id: 'cursor',
-        key: 'G',
-        label: locales.cursor_toggle,
-        active: cursorActive,
-        badge: cursorActive ? locales.cursor_on : locales.cursor_off,
-        showBadgeAlways: true,
-      },
-      {
-        id: 'translate',
-        key: 'W',
-        label: locales.translate,
-        active: mode === 'Translate',
-        badge: mode === 'Translate' ? locales.mode_translate : null,
-      },
-      {
-        id: 'rotate',
-        key: 'R',
-        label: locales.rotate_mode,
-        active: mode === 'Rotate',
-        badge: mode === 'Rotate' ? locales.mode_rotate : null,
-      },
-      {
-        id: 'space',
-        key: 'Q',
-        label: locales.toggle_space,
-        active: false,
-        badge: spaceLabel,
-        showBadgeAlways: true,
-        keyActive: true,
-      },
-      { id: 'snap', key: 'LAlt', label: locales.snap_ground },
-      { id: 'confirm', key: 'E', label: locales.confirm },
-      { id: 'cancel', key: 'Backspace', label: locales.cancel },
-    ]
-
-    return items
-  }, [cursorActive, locales, mode, spaceLabel])
+  // the keys that adjust the gizmo; the active mode and the cursor state are shown next to their rows
+  const adjust = useMemo(
+    () => ({
+      id: 'adjust',
+      title: locales.controls_adjust,
+      items: [
+        { id: 'drag', keys: 'LMB', label: locales.drag_axis },
+        { id: 'cursor', keys: 'G', label: locales.cursor_toggle },
+        { id: 'translate', keys: 'W', label: locales.translate, badge: mode === 'Translate' ? locales.mode_translate : undefined },
+        { id: 'rotate', keys: 'R', label: locales.rotate_mode, badge: mode === 'Rotate' ? locales.mode_rotate : undefined },
+        { id: 'space', keys: 'Q', label: locales.toggle_space, badge: spaceLabel },
+        { id: 'snap', keys: 'LAlt', label: locales.snap_ground },
+      ],
+    }),
+    [locales, mode, spaceLabel],
+  )
+  const closing = useMemo(
+    () => [
+      { id: 'confirm', keys: 'E', label: locales.confirm },
+      { id: 'cancel', keys: 'Backspace', label: locales.cancel },
+    ],
+    [locales],
+  )
 
   return (
-    <OverlayShell visible={visible} name="gizmo-panel" label={locales.title}>
-      <OverlayHeader
-        title={locales.title}
-        subtitle={entityLabel || locales.subtitle}
-        status={cursorActive ? locales.cursor_on : locales.cursor_off}
-        statusTone={cursorActive ? 'success' : 'info'}
-      />
-      <OverlayStats>
-        <OverlayStat label={locales.mode} value={modeName} />
-        <OverlayStat label={locales.space} value={spaceLabel} />
-        <OverlayStat
-          wide
-          label={locales.position}
-          value={`${formatCoord(position.x)}, ${formatCoord(position.y)}, ${formatCoord(position.z)}`}
-        />
-        <OverlayStat
-          wide
-          label={locales.rotation}
-          value={`${formatCoord(rotation.x)}, ${formatCoord(rotation.y)}, ${formatCoord(rotation.z)}`}
-        />
-      </OverlayStats>
-      <OverlayControls title={locales.controls_heading}>
-        {controls.map((control) => {
-          const showBadge = control.badge && (control.active || control.showBadgeAlways)
-          const keyTone = control.active ? 'success' : control.keyActive ? 'info' : undefined
-          return (
-            <OverlayControl
-              key={control.id}
-              active={control.active}
-              keys={control.key}
-              label={control.label}
-              badge={showBadge ? control.badge : undefined}
-              keyTone={keyTone}
-            />
-          )
-        })}
-      </OverlayControls>
-    </OverlayShell>
+    <PlacementPanel
+      name="gizmo-panel"
+      visible={visible}
+      label={locales.title}
+      title={locales.title}
+      subtitle={entityLabel || locales.subtitle}
+      footer={<ActionKeys items={closing} />}
+    >
+      <StatusBlock status={cursorActive ? 'ready' : 'aiming'} title={cursorActive ? locales.cursor_on : locales.cursor_off} />
+
+      <div className="prop-placer__meta flex flex-col gap-1 text-xs">
+        <MetaLine label={locales.position} value={`${formatCoord(position.x)}, ${formatCoord(position.y)}, ${formatCoord(position.z)}`} />
+        <MetaLine label={locales.rotation} value={`${formatCoord(rotation.x)}, ${formatCoord(rotation.y)}, ${formatCoord(rotation.z)}`} />
+      </div>
+
+      <Separator />
+
+      <div className="flex flex-col gap-3">
+        <p className="m-0 text-sm font-semibold text-foreground">{locales.controls_heading}</p>
+        <ControlGroup group={adjust} showTitle={false} />
+      </div>
+    </PlacementPanel>
   )
 }
 

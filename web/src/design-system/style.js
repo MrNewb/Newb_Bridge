@@ -52,7 +52,7 @@ function resolveSelectorTargets(selector) {
   return [selector]
 }
 
-export function normalizeStyle(style) {
+function normalizeStyle(style) {
   if (!style || typeof style !== 'object' || Array.isArray(style)) {
     return null
   }

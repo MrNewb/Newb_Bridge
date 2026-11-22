@@ -22,7 +22,6 @@
         "position": "Posisie",
         "heading": "Rigting",
         "distance": "Afstand",
-        "max_distance": "Maks. afstand",
         "controls": "Kontroles",
         "controls_position": "Posisie",
         "controls_preview": "Voorskou",
@@ -40,7 +39,6 @@
         "animation": "Animasie",
         "cycle_animation": "Wissel animasie",
         "clear_animation": "Verwyder animasie",
-        "raise_lower_ped": "Lig / laat sak ped",
         "raise_lower": "Lig / laat sak",
         "cycle_model": "Wissel model",
         "toggle_preview_mode": "Wissel aanpassing",
@@ -50,8 +48,6 @@
         "exit": "Verlaat plaser",
         "finish": "Voltooi",
         "undo": "Ontdoen laaste",
-        "placed": "Geplaas",
-        "placed_count": "Geplaas ({count}) — hou aan plaas of druk Backspace om te voltooi",
         "toggle_gizmo": "Fyninstel met gizmo",
         "debug": "Kopieer oppervlakmateriaal",
         "errors": {
@@ -86,21 +82,11 @@
         "cursor_off": "Vrye beweging",
         "no_entity": "Geen entiteit gekies nie",
         "keys_unbound": "Gizmo-modussleutels is ontbind — stel W/R/Q onder Settings > Key Bindings > FiveM",
-        "mode_line": "Huidige modus: {mode} | {space}",
         "space_relative": "Relatief",
         "space_world": "Wêreld",
         "modes": {
             "translate": "Skuif",
             "rotate": "Draai"
-        },
-        "controls": {
-            "cursor_enable": "[G]     - Aktiveer wyser",
-            "cursor_disable": "[G]     - Vrye beweging (loop)",
-            "translate": "[W]     - Skuifmodus",
-            "rotate": "[R]     - Draaimodus",
-            "toggle_space": "[Q]     - Wissel plaaslike/wêreldruimte",
-            "snap_ground": "[LALT]  - Snap na grond",
-            "done": "[E / ENTER] - Klaar met wysiging"
         },
         "keybinds": {
             "select_object": "Kies gizmo-as",
@@ -115,22 +101,16 @@
 
     "zone_creator": {
         "title": "Soneskepper",
-        "subtitle_poly": "Veelhoek-sone",
-        "subtitle_box": "Boks-sone",
-        "subtitle_sphere": "Sfeer-sone",
-        "zone_name": "Sone",
         "mode_edit": "Wysig",
         "mode_onfoot": "Te voet",
         "mode_camera": "Kamera",
         "step": "Stapgrootte",
-        "position": "Wyserposisie",
         "heading": "Rigting",
         "height": "Hoogte / dikte",
         "width": "Breedte",
         "length": "Lengte",
         "radius": "Radius",
         "points": "Punte",
-        "bounds": "Maks. area",
         "distance": "Vanaf middelpunt",
         "controls_heading": "Kontroles",
         "toggle_mode": "Wissel wysig- / kameramodus",
@@ -145,8 +125,6 @@
         "rotate": "Draai rigting",
         "add_point": "Voeg veelhoekpunt by",
         "undo_point": "Ontdoen laaste punt",
-        "center_position": "Sone-middelpunt",
-        "allow_movement": "Vrye beweging",
         "movement_free": "Beweeg vrylik",
         "movement_locked": "Vas op plek",
         "toggle_movement": "Wissel vrye beweging",
@@ -154,16 +132,13 @@
         "toggle_mode_key": "Soneskepper: wissel vlieg / te voet",
         "confirm": "Voltooi sone",
         "cancel": "Kanselleer",
-        "name_dialog_title": "Noem jou sone",
-        "name_label": "Naam",
         "errors": {
             "already_active": "Jy skep reeds 'n sone",
             "invalid_type": "Sonetipe moet poly, box of sphere wees",
             "outside_bounds": "Daardie posisie is buite die toegelate area",
             "min_points": "Voeg ten minste 2 punte by voordat jy voltooi",
             "missing_name": "'n Sonenaam word vereis voordat die skepper oopgemaak word",
-            "no_aim": "Mik na 'n oppervlak voordat jy bevestig",
-            "no_center": "Stel 'n middelpunt voordat jy voltooi"
+            "no_aim": "Mik na 'n oppervlak voordat jy bevestig"
         }
     },
 
@@ -180,7 +155,6 @@
         "phase_target": "Laserteiken",
         "position": "Mikposisie",
         "distance": "Afstand",
-        "max_distance": "Maks. afstand",
         "world_size": "Bordgrootte",
         "controls": "Kontroles",
         "place_corner": "Stel hoek",
@@ -188,7 +162,6 @@
         "confirm_size": "Bevestig grootte",
         "reset_corner": "Stel boonste-links terug",
         "exit": "Kanselleer plasing",
-        "target_placement": "[E] Stel teiken op tekstuur  ·  [Backspace] Kanselleer",
         "errors": {
             "already_active": "Jy plaas reeds 'n DUI-oppervlak",
             "dui_failed": "Kon nie die DUI-voorskou skep nie. Kontroleer die URL en probeer weer."
@@ -302,7 +275,6 @@
         "create_hint": "Jy word die leier. Lede naby kan uitgenooi word.",
         "group_name": "Groepnaam",
         "group_name_placeholder": "Roofspan, wedren-lobby…",
-        "image_url": "Beeld-URL",
         "max_players": "Maks. spelers",
         "public_group": "Lys openbaar in blaai",
         "create_group": "Skep groep",
@@ -339,7 +311,6 @@
     },
 
     "system": {
-        "locale_load_failed": "[Newb_Bridge] Kon nie taalfaktor vir locale '{locale}' laai nie. Kontroleer of die lêer bestaan en geldige JSON is.",
         "version_check_start": "^2[Newb_Bridge]^7 Soek tans na opdaterings...",
         "version_invalid_repo": "^1[Newb_Bridge] Ongeldige bewaarplekformaat. Verwag: \"username/reponame\"^7",
         "version_not_found": "^1[Newb_Bridge] Geen geldige weergawe vir \"{resource}\" gevind nie^7",

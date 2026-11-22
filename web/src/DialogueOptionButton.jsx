@@ -79,11 +79,9 @@ function DialogueOptionButton({
     isActionInput ? 'dialogue-button--action' : '',
     option.input?.required ? 'dialogue-button--input-required' : '',
     option.readOnly ? 'dialogue-button--readonly' : '',
-    option.disabled ? 'dialogue-button--disabled' : '',
     isPending ? 'dialogue-button--pending' : '',
     option.description || option.input?.description ? 'dialogue-button--with-description' : '',
     hasProgress ? 'dialogue-button--with-progress' : '',
-    option.metadata?.length ? 'dialogue-button--with-metadata' : '',
   ]
     .filter(Boolean)
     .join(' ')
@@ -118,6 +116,7 @@ function DialogueOptionButton({
               error={inputError}
               errorId={inputErrorId}
               inputLocales={inputLocales}
+              labelHidden={String(option.title || '').trim().toLowerCase() === String(option.input?.label || '').trim().toLowerCase()}
               onChange={(nextValue) => onInputChange(option.optionKey, nextValue, option.input)}
             />
           </div>
@@ -151,6 +150,25 @@ function DialogueOptionButton({
         aria-disabled={option.readOnly || option.input?.disabled ? 'true' : undefined}
         aria-describedby={describedBy}
       >
+        {content}
+      </div>
+    )
+  }
+
+  if (isActionInput) {
+    return (
+      <div className={className} role="group" aria-label={option.title || undefined} style={{ '--i': Math.min(index, 19) }}>
+        <button
+          type="button"
+          className="dialogue-button-submit"
+          disabled={isDisabled}
+          aria-busy={isPending}
+          aria-label={option.title || undefined}
+          aria-describedby={describedBy}
+          data-dialogue-focus-option
+          data-option-key={option.optionKey}
+          onClick={() => onSelect(option)}
+        />
         {content}
       </div>
     )

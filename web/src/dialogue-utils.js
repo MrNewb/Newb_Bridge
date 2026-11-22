@@ -89,7 +89,7 @@ export function normalizeOpenPayload(data) {
   }
 }
 
-export function normalizeOptions(options) {
+function normalizeOptions(options) {
   if (!options) return []
 
   const entries = Array.isArray(options)
@@ -157,44 +157,26 @@ export function normalizeOptions(options) {
     .filter(Boolean)
 }
 
+/** Three to a line once there are more than four, so long lists stay short and every tile is wide enough to read. */
 export function getOptionColumnCount(optionCount) {
   if (optionCount <= 1) return 1
   if (optionCount === 2) return 2
   if (optionCount === 3) return 3
   if (optionCount === 4) return 2
-  if (optionCount <= 7) return 3
-  return 4
+  return 3
 }
 
-const OPTION_ROW_HEIGHT = 44
-const OPTION_ROW_GAP = 12
-const OPTION_BLOCK_PADDING = 8
-const OPTION_SCROLL_HEIGHT_CAP = 300
-
-export function estimateOptionsHeight(optionCount) {
-  const cols = getOptionColumnCount(optionCount)
-  const rows = Math.ceil(optionCount / cols)
-  return rows * OPTION_ROW_HEIGHT + Math.max(0, rows - 1) * OPTION_ROW_GAP + OPTION_BLOCK_PADDING
-}
-
-export function optionsNeedScrolling(optionCount) {
-  if (optionCount <= 1) return false
-  return estimateOptionsHeight(optionCount) > OPTION_SCROLL_HEIGHT_CAP
-}
-
+/**
+ * Any list longer than a single row scrolls. The old height estimate guessed 44px a row, but a tile with a
+ * description is twice that, so a long list was cut off with nothing to scroll.
+ */
 export function getOptionsLayout(optionCount) {
-  const scrollable = optionsNeedScrolling(optionCount)
+  const scrollable = optionCount > 3
 
   return {
     scrollable,
-    maxHeight: scrollable
-      ? (optionCount > 6 ? 'min(55vh, 480px)' : 'min(42vh, 360px)')
-      : 'none',
+    maxHeight: scrollable ? 'min(52vh, 27rem)' : 'none',
   }
-}
-
-export function getOptionsMaxHeight(optionCount) {
-  return getOptionsLayout(optionCount).maxHeight
 }
 
 export { DEFAULT_TYPE, VALID_TYPES, MANTINE_COLORS }

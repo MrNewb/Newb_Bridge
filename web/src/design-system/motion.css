@@ -1,15 +1,3 @@
-@keyframes dialogue-rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes dialogue-panel-in {
   from {
     opacity: 0;
@@ -127,11 +115,6 @@
   50% { opacity: 0.35; }
 }
 
-@keyframes dialogue-icon-placeholder-pulse {
-  0%, 100% { opacity: 0.42; }
-  50% { opacity: 0.72; }
-}
-
 @keyframes dialogue-image-skeleton-pulse {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 0.82; }
@@ -156,7 +139,6 @@
   .dialogue-button-progress-fill,
   .dialogue-back-button,
   .dialogue-back-icon,
-  .dialogue-icon-placeholder,
   .dialogue-icon-svg,
   .dialogue-image-skeleton,
   .dialogue-image {

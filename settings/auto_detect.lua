@@ -30,7 +30,7 @@ local modules = {
     inputs = { configKey = "Inputs", "whip_core", "ox_lib", "lation_ui" },
     textui = { configKey = "TextUI", "whip_core", "ox_lib", "lation_ui", "okokTextUI", "cd_drawtextui", "jg-textui", "lab-TextUI", "zsx_uiv2" },
     progressbar = { configKey = "ProgressBar", "whip_core", "ox_lib", "lation_ui", "wasabi_uikit", "progressbar", "zsx_uiv2" },
-    bossmenu = { configKey = "BossMenu", "qbx_management", "qb-management", "esx_society", "vms_bossmenu", "tk_bosstablet", "okokBossMenu", "codem-bossmenu", "zat-bossmenu", "m-BossMenu" },
+    bossmenu = { configKey = "BossMenu", "qbx_management", "qb-management", "esx_society", "vms_bossmenu", "tk_bosstablet", "okokBossMenu", "codem-bossmenu", "zat-bossmenu", "m-BossMenu", "lation_jobs" },
     dispatch = { configKey = "Dispatch", fallback = "internal", "ps-dispatch", "cd_dispatch", "tk_dispatch", "rcore_dispatch", "lb-tablet", "origen_police", "core_dispatch", "kartik-mdt", "codem-dispatch", "wasabi_mdt", "redutzu-mdt" },
 }
 

@@ -176,7 +176,7 @@ Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a 
 | Inputs | whip_core, ox_lib, lation_ui |
 | TextUI | whip_core, ox_lib, lation_ui, okokTextUI, cd_drawtextui, jg-textui, lab-TextUI, zsx_uiv2 |
 | Progress bar | whip_core, ox_lib, lation_ui, wasabi_uikit, progressbar, zsx_uiv2 |
-| Boss menu | qbx_management, qb-management, esx_society, vms_bossmenu, tk_bosstablet, okokBossMenu, codem-bossmenu, zat-bossmenu, m-BossMenu |
+| Boss menu | qbx_management, qb-management, esx_society, vms_bossmenu, tk_bosstablet, okokBossMenu, codem-bossmenu, zat-bossmenu, m-BossMenu, lation_jobs |
 | Dispatch | ps-dispatch, cd_dispatch, tk_dispatch, rcore_dispatch, lb-tablet, origen_police, core_dispatch, kartik-mdt, codem-dispatch, wasabi_mdt, redutzu-mdt (plus an internal fallback) |
 
 Detection order is in [`settings/auto_detect.lua`](settings/auto_detect.lua). To add a provider, copy an existing folder under `resource/modules/<category>/` and open a PR.

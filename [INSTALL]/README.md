@@ -91,7 +91,7 @@ Every setting in the table below ships as `"auto"`. If you pin a resource that i
 | `Config.Inputs` | `auto` | `ox_lib`, `lation_ui` (no fallback) |
 | `Config.TextUI` | `auto` | `ox_lib`, `lation_ui`, `okokTextUI`, `cd_drawtextui`, `jg-textui`, `lab-TextUI`, `zsx_uiv2` (no fallback) |
 | `Config.ProgressBar` | `auto` | `ox_lib`, `lation_ui`, `wasabi_uikit`, `progressbar`, `zsx_uiv2` (no fallback) |
-| `Config.BossMenu` | `auto` | `qbx_management`, `qb-management`, `esx_society`, `vms_bossmenu`, `tk_bosstablet`, `okokBossMenu`, `codem-bossmenu`, `zat-bossmenu`, `m-BossMenu` |
+| `Config.BossMenu` | `auto` | `qbx_management`, `qb-management`, `esx_society`, `vms_bossmenu`, `tk_bosstablet`, `okokBossMenu`, `codem-bossmenu`, `zat-bossmenu`, `m-BossMenu`, `lation_jobs` |
 | `Config.Dispatch` | `auto` | `ps-dispatch`, `cd_dispatch`, `tk_dispatch`, `rcore_dispatch`, `lb-tablet`, `origen_police`, `core_dispatch`, `kartik-mdt`, `codem-dispatch`, `wasabi_mdt`, `redutzu-mdt`, `internal` |
 
 Notes:

@@ -1,5 +1,7 @@
 # Newb_Bridge
 
+![Newb_Bridge](.github/assets/banner.webp)
+
 **The shared foundation under every MrNewbScripts resource.**
 
 Newb_Bridge is the compatibility layer my scripts are built on. Instead of each script carrying its own framework, inventory, target, menu and notification code, they all call one set of `bridge.*` functions, and Newb_Bridge maps those calls onto whatever your server actually runs. Qbox, QBCore or ESX. ox_inventory or qs-inventory. ox_target or qb-target. One script, any stack, nothing rewritten.

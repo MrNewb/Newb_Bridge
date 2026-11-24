@@ -89,7 +89,7 @@ if not isHost then
     end
 end
 
-local hostOnlyClientModules = { dispatch = true, bossmenu = true }
+local hostOnlyClientModules = { dispatch = true, bossmenu = true, banking = true, phone = true }
 
 local readHostSource ---@type fun(module: string): string?, string?
 
@@ -101,6 +101,57 @@ local function fetchSource(module)
 end
 
 local mounting = {} ---@type table<string, true>
+
+-- Another resource's exports throw when that resource is stopped or gone, and these modules take arguments from other
+-- scripts. Each entry is { module, call, fallback, isValid? }: bad arguments and a failing provider both return the
+-- fallback (nil when there is none), and a failing provider also prints one console line per call.
+local function isText(value) return type(value) == "string" end
+local function isSource(value) return type(value) == "number" end
+local function isDoorId(value) return type(value) == "string" or type(value) == "number" end
+local function isAmount(value) return type(value) == "number" and value > 0 and value < math.huge end
+local function isBankChange(account, amount) return isText(account) and isAmount(amount) end
+local function isPhoneMail(src, email, title, message) return isSource(src) and isText(email) and isText(title) and isText(message) end
+
+local guardedCalls = {
+    { "banking", "getAccountMoney", 0, isText },
+    { "banking", "addAccountMoney", false, isBankChange },
+    { "banking", "removeAccountMoney", false, isBankChange },
+    { "doorlock", "lockDoor", false, isDoorId },
+    { "doorlock", "unlockDoor", false, isDoorId },
+    { "doorlock", "getClosestDoor" },
+    { "phone", "getPlayerPhone", false, isSource },
+    { "phone", "sendEmail", false, isPhoneMail },
+    { "weather", "enableSync" },
+    { "weather", "disableSync" },
+}
+
+local reportedFailures = {} ---@type table<string, true>
+
+local function guardCall(module, provider, name, call, fallback, isValid)
+    return function(...)
+        if isValid and not isValid(...) then return fallback end
+
+        local ok, result = pcall(call, ...)
+        if ok then return result end
+
+        local key = module .. name
+        if not reportedFailures[key] then
+            reportedFailures[key] = true
+            print(("^1[Newb_Bridge] %s provider '%s' failed in %s: %s^0"):format(module, tostring(provider), name, tostring(result)))
+        end
+        return fallback
+    end
+end
+
+local function guardModule(api, module, provider)
+    for i = 1, #guardedCalls do
+        local entry = guardedCalls[i]
+        local name = entry[2]
+        if entry[1] == module and type(api[name]) == "function" then
+            api[name] = guardCall(module, provider, name, api[name], entry[3], entry[4])
+        end
+    end
+end
 
 local function mountModule(self, module)
     mounting[module] = true
@@ -132,9 +183,13 @@ local function mountModule(self, module)
 
     local api = factory() or noopModule
 
-    if api ~= noopModule and type(api) == "table" and api.getResourceName == nil then
-        function api.getResourceName()
-            return provider
+    if api ~= noopModule and type(api) == "table" then
+        guardModule(api, module, provider)
+
+        if api.getResourceName == nil then
+            function api.getResourceName()
+                return provider
+            end
         end
     end
 

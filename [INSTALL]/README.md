@@ -84,7 +84,7 @@ Every setting in the table below ships as `"auto"`. If you pin a resource that i
 | `Config.Framework` | `auto` | `qbx_core`, `qb-core`, `es_extended` |
 | `Config.Inventory` | `auto` | `ox_inventory`, `wasabi_inventory`, `m-Inventory`, `one_inventory`, `jaksam_inventory`, `tgiann-inventory`, `codem-inventory`, `core_inventory`, `origen_inventory`, `qs-inventory`, `qb-inventory`, plus manual-only `qb-framework`, `esx-framework` |
 | `Config.Target` | `auto` | `ox_target`, `tgiann-target`, `core_focus`, `qb-target`, `sleepless_interact` |
-| `Config.VehicleKeys` | `auto` | `MrNewbVehicleKeys`, `qbx_vehiclekeys`, `cd_garage`, `mVehicle`, `okokGarage`, `qb-vehiclekeys`, `vehicles_keys`, `wasabi_carlock`, `Renewed-Vehiclekeys`, `mk_vehiclekeys`, `ak47_vehiclekeys`, `0r-vehiclekeys` |
+| `Config.VehicleKeys` | `auto` | `MrNewbVehicleKeys`, `kora_vehiclekeys`, `jg-vehiclekeys`, `qbx_vehiclekeys`, `cd_garage`, `mVehicle`, `okokGarage`, `qb-vehiclekeys`, `vehicles_keys`, `wasabi_carlock`, `Renewed-Vehiclekeys`, `mk_vehiclekeys`, `ak47_vehiclekeys`, `0r-vehiclekeys` |
 | `Config.VehicleFuel` | `auto` | `ox_fuel`, `rcore_fuel`, `okokGasStation`, `LegacyFuel`, `cdn-fuel`, `lc_fuel`, `qb-fuel`, `Renewed-Fuel`, `ps-fuel`, `qs-fuelstations`, `ti_fuel`, `internal` |
 | `Config.Menu` | `auto` | `ox_lib`, `lation_ui`, `qb-menu` (no fallback) |
 | `Config.Notifications` | `auto` | `ox_lib`, `vms_notifyv2`, `codem-notification`, `brutal_notify`, `fl-notify`, `mythic_notify`, `okokNotify`, `pnotify`, `solaire_notify`, `t-notify`, `lation_ui`, `wasabi_notify`, `zsx_uiv2` (fallback `internal`) |
@@ -92,6 +92,10 @@ Every setting in the table below ships as `"auto"`. If you pin a resource that i
 | `Config.TextUI` | `auto` | `ox_lib`, `lation_ui`, `okokTextUI`, `cd_drawtextui`, `jg-textui`, `lab-TextUI`, `zsx_uiv2` (no fallback) |
 | `Config.ProgressBar` | `auto` | `ox_lib`, `lation_ui`, `wasabi_uikit`, `progressbar`, `zsx_uiv2` (no fallback) |
 | `Config.BossMenu` | `auto` | `qbx_management`, `qb-management`, `esx_society`, `vms_bossmenu`, `tk_bosstablet`, `okokBossMenu`, `codem-bossmenu`, `zat-bossmenu`, `m-BossMenu` |
+| `Config.Banking` | `auto` | `Renewed-Banking`, `qb-banking`, `okokBanking`, `fd_banking`, `kartik-banking`, `tgg-banking`, `tgiann-bank`, `wasabi_banking`, `default` |
+| `Config.Doorlock` | `auto` | `ox_doorlock`, `qb-doorlock`, `rcore_doorlock`, `doors_creator`, `default` |
+| `Config.Phone` | `auto` | `kora_phone`, `sd-phone`, `sky_phone`, `lb-phone`, `gksphone`, `okokPhone`, `qs-smartphone`, `yseries`, `qb-phone`, `default` |
+| `Config.Weather` | `auto` | `Renewed-Weathersync`, `qb-weathersync`, `cd_easytime`, `default` |
 | `Config.Dispatch` | `auto` | `ps-dispatch`, `cd_dispatch`, `tk_dispatch`, `rcore_dispatch`, `lb-tablet`, `origen_police`, `core_dispatch`, `kartik-mdt`, `codem-dispatch`, `wasabi_mdt`, `redutzu-mdt`, `internal` |
 
 Notes:
@@ -150,7 +154,7 @@ The inventory module must match your inventory. Set `Config.Inventory` explicitl
 The resource's `fxmanifest.lua` must list `@Newb_Bridge/import.lua` in `shared_scripts` after `@ox_lib/init.lua`, and Newb_Bridge must be started first. See `INTEGRATION.md`.
 
 **`bridge.dialogue`, `bridge.task`, `bridge.target` or `bridge.menu` error on the server.**
-Those modules are client only. Server-only modules are `bridge.bossmenu` and `bridge.dispatch`. See `MODULES.md`.
+Those modules are client only. Server-only modules are `bridge.bossmenu`, `bridge.dispatch`, `bridge.banking` and `bridge.phone`; `bridge.weather` is client only. See `MODULES.md`.
 
 **The UI shows nothing or looks wrong.**
 Make sure `web/build` is present (it ships with the resource). After changing `settings/theme.lua`, restart `Newb_Bridge` and then the resources using the theme.

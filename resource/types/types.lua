@@ -6,7 +6,7 @@
 ---@field Framework "auto" | "whip_core" | "kora_core" | "qbx_core" | "qb-core" | "es_extended"
 ---@field Inventory "auto" | "whip_core" | "kora_inventory" | "ox_inventory" | "wasabi_inventory" | "m-Inventory" | "one_inventory" | "jaksam_inventory" | "origen_inventory" | "tgiann-inventory" | "codem-inventory" | "core_inventory" | "qs-inventory" | "qb-inventory" | "qb-framework" | "esx-framework"
 ---@field Target "auto" | "whip_core" | "kora_target" | "ox_target" | "tgiann-target" | "core_focus" | "qb-target" | "sleepless_interact"
----@field VehicleKeys "auto" | "whip_core" | "MrNewbVehicleKeys" | "qbx_vehiclekeys" | "cd_garage" | "mVehicle" | "okokGarage" | "qb-vehiclekeys" | "vehicles_keys" | "wasabi_carlock" | "Renewed-Vehiclekeys" | "mk_vehiclekeys" | "ak47_vehiclekeys" | "0r-vehiclekeys"
+---@field VehicleKeys "auto" | "whip_core" | "MrNewbVehicleKeys" | "kora_vehiclekeys" | "jg-vehiclekeys" | "qbx_vehiclekeys" | "cd_garage" | "mVehicle" | "okokGarage" | "qb-vehiclekeys" | "vehicles_keys" | "wasabi_carlock" | "Renewed-Vehiclekeys" | "mk_vehiclekeys" | "ak47_vehiclekeys" | "0r-vehiclekeys"
 ---@field VehicleFuel "auto" | "whip_fuel" | "ox_fuel" | "rcore_fuel" | "okokGasStation" | "LegacyFuel" | "cdn-fuel" | "lc_fuel" | "qb-fuel" | "Renewed-Fuel" | "ps-fuel" | "qs-fuelstations" | "ti_fuel" | "internal"
 ---@field Menu "auto" | "ox_lib" | "lation_ui" | "qb-menu"
 ---@field Notifications "auto" | "internal" | "whip_core" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "zsx_uiv2"
@@ -14,6 +14,10 @@
 ---@field TextUI "auto" | "whip_core" | "ox_lib" | "lation_ui" | "okokTextUI" | "cd_drawtextui" | "jg-textui" | "lab-TextUI" | "zsx_uiv2"
 ---@field ProgressBar "auto" | "whip_core" | "ox_lib" | "lation_ui" | "wasabi_uikit" | "progressbar" | "zsx_uiv2"
 ---@field BossMenu "auto" | "qbx_management" | "qb-management" | "esx_society" | "vms_bossmenu" | "tk_bosstablet" | "okokBossMenu" | "codem-bossmenu" | "zat-bossmenu" | "m-BossMenu"
+---@field Banking "auto" | "Renewed-Banking" | "qb-banking" | "okokBanking" | "fd_banking" | "kartik-banking" | "tgg-banking" | "tgiann-bank" | "wasabi_banking" | "default"
+---@field Doorlock "auto" | "ox_doorlock" | "qb-doorlock" | "rcore_doorlock" | "doors_creator" | "default"
+---@field Phone "auto" | "kora_phone" | "sd-phone" | "sky_phone" | "lb-phone" | "gksphone" | "okokPhone" | "qs-smartphone" | "yseries" | "qb-phone" | "default"
+---@field Weather "auto" | "Renewed-Weathersync" | "qb-weathersync" | "cd_easytime" | "default"
 ---@field Dispatch "auto" | "ps-dispatch" | "cd_dispatch" | "tk_dispatch" | "rcore_dispatch" | "lb-tablet" | "origen_police" | "core_dispatch" | "kartik-mdt" | "codem-dispatch" | "wasabi_mdt" | "redutzu-mdt" | "internal"
 ---@field Debug boolean
 ---@field VersionCheck boolean
@@ -700,6 +704,35 @@
 ---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
 ---@field openBossMenu fun(src: number, jobName: string, jobType?: string) Opens the boss menu for a player on the client.
 
+---Banking module API exposed as `bridge.banking` (server only). Accounts are job or society names.
+---@class BridgeBanking
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field getAccountMoney fun(account: string): number Society account balance, 0 when the account is unknown.
+---@field addAccountMoney fun(account: string, amount: number, reason?: string): boolean|nil Adds money to a society account.
+---@field removeAccountMoney fun(account: string, amount: number, reason?: string): boolean|nil Removes money from a society account.
+
+---Doorlock module API exposed as `bridge.doorlock`.
+---@class BridgeDoorlockClient
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field getClosestDoor fun(): string|number|table|nil Closest door as the doorlock resource identifies it.
+
+---@class BridgeDoorlockServer
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field lockDoor fun(doorId: string|number): boolean Locks a door.
+---@field unlockDoor fun(doorId: string|number): boolean Unlocks a door.
+
+---Phone module API exposed as `bridge.phone` (server only).
+---@class BridgePhoneServer
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field getPlayerPhone fun(src: number): string|boolean The player's phone number, false when they have none.
+---@field sendEmail fun(src: number, email: string, title: string, message: string): boolean|nil Sends an email to a player's phone.
+
+---Weather module API exposed as `bridge.weather` (client only).
+---@class BridgeWeather
+---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
+---@field enableSync fun() Turns the weather script's sync back on for the local player.
+---@field disableSync fun() Turns the weather script's sync off for the local player.
+
 ---Dispatch module API exposed as `bridge.dispatch` (server only).
 ---@class BridgeDispatch
 ---@field getResourceName fun(): string|nil Provider resource backing this module (nil when nothing mounted).
@@ -1045,6 +1078,10 @@
 ---@field textui BridgeTextUI Active TextUI module (client only).
 ---@field progressbar BridgeProgressBar Active progress bar module (client only).
 ---@field bossmenu BridgeBossMenu Active boss menu module (server only).
+---@field banking BridgeBanking Active banking module (server only).
+---@field doorlock BridgeDoorlockClient|BridgeDoorlockServer Active doorlock module.
+---@field phone BridgePhoneServer Active phone module (server only).
+---@field weather BridgeWeather Active weather module (client only).
 ---@field dispatch BridgeDispatch Active dispatch module (server only).
 ---@field dialogue Dialogue Built-in dialogue system (client only).
 ---@field task BridgeTask Built-in job/objective task HUD (client only).

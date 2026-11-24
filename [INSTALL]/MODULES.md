@@ -22,6 +22,10 @@ Money types are `'cash'`, `'bank'` or `'crypto'`. `src` is a player server id. D
 | `bridge.vehiclefuel` | C/S |
 | `bridge.bossmenu` | S |
 | `bridge.dispatch` | S |
+| `bridge.banking` | S |
+| `bridge.doorlock` | C/S |
+| `bridge.phone` | S |
+| `bridge.weather` | C |
 | `bridge.dialogue`, `bridge.task` | C (see `EXPORTS.md`) |
 
 ## bridge.framework
@@ -159,6 +163,40 @@ bridge.dispatch.sendAlert(src, { 'police' }, GetEntityCoords(GetPlayerPed(src)),
     { code = '10-90', title = 'Alarm', description = 'Silent alarm triggered' },
     { sprite = 161, scale = 1.0, colour = 1, text = 'Alarm', length = 2 })
 ```
+
+## Missing or broken providers (banking, doorlock, phone, weather)
+
+These four modules never throw into your script. With no provider installed they use the `default` provider, which does nothing. Arguments of the wrong type (a non-string account, an amount that is not a number above 0, a door id that is not a string or number, a non-numeric player id, non-string mail text) return the fallback without reaching the provider. If the provider resource is stopped later, or one of its exports errors, the call returns the same fallback (`0`, `false` or `nil`) and the bridge prints one console line per call name.
+
+## bridge.banking (server)
+
+Society (job) accounts. `account` is the job or society name.
+
+| Method | Returns |
+|---|---|
+| `getAccountMoney(account)` | Balance, `0` when the account is unknown |
+| `addAccountMoney(account, amount, reason?)` | `boolean` from the banking resource |
+| `removeAccountMoney(account, amount, reason?)` | `boolean` from the banking resource |
+
+Not every banking resource uses `reason`; those that do not ignore it. With no banking resource, or one that is stopped or errors, the getter returns `0` and the others return `false`.
+
+```lua
+if bridge.banking.removeAccountMoney('police', 500, 'equipment') then
+    bridge.inventory.addItem(src, 'radio', 1)
+end
+```
+
+## bridge.doorlock
+
+Server: `lockDoor(doorId) -> boolean`, `unlockDoor(doorId) -> boolean`. Client: `getClosestDoor() -> id|nil`. The id is whatever the doorlock resource uses (a number for `rcore_doorlock`, a string for `ox_doorlock`, the door entry for `qb-doorlock`), so pass it back to `lockDoor` or `unlockDoor` unchanged. With no doorlock resource those return `false` and `getClosestDoor` returns `nil`.
+
+## bridge.phone (server)
+
+`getPlayerPhone(src) -> number|string|false`, `sendEmail(src, email, title, message) -> boolean`. `email` is the sender shown in the inbox (qs-smartphone has no sender field, so it is dropped there; sky_phone has no way to send mail, so `sendEmail` returns `false`; kora_phone delivers it as system mail to the character's Mail app). Phones are server only: a client cannot ask the bridge to send mail, so a client script that needs one sends it through a server event of its own after checking the request. On the client `bridge.phone` does nothing. With no phone resource everything returns `false`.
+
+## bridge.weather (client)
+
+`disableSync()` turns the weather script's sync off for the local player and `enableSync()` turns it back on, for example while a script sets its own weather in an interior. It does nothing when no weather resource is found.
 
 ## Running on WHIP (`whip_core`)
 

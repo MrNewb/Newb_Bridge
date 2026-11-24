@@ -1,15 +1,15 @@
 local vehiclekeys = {}
 
 function vehiclekeys.give(vehicle, plate)
-    if not plate then
-        plate = GetVehicleNumberPlateText(vehicle)
-    end
+    plate = plate or GetVehicleNumberPlateText(vehicle)
 
-    exports["wasabi_carlock"]:GiveKey(plate)
+    exports.wasabi_carlock:GiveKey(plate)
 end
 
 function vehiclekeys.remove(vehicle, plate)
-    exports["wasabi_carlock"]:RemoveKey(plate)
+    plate = plate or GetVehicleNumberPlateText(vehicle)
+
+    exports.wasabi_carlock:RemoveKey(plate)
 end
 
 return vehiclekeys

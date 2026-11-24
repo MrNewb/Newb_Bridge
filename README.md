@@ -155,6 +155,10 @@ On start, the server console prints which provider each module resolved to.
 | `bridge.vehiclefuel` | client / server | [Vehicle fuel](https://mrnewb.github.io/docs/newb_bridge/developers/modules/vehiclefuel) |
 | `bridge.bossmenu` | server | [Boss menu](https://mrnewb.github.io/docs/newb_bridge/developers/modules/bossmenu) |
 | `bridge.dispatch` | server | [Dispatch](https://mrnewb.github.io/docs/newb_bridge/developers/modules/dispatch) |
+| `bridge.banking` | server | Society accounts |
+| `bridge.doorlock` | client / server | Door locking |
+| `bridge.phone` | server | Phone emails and numbers |
+| `bridge.weather` | client | Weather sync toggle |
 | `bridge.dialogue` | client | [Dialogue](https://mrnewb.github.io/docs/newb_bridge/developers/modules/dialogue) |
 | `bridge.task` | client | [Task HUD](https://mrnewb.github.io/docs/newb_bridge/developers/modules/task) |
 | `bridge.theme` | client / server | [Server colour palette](#server-colour-palette) |
@@ -169,7 +173,7 @@ Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a 
 | Framework | whip_core, kora_core, qbx_core, qb-core, es_extended |
 | Inventory | whip_core, kora_inventory, ox_inventory, wasabi_inventory, m-Inventory, one_inventory, jaksam_inventory, tgiann-inventory, codem-inventory, core_inventory, origen_inventory, qs-inventory, qb-inventory |
 | Target | whip_core, kora_target, ox_target, tgiann-target, core_focus, qb-target, sleepless_interact |
-| Vehicle keys | whip_core, MrNewbVehicleKeys, qbx_vehiclekeys, cd_garage, mVehicle, okokGarage, qb-vehiclekeys, vehicles_keys, wasabi_carlock, Renewed-Vehiclekeys, mk_vehiclekeys, ak47_vehiclekeys, 0r-vehiclekeys |
+| Vehicle keys | whip_core, MrNewbVehicleKeys, kora_vehiclekeys, jg-vehiclekeys, qbx_vehiclekeys, cd_garage, mVehicle, okokGarage, qb-vehiclekeys, vehicles_keys, wasabi_carlock, Renewed-Vehiclekeys, mk_vehiclekeys, ak47_vehiclekeys, 0r-vehiclekeys |
 | Fuel | whip_fuel, ox_fuel, rcore_fuel, okokGasStation, LegacyFuel, cdn-fuel, lc_fuel, qb-fuel, Renewed-Fuel, ps-fuel, qs-fuelstations, ti_fuel (plus an internal fallback) |
 | Menu | ox_lib, lation_ui, qb-menu |
 | Notifications | whip_core, ox_lib, vms_notifyv2, codem-notification, brutal_notify, fl-notify, mythic_notify, okokNotify, pnotify, solaire_notify, t-notify, lation_ui, wasabi_notify, zsx_uiv2 |
@@ -177,6 +181,10 @@ Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a 
 | TextUI | whip_core, ox_lib, lation_ui, okokTextUI, cd_drawtextui, jg-textui, lab-TextUI, zsx_uiv2 |
 | Progress bar | whip_core, ox_lib, lation_ui, wasabi_uikit, progressbar, zsx_uiv2 |
 | Boss menu | qbx_management, qb-management, esx_society, vms_bossmenu, tk_bosstablet, okokBossMenu, codem-bossmenu, zat-bossmenu, m-BossMenu |
+| Banking | Renewed-Banking, qb-banking, okokBanking, fd_banking, kartik-banking, tgg-banking, tgiann-bank, wasabi_banking |
+| Doorlock | ox_doorlock, qb-doorlock, rcore_doorlock, doors_creator |
+| Phone | kora_phone, sd-phone, sky_phone, lb-phone, gksphone, okokPhone, qs-smartphone, yseries, qb-phone |
+| Weather | Renewed-Weathersync, qb-weathersync, cd_easytime |
 | Dispatch | ps-dispatch, cd_dispatch, tk_dispatch, rcore_dispatch, lb-tablet, origen_police, core_dispatch, kartik-mdt, codem-dispatch, wasabi_mdt, redutzu-mdt (plus an internal fallback) |
 
 Detection order is in [`settings/auto_detect.lua`](settings/auto_detect.lua). To add a provider, copy an existing folder under `resource/modules/<category>/` and open a PR.

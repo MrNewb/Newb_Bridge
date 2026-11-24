@@ -7,8 +7,8 @@ name "Newb_Bridge"
 newb_bridge_host "yes"
 
 author "MrNewb"
-description "Newb_Bridge is a framework agnostic resource that provides a simple way to create bridges between your resources and other resources. It is designed to be easy to use and understand, while also being powerful enough to handle complex use cases."
-version "0.0.4"
+description "Newb_Bridge is a lightweight FiveM resource that provides a unified, efficient API for interacting with frameworks and third-party resources through a single, consistent interface."
+version "0.0.5"
 
 dependencies {
     "ox_lib",

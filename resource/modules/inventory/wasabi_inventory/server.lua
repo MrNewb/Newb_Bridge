@@ -70,7 +70,7 @@ end
 function inventory.openStash(src, id)
     if type(src) ~= 'number' or type(id) ~= 'string' or id == '' then return false end
 
-    local opened = wasabi_inventory:forceOpenInventory(src, 'stash', id)
+    local opened = wasabi_inventory:OpenInventory(src, id)
     if opened == false then return false end
     return true
 end

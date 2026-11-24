@@ -15,7 +15,7 @@ Config.Inventory = "auto"
 ---@type "auto" | "whip_core" | "kora_target" | "ox_target" | "tgiann-target" | "core_focus" | "qb-target" | "sleepless_interact"
 Config.Target = "auto"
 
----@type "auto" | "whip_core" | "MrNewbVehicleKeys" | "qbx_vehiclekeys" | "cd_garage" | "mVehicle" | "okokGarage" | "qb-vehiclekeys" | "vehicles_keys" | "wasabi_carlock" | "Renewed-Vehiclekeys" | "mk_vehiclekeys" | "ak47_vehiclekeys" | "0r-vehiclekeys"
+---@type "auto" | "whip_core" | "MrNewbVehicleKeys" | "kora_vehiclekeys" | "jg-vehiclekeys" | "qbx_vehiclekeys" | "cd_garage" | "mVehicle" | "okokGarage" | "qb-vehiclekeys" | "vehicles_keys" | "wasabi_carlock" | "Renewed-Vehiclekeys" | "mk_vehiclekeys" | "ak47_vehiclekeys" | "0r-vehiclekeys"
 Config.VehicleKeys = "auto"
 
 ---@type "auto" | "whip_fuel" | "ox_fuel" | "rcore_fuel" | "okokGasStation" | "LegacyFuel" | "cdn-fuel" | "lc_fuel" | "qb-fuel" | "Renewed-Fuel" | "ps-fuel" | "qs-fuelstations" | "ti_fuel" | "internal"
@@ -41,6 +41,18 @@ Config.BossMenu = "auto"
 
 ---@type "auto" | "ps-dispatch" | "cd_dispatch" | "tk_dispatch" | "rcore_dispatch" | "lb-tablet" | "origen_police" | "core_dispatch" | "kartik-mdt" | "codem-dispatch" | "wasabi_mdt" | "redutzu-mdt" | "internal"
 Config.Dispatch = "auto"
+
+---@type "auto" | "Renewed-Banking" | "qb-banking" | "okokBanking" | "fd_banking" | "kartik-banking" | "tgg-banking" | "tgiann-bank" | "wasabi_banking" | "default"
+Config.Banking = "auto"
+
+---@type "auto" | "ox_doorlock" | "qb-doorlock" | "rcore_doorlock" | "doors_creator" | "default"
+Config.Doorlock = "auto"
+
+---@type "auto" | "kora_phone" | "sd-phone" | "sky_phone" | "lb-phone" | "gksphone" | "okokPhone" | "qs-smartphone" | "yseries" | "qb-phone" | "default"
+Config.Phone = "auto"
+
+---@type "auto" | "Renewed-Weathersync" | "qb-weathersync" | "cd_easytime" | "default"
+Config.Weather = "auto"
 
 ---Task group menu limits, shared by the client menu and the server callbacks.
 Config.TaskGroups = {

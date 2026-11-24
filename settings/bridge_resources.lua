@@ -1,9 +1,9 @@
 Config = {}
 
----@type boolean
+---@type boolean When true, prints which modules loaded with which provider, and warns about a provider that has no code for a side. Also turns on debug drawing in the target and DUI helpers.
 Config.Debug = false
 
----@type boolean When true, checks GitHub for bridge updates on resource start (server console only).
+---@type boolean When false, no version check runs: not the bridge's own, and not the one every MrNewb script asks the bridge for. When true, GitHub is checked on start and newer versions print to the server console only.
 Config.VersionCheck = true
 
 ---@type "auto" | "whip_core" | "kora_core" | "qbx_core" | "qb-core" | "es_extended"
@@ -24,16 +24,16 @@ Config.VehicleFuel = "auto"
 ---@type "auto" | "ox_lib" | "lation_ui" | "qb-menu"
 Config.Menu = "auto"
 
----@type "auto" | "internal" | "whip_core" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "zsx_uiv2"
+---@type "auto" | "whip_core" | "ox_lib" | "vms_notifyv2" | "codem-notification" | "brutal_notify" | "fl-notify" | "mythic_notify" | "okokNotify" | "pnotify" | "solaire_notify" | "t-notify" | "lation_ui" | "wasabi_notify" | "ZSX_UIV2" | "internal"
 Config.Notifications = "auto"
 
 ---@type "auto" | "whip_core" | "ox_lib" | "lation_ui"
 Config.Inputs = "auto"
 
----@type "auto" | "whip_core" | "ox_lib" | "lation_ui" | "okokTextUI" | "cd_drawtextui" | "jg-textui" | "lab-TextUI" | "zsx_uiv2"
+---@type "auto" | "whip_core" | "ox_lib" | "lation_ui" | "okokTextUI" | "cd_drawtextui" | "jg-textui" | "lab-TextUI" | "ZSX_UIV2"
 Config.TextUI = "auto"
 
----@type "auto" | "whip_core" | "ox_lib" | "lation_ui" | "wasabi_uikit" | "progressbar" | "zsx_uiv2"
+---@type "auto" | "whip_core" | "ox_lib" | "lation_ui" | "wasabi_uikit" | "progressbar" | "ZSX_UIV2"
 Config.ProgressBar = "auto"
 
 ---@type "auto" | "qbx_management" | "qb-management" | "esx_society" | "vms_bossmenu" | "tk_bosstablet" | "okokBossMenu" | "codem-bossmenu" | "zat-bossmenu" | "m-BossMenu"
@@ -42,16 +42,16 @@ Config.BossMenu = "auto"
 ---@type "auto" | "ps-dispatch" | "cd_dispatch" | "tk_dispatch" | "rcore_dispatch" | "lb-tablet" | "origen_police" | "core_dispatch" | "kartik-mdt" | "codem-dispatch" | "wasabi_mdt" | "redutzu-mdt" | "internal"
 Config.Dispatch = "auto"
 
----@type "auto" | "Renewed-Banking" | "qb-banking" | "okokBanking" | "fd_banking" | "kartik-banking" | "tgg-banking" | "tgiann-bank" | "wasabi_banking" | "default"
+---@type "auto" | "Renewed-Banking" | "qb-banking" | "okokBanking" | "fd_banking" | "kartik-banking" | "tgg-banking" | "tgiann-bank" | "wasabi_banking" | "none"
 Config.Banking = "auto"
 
----@type "auto" | "ox_doorlock" | "qb-doorlock" | "rcore_doorlock" | "doors_creator" | "default"
+---@type "auto" | "ox_doorlock" | "qb-doorlock" | "rcore_doorlock" | "doors_creator" | "none"
 Config.Doorlock = "auto"
 
----@type "auto" | "kora_phone" | "sd-phone" | "sky_phone" | "lb-phone" | "gksphone" | "okokPhone" | "qs-smartphone" | "yseries" | "qb-phone" | "default"
+---@type "auto" | "kora_phone" | "sd-phone" | "sky_phone" | "lb-phone" | "gksphone" | "okokPhone" | "qs-smartphone" | "yseries" | "qb-phone" | "none"
 Config.Phone = "auto"
 
----@type "auto" | "Renewed-Weathersync" | "qb-weathersync" | "cd_easytime" | "default"
+---@type "auto" | "Renewed-Weathersync" | "qb-weathersync" | "cd_easytime" | "none"
 Config.Weather = "auto"
 
 ---Task group menu limits, shared by the client menu and the server callbacks.

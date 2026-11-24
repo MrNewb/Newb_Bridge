@@ -39,8 +39,8 @@ return function(context)
         end
 
         if #parts == 0 then
-            if provider then
-                print(("^3[Newb_Bridge] Module '%s' has no %s implementation for provider '%s'. Add %s/%s/%s/%s.lua, or pick a supported provider in settings/bridge_resources.lua (options are listed in settings/auto_detect.lua).^0"):format(module, runtime, provider, moduleRoot, module, provider, runtime))
+            if provider and Config.Debug then
+                print(("^3[Newb_Bridge] Module '%s' has no %s implementation for provider '%s'. This is expected for a module that only exists on the other side. Otherwise add %s/%s/%s/%s.lua, or pick a supported provider in settings/bridge_resources.lua (options are listed in settings/auto_detect.lua).^0"):format(module, runtime, provider, moduleRoot, module, provider, runtime))
             end
             return false
         end
@@ -101,10 +101,22 @@ return function(context)
         return bridge.theme.css()
     end)
 
+    local moduleNames = {}
     for module in pairs(providers) do
+        moduleNames[#moduleNames + 1] = module
+    end
+    table.sort(moduleNames)
+
+    for i = 1, #moduleNames do
+        local module = moduleNames[i]
         Citizen.CreateThreadNow(function()
             if rawget(bridge, module) == nil then
                 mountModule(bridge, module)
+            end
+
+            if Config.Debug then
+                local loaded = rawget(bridge, module) ~= context.noopModule
+                print(("^5[Newb_Bridge]^0 %s module %s: provider '%s'%s"):format(runtime, module, tostring(providers[module]), loaded and "" or " (no " .. runtime .. " implementation)"))
             end
         end)
     end

@@ -62,12 +62,13 @@ If a MrNewbScripts product lists Newb_Bridge in its install notes, this is the o
 
 ## Install
 
-The full guide is in the [`[INSTALL]`](%5BINSTALL%5D/README.md) folder: install steps and start order, every provider setting with its valid values, every export and command, integration snippets and a FAQ.
+The full guide is in the online docs: install steps and start order, every provider setting with its valid values, every module and export, and troubleshooting.
 
-- [Install and FAQ](%5BINSTALL%5D/README.md)
-- [Exports and commands](%5BINSTALL%5D/EXPORTS.md)
-- [Modules](%5BINSTALL%5D/MODULES.md)
-- [Using the bridge from your resource](%5BINSTALL%5D/INTEGRATION.md)
+- [Installation](https://mrnewb.github.io/docs/newb_bridge/getting-started)
+- [Configuration](https://mrnewb.github.io/docs/newb_bridge/configuration)
+- [Supported resources](https://mrnewb.github.io/docs/newb_bridge/supported)
+- [Modules](https://mrnewb.github.io/docs/newb_bridge/developers/modules)
+- [Troubleshooting](https://mrnewb.github.io/docs/newb_bridge/troubleshooting)
 
 Quick version: needs [ox_lib](https://github.com/overextended/ox_lib), [oxmysql](https://github.com/overextended/oxmysql) (loaded for `getOwnedVehicles`), and a server with `lua54`. Drop the folder in resources and start it before anything that uses it:
 
@@ -176,10 +177,10 @@ Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a 
 | Vehicle keys | whip_core, MrNewbVehicleKeys, kora_vehiclekeys, jg-vehiclekeys, qbx_vehiclekeys, cd_garage, mVehicle, okokGarage, qb-vehiclekeys, vehicles_keys, wasabi_carlock, Renewed-Vehiclekeys, mk_vehiclekeys, ak47_vehiclekeys, 0r-vehiclekeys |
 | Fuel | whip_fuel, ox_fuel, rcore_fuel, okokGasStation, LegacyFuel, cdn-fuel, lc_fuel, qb-fuel, Renewed-Fuel, ps-fuel, qs-fuelstations, ti_fuel (plus an internal fallback) |
 | Menu | ox_lib, lation_ui, qb-menu |
-| Notifications | whip_core, ox_lib, vms_notifyv2, codem-notification, brutal_notify, fl-notify, mythic_notify, okokNotify, pnotify, solaire_notify, t-notify, lation_ui, wasabi_notify, zsx_uiv2 |
+| Notifications | whip_core, ox_lib, vms_notifyv2, codem-notification, brutal_notify, fl-notify, mythic_notify, okokNotify, pnotify, solaire_notify, t-notify, lation_ui, wasabi_notify, ZSX_UIV2 |
 | Inputs | whip_core, ox_lib, lation_ui |
-| TextUI | whip_core, ox_lib, lation_ui, okokTextUI, cd_drawtextui, jg-textui, lab-TextUI, zsx_uiv2 |
-| Progress bar | whip_core, ox_lib, lation_ui, wasabi_uikit, progressbar, zsx_uiv2 |
+| TextUI | whip_core, ox_lib, lation_ui, okokTextUI, cd_drawtextui, jg-textui, lab-TextUI, ZSX_UIV2 |
+| Progress bar | whip_core, ox_lib, lation_ui, wasabi_uikit, progressbar, ZSX_UIV2 |
 | Boss menu | qbx_management, qb-management, esx_society, vms_bossmenu, tk_bosstablet, okokBossMenu, codem-bossmenu, zat-bossmenu, m-BossMenu |
 | Banking | Renewed-Banking, qb-banking, okokBanking, fd_banking, kartik-banking, tgg-banking, tgiann-bank, wasabi_banking |
 | Doorlock | ox_doorlock, qb-doorlock, rcore_doorlock, doors_creator |
@@ -187,7 +188,7 @@ Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a 
 | Weather | Renewed-Weathersync, qb-weathersync, cd_easytime |
 | Dispatch | ps-dispatch, cd_dispatch, tk_dispatch, rcore_dispatch, lb-tablet, origen_police, core_dispatch, kartik-mdt, codem-dispatch, wasabi_mdt, redutzu-mdt (plus an internal fallback) |
 
-Detection order is in [`settings/auto_detect.lua`](settings/auto_detect.lua). To add a provider, copy an existing folder under `resource/modules/<category>/` and open a PR.
+Detection order is in [`settings/auto_detect.lua`](settings/auto_detect.lua). Two values are not resources: `internal` is the bridge's own built-in version (notifications, fuel, dispatch), and `none` means nothing was found so the module does nothing (banking, doorlock, phone, weather). To add a provider, copy an existing folder under `resource/modules/<category>/` and open a PR.
 
 </details>
 

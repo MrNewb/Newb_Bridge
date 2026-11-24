@@ -68,6 +68,8 @@ end
 
 -- Pulls versions and patch notes from the remote resources.json.
 local function VersionCheck(repoPath, resourceName)
+    if Config.VersionCheck == false then return end
+
     if type(repoPath) ~= "string" or type(resourceName) ~= "string" then
         return print(bridge.locale('system.version_invalid_repo'))
     end

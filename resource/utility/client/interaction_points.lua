@@ -148,7 +148,14 @@ local function trySpawnEntry(id, entry, playerCoords, playerBucket)
 
     if not bucketsMatch(playerBucket, entry.bucket) then return false end
 
-    if entry.onEnter(entry.runtime) == false then
+    -- one interaction that throws on spawn must not stop the rest of the tick
+    local ok, result = pcall(entry.onEnter, entry.runtime)
+    if not ok then
+        lib.print.error(('Interaction %s failed to spawn: %s'):format(id, result))
+        return false
+    end
+
+    if result == false then
         return false
     end
 
@@ -259,7 +266,11 @@ startLoop = function()
                 return
             end
 
-            runTick()
+            -- an error here would end this thread with loopRunning still set, and nothing would spawn again
+            local ok, err = pcall(runTick)
+            if not ok then
+                lib.print.error(('Interaction point tick failed: %s'):format(err))
+            end
             Wait(pointTickMs)
         end
     end)

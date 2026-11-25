@@ -570,8 +570,7 @@ function TaskGroups.disband(groupId, actor)
     return TaskGroups.delete(groupId)
 end
 
-AddEventHandler('playerDropped', function()
-    local src = source
+local function leaveAllGroups(src)
     local memberships = playerGroups[src]
     if not memberships then return end
 
@@ -583,6 +582,15 @@ AddEventHandler('playerDropped', function()
     for i = 1, #groupIds do
         removeMember(groupIds[i], src)
     end
+end
+
+AddEventHandler('playerDropped', function()
+    leaveAllGroups(source)
+end)
+
+-- a character switch keeps the same server id, so the old character's groups must not carry over to the next one
+AddEventHandler('Newb_Bridge:server:playerUnloaded', function(src)
+    if type(src) == 'number' then leaveAllGroups(src) end
 end)
 
 local function callerExists(src)
@@ -719,7 +727,7 @@ AddEventHandler('Newb_Bridge:server:taskGroupMemberRemoved', function(_, memberS
     pushMenuRefresh(memberSrc)
 end)
 
-AddEventHandler('Newb_Bridge:server:taskGroupLeaderChanged', function(_, groupId, newLeader, previousLeader)
+AddEventHandler('Newb_Bridge:server:taskGroupLeaderChanged', function(_, newLeader, previousLeader)
     pushMenuRefresh(newLeader)
     if previousLeader then pushMenuRefresh(previousLeader) end
 end)

@@ -700,34 +700,40 @@ local function addBatch(entries, options)
 
         local added, failed, total = 0, 0, #list
 
-        for i = 1, total do
-            if generation ~= batchGenerations[owningResource] then
-                points.commitBulk()
-                return
-            end
+        -- a registration or progress callback that throws must still release the bulk hold, or every resource's points stay paused
+        local ran, runError = pcall(function()
+            for i = 1, total do
+                if generation ~= batchGenerations[owningResource] then return end
 
-            local row = list[i]
-            if row.payload.resource == nil then
-                row.payload.resource = owningResource
-            end
+                local row = list[i]
+                if row.payload.resource == nil then
+                    row.payload.resource = owningResource
+                end
 
-            local ok = add(row.id, row.payload, true)
-            if ok then
-                added = added + 1
-            else
-                failed = failed + 1
-            end
+                local ok = add(row.id, row.payload, true)
+                if ok then
+                    added = added + 1
+                else
+                    failed = failed + 1
+                end
 
-            if type(options) == 'table' and options.onProgress then
-                options.onProgress(i, total, row.id, ok == true)
-            end
+                if type(options) == 'table' and options.onProgress then
+                    options.onProgress(i, total, row.id, ok == true)
+                end
 
-            if spread and i % batchSize == 0 then
-                Wait(batchDelayMs)
+                if spread and i % batchSize == 0 then
+                    Wait(batchDelayMs)
+                end
             end
-        end
+        end)
 
         points.commitBulk()
+
+        if not ran then
+            lib.print.error(('Interaction batch from %s stopped early: %s'):format(owningResource, tostring(runError)))
+            if batchOwner == owningResource then batchOwner = nil end
+            return
+        end
 
         if generation ~= batchGenerations[owningResource] then return end
         if batchOwner == owningResource then

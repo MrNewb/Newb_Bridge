@@ -42,7 +42,7 @@ Config.BossMenu = "auto"
 ---@type "auto" | "ps-dispatch" | "cd_dispatch" | "tk_dispatch" | "rcore_dispatch" | "lb-tablet" | "origen_police" | "core_dispatch" | "kartik-mdt" | "codem-dispatch" | "wasabi_mdt" | "redutzu-mdt" | "internal"
 Config.Dispatch = "auto"
 
----@type "auto" | "Renewed-Banking" | "qb-banking" | "okokBanking" | "fd_banking" | "kartik-banking" | "tgg-banking" | "tgiann-bank" | "wasabi_banking" | "none"
+---@type "auto" | "Renewed-Banking" | "qb-banking" | "okokBanking" | "fd_banking" | "kartik-banking" | "tgg-banking" | "tgiann-bank" | "wasabi_banking" | "esx_addonaccount" | "none"
 Config.Banking = "auto"
 
 ---@type "auto" | "ox_doorlock" | "qb-doorlock" | "rcore_doorlock" | "doors_creator" | "none"

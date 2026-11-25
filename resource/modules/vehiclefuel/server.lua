@@ -50,6 +50,8 @@ if bridge.isHost and Config.Providers and Config.Providers.vehiclefuel == 'whip_
         local entity = NetworkGetEntityFromNetworkId(netId)
         if entity == 0 or not DoesEntityExist(entity) then return end
         if #(GetEntityCoords(GetPlayerPed(src)) - GetEntityCoords(entity)) > REACH then return end
+        -- only the player whose client owns the car may set it, so nobody can drain someone else's car from beside it
+        if NetworkGetEntityOwner(entity) ~= src then return end
 
         setWhipFuel(entity, amount)
     end)

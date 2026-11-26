@@ -181,8 +181,8 @@ Also shipped: `AddInteraction`, `PropPlacer`, `useGizmo`, `VersionCheck`, and a 
 | Inputs | whip_core, ox_lib, lation_ui |
 | TextUI | whip_core, ox_lib, lation_ui, okokTextUI, cd_drawtextui, jg-textui, lab-TextUI, ZSX_UIV2 |
 | Progress bar | whip_core, ox_lib, lation_ui, wasabi_uikit, progressbar, ZSX_UIV2 |
-| Boss menu | qbx_management, qb-management, esx_society, vms_bossmenu, tk_bosstablet, okokBossMenu, codem-bossmenu, zat-bossmenu, m-BossMenu |
-| Banking | Renewed-Banking, qb-banking, okokBanking, fd_banking, kartik-banking, tgg-banking, tgiann-bank, wasabi_banking, esx_addonaccount |
+| Boss menu | qbx_management, qb-management, esx_society, vms_bossmenu, tk_bosstablet, okokBossMenu, codem-bossmenu, zat-bossmenu, m-BossMenu, ShitDevScripts-Bossmenu |
+| Banking | Renewed-Banking, qb-banking, okokBanking, fd_banking, kartik-banking, tgg-banking, tgiann-bank, wasabi_banking, esx_addonaccount, ShitDevScripts-Banking |
 | Doorlock | ox_doorlock, qb-doorlock, rcore_doorlock, doors_creator |
 | Phone | kora_phone, sd-phone, sky_phone, lb-phone, gksphone, okokPhone, qs-smartphone, yseries, qb-phone |
 | Weather | Renewed-Weathersync, qb-weathersync, cd_easytime |

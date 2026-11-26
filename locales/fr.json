@@ -131,6 +131,9 @@
         "swap_mode": "Vol / à pied",
         "toggle_mode_key": "Créateur de zone : basculer vol / à pied",
         "confirm": "Terminer la zone",
+        "confirm_next": "Placer la zone",
+        "finish": "Terminer",
+        "undo": "Annuler la dernière zone",
         "cancel": "Annuler",
         "errors": {
             "already_active": "Vous créez déjà une zone",

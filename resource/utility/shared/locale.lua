@@ -1,4 +1,5 @@
 local localeTree = {}
+local fallbackTree = {}
 local resolved = {} ---@type table<string, string|false>
 
 -- Uses the same convar as ox_lib (`setr ox:locale en` in server.cfg).
@@ -12,8 +13,8 @@ local function loadLocaleFile(localeCode)
     return json.decode(raw)
 end
 
-local function resolveLocale(key)
-    local current = localeTree
+local function resolveLocale(tree, key)
+    local current = tree
 
     for part in key:gmatch('([^%.]+)') do
         if type(current) ~= 'table' then
@@ -43,13 +44,17 @@ Citizen.CreateThreadNow(function()
     end
 
     localeTree = locales
+
+    if localeCode ~= 'en' then
+        fallbackTree = loadLocaleFile('en') or {}
+    end
 end)
 
 function bridge.locale(key, params)
     local template = resolved[key]
 
     if template == nil then
-        template = resolveLocale(key) or false
+        template = resolveLocale(localeTree, key) or resolveLocale(fallbackTree, key) or false
         resolved[key] = template
     end
 

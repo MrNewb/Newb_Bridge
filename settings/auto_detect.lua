@@ -40,7 +40,7 @@ local modules = {
     textui = { configKey = "TextUI", "whip_core", "ox_lib", "lation_ui", "okokTextUI", "cd_drawtextui", "jg-textui", "lab-TextUI", "ZSX_UIV2" },
     progressbar = { configKey = "ProgressBar", "whip_core", "ox_lib", "lation_ui", "wasabi_uikit", "progressbar", "ZSX_UIV2" },
     bossmenu = { configKey = "BossMenu", "qbx_management", "qb-management", "esx_society", "vms_bossmenu", "tk_bosstablet", "okokBossMenu", "codem-bossmenu", "zat-bossmenu", "m-BossMenu" },
-    banking = { configKey = "Banking", fallback = "none", "Renewed-Banking", "qb-banking", "okokBanking", "fd_banking", "kartik-banking", "tgg-banking", "tgiann-bank", "wasabi_banking", "esx_addonaccount" },
+    banking = { configKey = "Banking", fallback = "none", "Renewed-Banking", "qb-banking", "okokBanking", "lation_banking", "fd_banking", "kartik-banking", "tgg-banking", "tgiann-bank", "wasabi_banking", "esx_addonaccount" },
     doorlock = { configKey = "Doorlock", fallback = "none", "ox_doorlock", "qb-doorlock", "rcore_doorlock", "doors_creator" },
     phone = { configKey = "Phone", fallback = "none", "kora_phone", "sd-phone", "sky_phone", "lb-phone", "gksphone", "okokPhone", "qs-smartphone", "yseries", "qb-phone" },
     weather = { configKey = "Weather", fallback = "none", "Renewed-Weathersync", "qb-weathersync", "cd_easytime" },

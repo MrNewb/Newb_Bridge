@@ -8,7 +8,7 @@ newb_bridge_host "yes"
 
 author "MrNewb"
 description "Newb_Bridge is a lightweight FiveM resource that provides a unified, efficient API for interacting with frameworks and third-party resources through a single, consistent interface."
-version "0.1.2"
+version "0.1.3"
 
 dependencies {
     "ox_lib",

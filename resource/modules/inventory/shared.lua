@@ -134,6 +134,17 @@ local function NormalizeItemDefinitions(items, itemName)
             return NormalizeItemDefinition(itemName, entry)
         end
 
+        -- A list of items with no entry for this name means the item does not exist. A single definition has plain fields
+        -- (label, weight and so on), so a table made only of tables is a list.
+        local isList = true
+        for _, value in pairs(items) do
+            if type(value) ~= 'table' then
+                isList = false
+                break
+            end
+        end
+        if isList then return nil end
+
         return NormalizeItemDefinition(itemName, items)
     end
 

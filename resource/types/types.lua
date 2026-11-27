@@ -13,7 +13,7 @@
 ---@field Inputs "auto" | "whip_core" | "ox_lib" | "lation_ui"
 ---@field TextUI "auto" | "whip_core" | "ox_lib" | "lation_ui" | "okokTextUI" | "cd_drawtextui" | "jg-textui" | "lab-TextUI" | "ZSX_UIV2"
 ---@field ProgressBar "auto" | "whip_core" | "ox_lib" | "lation_ui" | "wasabi_uikit" | "progressbar" | "ZSX_UIV2"
----@field BossMenu "auto" | "qbx_management" | "qb-management" | "esx_society" | "vms_bossmenu" | "tk_bosstablet" | "okokBossMenu" | "codem-bossmenu" | "zat-bossmenu" | "m-BossMenu" | "lation_jobs" | "ShitDevScripts-Bossmenu"
+---@field BossMenu "auto" | "qbx_management" | "qb-management" | "esx_society" | "vms_bossmenu" | "tk_bosstablet" | "okokBossMenu" | "codem-bossmenu" | "zat-bossmenu" | "m-BossMenu" | "lation_jobs" | "ShitDevScripts-Bossmenu" | "apex_bossmenu"
 ---@field Banking "auto" | "Renewed-Banking" | "qb-banking" | "okokBanking" | "lation_banking" | "fd_banking" | "kartik-banking" | "tgg-banking" | "tgiann-bank" | "wasabi_banking" | "esx_addonaccount" | "ShitDevScripts-Banking" | "none"
 ---@field Doorlock "auto" | "ox_doorlock" | "qb-doorlock" | "rcore_doorlock" | "doors_creator" | "none"
 ---@field Phone "auto" | "kora_phone" | "sd-phone" | "sky_phone" | "lb-phone" | "gksphone" | "okokPhone" | "qs-smartphone" | "yseries" | "qb-phone" | "none"

@@ -62,7 +62,9 @@ It's also the spiritual successor to [Community Bridge](#a-note-on-community-bri
 
 It's a small set of focused modules, plus a few shared tools my scripts lean on: interaction points, a prop placer, a gizmo, a task HUD and dialogue.
 
-It's not a kitchen sink. There's no catch-all layer for old exports and nothing that exists just because someone once asked. That's what keeps it fast and predictable.
+**It lives outside the scripts that use it.** Because the bridge is its own resource, compatibility isn't locked inside each script (many of which ship escrowed). If your server runs something that isn't supported yet, you can add it to the bridge yourself, and when I add a new provider I can ship it as a quick bridge update. Neither needs any change to the scripts using it. Update one resource and everything built on it picks up the new compatibility.
+
+**It isn't a kitchen sink.** There's no catch-all layer for old exports and nothing that exists just because someone once asked. That's what keeps it fast and predictable.
 
 ox_lib, ox_inventory and ox_target are the reference implementations, and every other provider maps onto the same calls.
 
@@ -99,13 +101,30 @@ On start, the server console tells you which provider each module settled on. If
 
 ## A note on Community Bridge
 
-[Community Bridge](https://github.com/TheOrderFivem/community_bridge) is still maintained if you're on it, and nothing here forces you off.
+I created [Community Bridge](https://github.com/TheOrderFivem/community_bridge) and I've maintained it since. Newb_Bridge is its spiritual successor, and the reason it exists is that I'm moving all of my own scripts off it.
 
-I'll be straight about why this exists. I wanted that project to work, but it grew so far past its original scope that pulling it back wasn't something a few PRs could fix. And I can't just trim it: plenty of resources depend on its exports, some from authors who've moved on, and many ship escrowed. If an export vanished, server owners couldn't open the file to patch the call. So Community Bridge keeps its compatibility, and I keep maintaining it for the creators and servers that rely on it.
+That's been a slow, ongoing job, and it's being done for your benefit. Every script that moves over gets lighter and faster, and it runs on a foundation with one clear job instead of a growing pile of everything. I know Community Bridge better than anyone, which is why I'm confident the best fix is a clean start and not another round of patches.
 
-Newb_Bridge is what I'd write starting over. It's a successor in intent, not a fork, and no Community Bridge source ships here. The interaction and spawn pipeline is a ground-up rewrite that borrows the model, and anything genuinely derived from another project is credited in [ATTRIBUTIONS.md](ATTRIBUTIONS.md).
+Community Bridge was built to be everything to everyone, so over the years it picked up exceptions, one-off requests and "can you just add this" along the way. Newb_Bridge is the opposite on purpose. It's a project with a fixed goal, written down, so you know what it will do and what it won't, and it only holds code that several resources genuinely share. Nobody has to wait on a favour, and nobody has to lobby for an exception. The rules are in [Scope and maintenance](#scope-and-maintenance).
 
-Coming over? There are per-module notes in [Migrating from community_bridge](https://mrnewb.github.io/docs/newb_bridge/developers/migrating).
+**If you're deciding whether to switch,** most of the reasons come down to performance. Community Bridge starts everything and leaves each file to opt out. Newb_Bridge starts almost nothing and loads the rest on demand:
+
+| | Community Bridge | Newb_Bridge |
+|---|---|---|
+| **Startup** | Around 140 client and 75 server module files execute at start, and each one checks whether its resource exists before bailing out. | 7 client and 3 server scripts run at start. Every module and provider loads the first time something asks for it, so one you don't run never executes. |
+| **Client side** | Every provider's client script runs on every client, and the whole module tree is streamed to them. | Client modules are only executed once a script asks for them, and scripts get each module's finished source from the bridge once instead of searching the disk. |
+| **UI icons** | n/a | Font Awesome files download the first time an icon of that style is shown, not at start. |
+
+Two non-performance reasons sit alongside those:
+
+- **Breadth over depth.** It grew to cover clothing, housing, skills, shops, shells, cutscenes and more. That's a lot of surface for one resource to keep correct, and every addition is code every server carries.
+- **Compatibility is frozen in place.** Many resources depend on its exports, some escrowed and some no longer updated, so existing behaviour can't change without breaking someone. That's the right call for it, and it's exactly why a lean rewrite had to be a separate project.
+
+**Community Bridge isn't going anywhere.** Plenty of resources still depend on it, and many ship escrowed, so server owners can't open the files to patch a call if an export disappears. I keep maintaining it for the creators and servers that rely on it. This isn't a push to move you off it, just where my own scripts are headed.
+
+It's a ground-up rewrite, not a fork, and no Community Bridge source ships here.
+
+Coming over from Community Bridge? There are per-module notes in [Migrating from community_bridge](https://mrnewb.github.io/docs/newb_bridge/developers/migrating).
 
 ## Scope and maintenance
 
@@ -114,6 +133,7 @@ Coming over? There are per-module notes in [Migrating from community_bridge](htt
 
 - **It's just me.** One maintainer, one roadmap, no team and no plan for one.
 - **The scope is narrow on purpose.** It covers what MrNewbScripts needs. A provider or module nothing of mine uses is unlikely to land, however reasonable the request.
+- **Shared means shared.** If only one resource would ever use a function, it stays in that resource. Everything in the bridge ships to every server that runs it, so a one-off helper adds weight for everyone else and gains them nothing.
 - **Deprecations are short.** Anything marked deprecated gets two weeks, then it's removed. Check the changelog in that window, or pin a release tag if that pace doesn't suit you.
 - **Issues and PRs are welcome.** Bug reports, provider fixes and new provider folders are the likeliest to be merged. If something needs a chat first, find me on [Discord](https://discord.gg/mrnewbscripts).
 

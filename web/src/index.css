@@ -11,7 +11,7 @@
   ::after {
     border-width: 0;
     border-style: solid;
-    border-color: #3f3f46;
+    border-color: var(--border);
   }
 
   button,
@@ -65,13 +65,13 @@ body,
 }
 
 ::selection {
-  background: #fafafa;
-  color: #09090b;
+  background: var(--foreground);
+  color: var(--background);
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #3f3f46 transparent;
+  scrollbar-color: var(--border) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -85,10 +85,10 @@ body,
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #3f3f46;
+  background: var(--border);
   border-radius: 4px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #52525b;
+  background: var(--zinc-600);
 }

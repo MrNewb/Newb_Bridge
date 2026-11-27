@@ -38,7 +38,7 @@
 
 .dialogue-options--scrollable {
   scrollbar-width: thin;
-  scrollbar-color: #52525b transparent;
+  scrollbar-color: var(--zinc-600) transparent;
 }
 
 /* the dialogue already reads large at 1440p, so it only scales up from 4K */

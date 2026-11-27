@@ -114,7 +114,7 @@ html[dir="rtl"] .notify-duration {
 }
 
 .notify-icon--bounce {
-  animation: notify-bounce 1s var(--ease-out-quart) infinite;
+  animation: notify-nudge 1.2s var(--ease-out-quart) infinite;
 }
 
 .notify-icon--shake {
@@ -143,9 +143,9 @@ html[dir="rtl"] .notify-duration {
   50% { transform: scale(1.2); opacity: 0.5; }
 }
 
-@keyframes notify-bounce {
+@keyframes notify-nudge {
   0%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-25%); }
+  30% { transform: translateY(-10%); }
 }
 
 @keyframes notify-shake {
